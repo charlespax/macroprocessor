@@ -56,6 +56,24 @@ The design MAY include wire-bonded components
   your own chip designs.
 - Check out https://developers.google.com/silicon - Google's wafer batching
   program for open source designs. Cool, but I am happy to pay if reasonable.
+- MAY take an external diode-based ROM
+- Is there anything about this processor that would make it bad at cryptographic
+  functions? Minimal circuitry could be included to address issues.
+- Can x-ray crystalography be used to verify the surface of an IC?
+- https://www.skywatertechnology.com is a US-based silicon fab. 
+- What happens to the equipment from old semiconductor fabrication technologies?
+- Fab technologies: https://en.wikipedia.org/wiki/Semiconductor\_device\_fabrication
+- Are there fabs that use old technologies for new chips?
+- Wire bonding can be used in places where the metal layer would obscure layers below
+- wire bonding can be used as jumpers that can be cut to permanently disable a ffeature
+- Rather than wire bonding, the connections can be routed to the outside of the package,
+  so they can be explicetly enabled
+- Maybe multi gate transistors can be used on such large features if one large gate is
+  not appropriate
+- Make the binary instruction decoding physicallyl easy to see on the die. Put them
+  in the same order you would find them in a specification table
+- Is silicon transparent to any frequency of light? If so, maybe  this can be
+  used for verification and would be a design consideration.
 
 # Conventions
 The keywords below are to be interpreted as described in BCP14 [RFC2119] [RFC8174].
