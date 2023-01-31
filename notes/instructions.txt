@@ -8,7 +8,6 @@ PC - program counter (instruction pointer)
 MAR - memory access register
 PM - program memory
 
-
 !       n1 addr --          Store n1 at location addr in PM
 @       addr    -- n1       Fetch the value at location addr in PM as n1
 +       n1 n2   -- n3       Add n1 and n2, giving n3
@@ -26,7 +25,6 @@ swap    n1 n2   -- n2 n1    Swap the order of the top two elements
 [call]          --          Perform a subroutine call to address in next cell
 [exit]          --          Perform a subroutine return
 [lit]           -- n1       Push the value in the next cell to DS
-
 
 !       n1 addr --          TOS -> MAR, DS -> PM, POP_DS, DS -> TOS
 @       addr    -- n1       TOS -> MAR, PM -> TOS
