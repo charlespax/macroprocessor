@@ -1,6 +1,11 @@
-( Comments begin with '('. There must be a space after. 
+( Macroprocessor
+( =============
+( - This is my notes for the macroprocessor
+( - Comments begin with '('. There must be a space after. 
 
-
+( CPU Architecture Diagram
+( ========================
+( - Stack machine
 
 ( +---------+     |||          +-----+
 ( | DS      |<===>|||          | TOS |<=\
@@ -25,6 +30,13 @@
 (                 |||<===>| PM |
 (                 |||     +----+
 
+( Fundemental Words
+( =================
+( - The words defined in this section are written in pure machine code
+(   the Macroprocessor and do not rely on any other Forth words.
+( - Some instructions are encoded via multiplexors to prevent multiple
+(   sources driving the data bus or the ALU. Otherwise, instructions
+(   are left unencoded.
 
 (       %---------------- interpret this number as binary, example: %100 = 4
 (       |111------------- bits 16-14 select bus driver, 3-bit encoding
@@ -34,19 +46,19 @@
 (       ||  |     7654321 unassigned bits
 (       ||  |     |
 : NOP  %0000000000000000 ; (  --  )
-: DS>  %0010000000000000 ; (  --  )
-: RS>  %0100000000000000 ; (  --  )
-: IO>  %0110000000000000 ; (  --  )
-: IP>  %1000000000000000 ; (  --  )
+: DS>  %0010000000000000 ; (  --  ) ( Data Stack output enable )
+: RS>  %0100000000000000 ; (  --  ) ( Return Stack output enable )
+: IO>  %0110000000000000 ; (  --  ) ( Input/Output output enable )
+: IP>  %1000000000000000 ; (  --  ) ( Instruction Pointer outout enable )
 : PM>  %1010000000000000 ; (  --  ) ( >PM does not exist )
-: TOS> %1100000000000000 ; (  --  )
+: TOS> %1100000000000000 ; (  --  ) ( Top Of Stack output enable )
 ( :    %1110000000000000 ; (  --  ) ( un defined )
-: >DS  %0001000000000000 ; (  --  )
-: >RS  %0000100000000000 ; (  --  )
+: >DS  %0001000000000000 ; (  --  ) ( Data Stack input enable )
+: >RS  %0000100000000000 ; (  --  ) ( Return Stack input enable )
 : >IR  %0000010000000000 ; (  --  ) ( IR> does not exist )
-: >IP  %0000001000000000 ; (  --  )
+: >IP  %0000001000000000 ; (  --  ) ( Instruction Pointer input enable )
 : >MAR %0000000100000000 ; (  --  ) ( MR> does not exist )
-: >TOS %0000000010000000 ; (  --  )
+: >TOS %0000000010000000 ; (  --  ) ( Top Of Stack input enable )
 : ADD  %0000000000000000 ; (  --  )  \
 : SUB  %0000000000000000 ; (  --  )  |
 : AND  %0000000000000000 ; (  --  )  |
@@ -61,5 +73,76 @@
 (       device drives the data bus at any one time. That may as well
 (       be encoded in three bits for seven possible driving source 
 (       options plus one NOP.
+( TODO: Determine the rules for combining fundemental words. I'm sure
+(       there are some that cannot be combined.
 
 ( TODO: Encode any ALU operations that are mutually exclusive.
+
+( Combinational Instruction Words
+( ===============================
+( - These words can be used to combined additional operations with
+(   the fundemental words above.
+( - example:
+(   DS> >TOS +DSI
+
+( TODO: Figure out a way to combine words like DS> and >TOS. Maybe
+(       ;; can be placed at the end of a line to OR two items
+(       together. This would require each line to provide two
+(       elements on the stack. This may or may not be possible, 
+(       but the solution will likely become obvious as I continue
+(       development.
+(       : ;; OR ( n n -- n )
+
+: +ADD ADD OR ( n -- n )
+: +SUB SUB OR ( n -- n )
+: +DSI DSI OR ( n -- n ) ( Data Stack Incriment )
+: +DSD DSD OR ( n -- n ) ( Data Stack Decriment )
+: +RSI RSI OR ( n -- n ) ( Return Stack Incriment )
+: +RSD RSD OR ( n -- n ) ( Return Stack Decriment )
+
+( RESET
+( =====
+( - After RESET MAR is set to all zeroes, which will select the first
+(   cell of PM.
+
+( Status and Flags
+( ================
+( - Instead of having a flags register, try to make a design where at
+(   the end of each subroutine a status cell is pushed onto the stack.
+(   This could simplify the hardware at the expense of software complication.
+( - Only some words would need to do this. It whould be obvious to the
+(   programmer which words. Perhaps only ALU or conditional words.
+( - I can make an RTOS or other small OS. Tasks communicate vie the stack.
+(   Each task consumes TOS and upon exit, pushes to TOS.
+
+
+( Interrupts
+( ==========
+( TODO 
+
+
+( Other Notes
+( ===========
+( - Should I include zero register? Would this be done by the ALU?
+( - How should the ALU and TOS be configured? See the Canonical Stack
+(   Machine and the RTX2000 as examples. Several processors from
+(   "Stack Machine" use the same configuration at the RTS2000.
+( - In the final book, include a branch diagram for each word in the
+(   non-ANS Forth dictionary using graphviz dot.
+(   * Both DS> and INC_DS can execute at the same time or individually,
+(     one cell or two cells respectively. We can keep them as two
+(     separate words or combine them into one hand-coded POP. There
+(     is a tradeoff between speed and memory.
+(   * Two adjacent singleton branches could ind8icate a possible
+(     new word. Maybe we can find some interesting properties.
+( - I could potentially make the data register a set of sixteen
+(   bidirectional shift registers in parallel. Possibly make them
+(   circular/linear selectable.
+( - Is it possible to use materials in the semiconductor manufacturing
+(   process that will allow each layer to fluress when exposed to a
+(   specific frequency of light? This would be great to visual
+(   inspection of the device.
+
+
+
+
