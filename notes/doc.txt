@@ -26,13 +26,13 @@
 (                 |||     +----+
 
 
-(        %---------------- interpret this number as binary, example: %100 = 4
-(        |111------------- bits 16-14 select bus driver, 3-bit encoding
-(        |654
-(        ||  1111  ------- bits 13-08 activate destination(s), unencoded
-(        ||  321098
-(        ||  |     7654321 unassigned bits
-(        ||  |     |
+(       %---------------- interpret this number as binary, example: %100 = 4
+(       |111------------- bits 16-14 select bus driver, 3-bit encoding
+(       |654
+(       ||  1111  ------- bits 13-08 activate destination(s), unencoded
+(       ||  321098
+(       ||  |     7654321 unassigned bits
+(       ||  |     |
 : NOP  %0000000000000000 ; (  --  )
 : DS>  %0010000000000000 ; (  --  )
 : RS>  %0100000000000000 ; (  --  )
