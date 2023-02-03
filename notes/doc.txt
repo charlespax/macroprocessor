@@ -1,4 +1,4 @@
-
+( Comments begin with '('. There must be a space after. 
 
 
 
@@ -20,8 +20,8 @@
 (     ||          |||     +-----+
 ( +---------+     |||====>| MAR |
 ( | Control |     |||     +-----+
-( +---------+     |||       ||
-(                 |||     +----+
+( | Logic   |     |||       ||
+( +---------+     |||     +----+
 (                 |||<===>| PM |
 (                 |||     +----+
 
@@ -56,10 +56,10 @@
 : r>>  %0000000000000000 ; (  --  )  /
 
 
-( TODO: Any source that can drive the data bus should be on a driver )
-(       and that driver connected to a mux to ensure only a single   )
-(       device drives the data bus at any one time. That may as well )
-(       be encoded in three bits for seven possible driving source   )
-(       options plus one NOP.                                        )
+( TODO: Any source that can drive the data bus should be on a driver
+(       and that driver connected to a mux to ensure only a single  
+(       device drives the data bus at any one time. That may as well
+(       be encoded in three bits for seven possible driving source 
+(       options plus one NOP.
 
-( TODO: Encode any ALU operations that are mutually exclusive.       )
+( TODO: Encode any ALU operations that are mutually exclusive.
