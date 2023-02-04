@@ -30,6 +30,24 @@
 (                 |||<===>| PM |
 (                 |||     +----+
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ( Fundemental Words
 ( =================
 ( - The words defined in this section are written in pure machine code
@@ -38,34 +56,34 @@
 (   sources driving the data bus or the ALU. Otherwise, instructions
 (   are left unencoded.
 
-(       %---------------- interpret this number as binary, example: %100 = 4
+(       %---------------- binary number, example: %100 = 4
 (       |111------------- bits 16-14 select bus driver, 3-bit encoding
 (       |654
 (       ||  1111  ------- bits 13-08 activate destination(s), unencoded
 (       ||  321098
 (       ||  |     7654321 unassigned bits
 (       ||  |     |
-: NOP  %0000000000000000 ; (  --  )
-: DS>  %0010000000000000 ; (  --  ) ( Data Stack output enable )
-: RS>  %0100000000000000 ; (  --  ) ( Return Stack output enable )
-: IO>  %0110000000000000 ; (  --  ) ( Input/Output output enable )
-: IP>  %1000000000000000 ; (  --  ) ( Instruction Pointer outout enable )
-: PM>  %1010000000000000 ; (  --  ) ( >PM does not exist )
-: TOS> %1100000000000000 ; (  --  ) ( Top Of Stack output enable )
-( :    %1110000000000000 ; (  --  ) ( un defined )
-: >DS  %0001000000000000 ; (  --  ) ( Data Stack input enable )
-: >RS  %0000100000000000 ; (  --  ) ( Return Stack input enable )
-: >IR  %0000010000000000 ; (  --  ) ( IR> does not exist )
-: >IP  %0000001000000000 ; (  --  ) ( Instruction Pointer input enable )
-: >MAR %0000000100000000 ; (  --  ) ( MR> does not exist )
-: >TOS %0000000010000000 ; (  --  ) ( Top Of Stack input enable )
-: ADD  %0000000000000000 ; (  --  )  \
-: SUB  %0000000000000000 ; (  --  )  |
-: AND  %0000000000000000 ; (  --  )  |
-: OR   %0000000000000000 ; (  --  )   > ALU instructions
-: XOR  %0000000000000000 ; (  --  )  |
-: <<r  %0000000000000000 ; (  --  )  |
-: r>>  %0000000000000000 ; (  --  )  /
+: NOP  %0000000000000000 ; (  --  )  ( No Operation )
+: DS>  %0010000000000000 ; (  -- n ) ( Data Stack output )
+: RS>  %0100000000000000 ; (  -- n ) ( Return Stack output )
+: IO>  %0110000000000000 ; (  -- n ) ( Input/Output output )
+: IP>  %1000000000000000 ; (  -- n ) ( Instruction Pointer outout )
+: PM>  %1010000000000000 ; (  -- n ) ( >PM does not exist )
+: TOS> %1100000000000000 ; (  -- n ) ( Top Of Stack output )
+( :    %1110000000000000 ; (  -- n ) ( un defined )
+: >DS  %0001000000000000 ; (  -- n ) ( Data Stack input )
+: >RS  %0000100000000000 ; (  -- n ) ( Return Stack input )
+: >IR  %0000010000000000 ; (  -- n ) ( IR> does not exist )
+: >IP  %0000001000000000 ; (  -- n ) ( Instruction Pointer input )
+: >MAR %0000000100000000 ; (  -- n ) ( MR> does not exist )
+: >TOS %0000000010000000 ; (  -- n ) ( Top Of Stack input )
+: ADD  %0000000000000000 ; (  -- n )  \
+: SUB  %0000000000000000 ; (  -- n )  |
+: AND  %0000000000000000 ; (  -- n )  |
+: OR   %0000000000000000 ; (  -- n )   > ALU instructions
+: XOR  %0000000000000000 ; (  -- n )  |
+: <<r  %0000000000000000 ; (  -- n )  |
+: r>>  %0000000000000000 ; (  -- n )  /
 
 
 ( TODO: Any source that can drive the data bus should be on a driver
@@ -77,6 +95,8 @@
 (       there are some that cannot be combined.
 
 ( TODO: Encode any ALU operations that are mutually exclusive.
+
+
 
 ( Combinational Instruction Words
 ( ===============================
@@ -100,6 +120,84 @@
 : +RSI RSI OR ( n -- n ) ( Return Stack Incriment )
 : +RSD RSD OR ( n -- n ) ( Return Stack Decriment )
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+( Instruction Representation
+( ==========================
+
+( TODO: How often does +IPI get executed? Should +IPI be built into the
+(       hardware to happen automatically? Should it be a toggle? Then
+(       we must poll, remember, or assert the state; complicated.
+
+(   | DS  | RS  | IO  |  IR===CL  | ALU  | TOS  | IP  |  MAR===PM  |
+(   +-----+-----+-----+-----+-----+------+------+-----+------+-----+
+( 0 |     |     |     |     |  X  |      |      |     |      |     | +NOP +IPI
+(   +-----+-----+-----+-----+-----+------+------+-----+------+-----+
+( 1 |     |     |     |     |  X  |      |      | IP> | >MAR |     | IP> >MAR +IPI
+(   +-----+-----+-----+-----+-----+------+------+-----+------+-----+
+( 2 |     |     |     | >IR |  X  |      |      |     |      | PM> | PM> >IR +IPI
+(   +-----+-----+-----+-----+-----+------+------+-----+------+-----+
+( 3 |     |     |     |     |  X  |      |      |     |      |     | 
+(   +-----+-----+-----+-----+-----+------+------+-----+------+-----+
+( 4 |     |     |     |     |  X  |      |      |     |      |     |
+
+( TODO: Find a good wat to represent the state of the machine.
+(       Horizontally would be best.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ( RESET
 ( =====
 ( - After RESET MAR is set to all zeroes, which will select the first
@@ -109,10 +207,12 @@
 ( ================
 ( - Instead of having a flags register, try to make a design where at
 (   the end of each subroutine a status cell is pushed onto the stack.
-(   This could simplify the hardware at the expense of software complication.
+(   This could simplify the hardware at the expense of software
+(   complication.
 ( - Only some words would need to do this. It whould be obvious to the
 (   programmer which words. Perhaps only ALU or conditional words.
-( - I can make an RTOS or other small OS. Tasks communicate vie the stack.
+( - I can make an RTOS or other small OS. Tasks communicate via
+(   the stack.
 (   Each task consumes TOS and upon exit, pushes to TOS.
 
 
@@ -142,6 +242,41 @@
 (   process that will allow each layer to fluress when exposed to a
 (   specific frequency of light? This would be great to visual
 (   inspection of the device.
+( - Add a binary tree word diagra to each word in the dictionary.
+(   This can be done using graphviz dot, but text would be better, so
+(   the diagram can be in this document. Can I write my definitions such
+(   that the reader has the same level of understanding? 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
