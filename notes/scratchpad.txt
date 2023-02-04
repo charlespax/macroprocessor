@@ -1,0 +1,1 @@
+lp -o media=letter -o cpi=12 -o lpi=7.2 -o page-left=48 -o page-right=48 -o page-top=48 -o page-bottom=48 < <(head -50 doc.txt | nl -b a)
