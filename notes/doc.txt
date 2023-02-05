@@ -1,3 +1,13 @@
+( TODO: insert environment-specific code. See SUBLEQ book line 1
+
+( TODO: insert notes for printing this document
+( TODO: print blocks of lines in groups of n=50 or
+(       print based on a ( PAGE tag and break at n=50 lines
+
+( TODO: insert cover page
+
+( TODO: 
+
 ( Macroprocessor
 ( =============
 ( - This is my notes for the macroprocessor
@@ -9,7 +19,7 @@
 
 ( +---------+     |||          +-----+
 ( | DS      |<===>|||          | TOS |<=\
-( +---------+     |D|<=====\   +-----+  |
+( +---------+     |D|======\   +-----+  |
 (                 |A|      |      |     |
 ( +---------+     |T|    __V__  __V__   |
 ( | RS      |<===>|A|    \    \/    /   |
@@ -19,7 +29,7 @@
 ( | IO      |<===>|S|<=========*========/
 ( +---------+     |||
 (                 |||     +----+
-( +---------+     |||<===>| IP |
+( +---------+     |||<===>| PC |
 ( | IR      |<====|||     +----+
 ( +---------+     |||
 (     ||          |||     +-----+
@@ -29,6 +39,69 @@
 ( +---------+     |||     +----+
 (                 |||<===>| PM |
 (                 |||     +----+
+
+
+( TODO: consider combining PC and RS. Maybe DS RS and PC/RS can be
+(       identical.
+( TODO: Does Control Logic do the incrimentation and decrementitation?
+(       or is that performed withing PC? Perhaps any repeated logic 
+(       can be in the Control Logic.
+
+
+
+
+
+
+
+
+
+
+
+
+( Subunit descriptions
+( ====================
+( RESET sets the initial state of the machine and affects 
+( all(?) components.
+
+
+( Data Stack:
+(       >DS ( DS intput enable )
+(       DS> ( DS output enable )
+(       DS+ ( increment DS )
+(       DS- ( decriment DS )
+
+( Return Stack:
+(       >RS ( RS input enable )
+(       RS> ( RS output enable )
+(       RS+ ( increment RS )
+(       RS- ( decriment RS )
+
+( Instruction Register:
+(       >IR ( IR output enable )
+
+( Control Logic:
+
+( Program Counter:
+(       >PC ( PC input enable )
+(       PC> ( PC output enable )
+(       PC+ ( increment PC )
+(       PC- (decriment PC )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -56,25 +129,25 @@
 (   sources driving the data bus or the ALU. Otherwise, instructions
 (   are left unencoded.
 
-(       %---------------- binary number, example: %100 = 4
-(       |111------------- bits 16-14 select bus driver, 3-bit encoding
+(       %---------------- binary number (e.g. %100 = 4, %101=5, etc.)
+(       |111------------- 15-13 select bus driver, 3-bit encoding
 (       |654
-(       ||  1111  ------- bits 13-08 activate destination(s), unencoded
+(       ||  1111  ------- 12-07 destination output enable, unencoded
 (       ||  321098
-(       ||  |     7654321 unassigned bits
+(       ||  |     7654321 06-00 unassigned bits
 (       ||  |     |
 : NOP  %0000000000000000 ; (  --  )  ( No Operation )
 : DS>  %0010000000000000 ; (  -- n ) ( Data Stack output )
 : RS>  %0100000000000000 ; (  -- n ) ( Return Stack output )
 : IO>  %0110000000000000 ; (  -- n ) ( Input/Output output )
-: IP>  %1000000000000000 ; (  -- n ) ( Instruction Pointer outout )
+: PC>  %1000000000000000 ; (  -- n ) ( Program Counter outout )
 : PM>  %1010000000000000 ; (  -- n ) ( >PM does not exist )
 : TOS> %1100000000000000 ; (  -- n ) ( Top Of Stack output )
 ( :    %1110000000000000 ; (  -- n ) ( un defined )
 : >DS  %0001000000000000 ; (  -- n ) ( Data Stack input )
 : >RS  %0000100000000000 ; (  -- n ) ( Return Stack input )
 : >IR  %0000010000000000 ; (  -- n ) ( IR> does not exist )
-: >IP  %0000001000000000 ; (  -- n ) ( Instruction Pointer input )
+: >PC  %0000001000000000 ; (  -- n ) ( Program Counter input )
 : >MAR %0000000100000000 ; (  -- n ) ( MR> does not exist )
 : >TOS %0000000010000000 ; (  -- n ) ( Top Of Stack input )
 : ADD  %0000000000000000 ; (  -- n )  \
@@ -85,7 +158,8 @@
 : <<r  %0000000000000000 ; (  -- n )  |
 : r>>  %0000000000000000 ; (  -- n )  /
 
-
+( TODO: Would a NOP be better defined as whatever +PC is? That would
+(       make 0x0 available as an instruction! Maybe 0x0 is +PC.
 ( TODO: Any source that can drive the data bus should be on a driver
 (       and that driver connected to a mux to ensure only a single  
 (       device drives the data bus at any one time. That may as well
@@ -113,13 +187,18 @@
 (       development.
 (       : ;; OR ( n n -- n )
 
-: +ADD ADD OR ( n -- n )
-: +SUB SUB OR ( n -- n )
-: +DSI DSI OR ( n -- n ) ( Data Stack Incriment )
-: +DSD DSD OR ( n -- n ) ( Data Stack Decriment )
-: +RSI RSI OR ( n -- n ) ( Return Stack Incriment )
-: +RSD RSD OR ( n -- n ) ( Return Stack Decriment )
-
+( A comman at the front of a word indicates that this does a
+( bitwise OR with the top element of the stack.
+: ,ADD ADD OR ( n -- n )
+: ,SUB SUB OR ( n -- n )
+: ,DS+ DS+ OR ( n -- n ) ( DS incriment )
+: ,DS- DS- OR ( n -- n ) ( DS decriment )
+: ,RSI RS+ OR ( n -- n ) ( Return Stack Incriment )
+: ,RSD RS- OR ( n -- n ) ( Return Stack Decriment )
+: ,>DS >DS OR
+: ,DS> DS> OR
+: ,>RS >DS OR
+: ,RS> RS> OR
 
 
 
@@ -157,11 +236,11 @@
 
 (   | DS  | RS  | IO  |  IR===CL  | ALU  | TOS  | IP  |  MAR===PM  |
 (   +-----+-----+-----+-----+-----+------+------+-----+------+-----+
-( 0 |     |     |     |     |  X  |      |      |     |      |     | +NOP +IPI
+( 0 |     |     |     |     |  X  |      |      |     |      |     | +NOP ,PC+
 (   +-----+-----+-----+-----+-----+------+------+-----+------+-----+
-( 1 |     |     |     |     |  X  |      |      | IP> | >MAR |     | IP> >MAR +IPI
+( 1 |     |     |     |     |  X  |      |      | PC> | >MAR |     | IP> ,>MAR ,PC+
 (   +-----+-----+-----+-----+-----+------+------+-----+------+-----+
-( 2 |     |     |     | >IR |  X  |      |      |     |      | PM> | PM> >IR +IPI
+( 2 |     |     |     | >IR |  X  |      |      |     |      | PM> | PM> ,>IR ,PC+
 (   +-----+-----+-----+-----+-----+------+------+-----+------+-----+
 ( 3 |     |     |     |     |  X  |      |      |     |      |     | 
 (   +-----+-----+-----+-----+-----+------+------+-----+------+-----+
