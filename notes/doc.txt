@@ -48,16 +48,6 @@
 (       can be in the Control Logic.
 
 
-
-
-
-
-
-
-
-
-
-
 ( Subunit descriptions
 ( ====================
 ( RESET sets the initial state of the machine and affects 
@@ -86,19 +76,6 @@
 (       PC> ( PC output enable )
 (       PC+ ( increment PC )
 (       PC- (decriment PC )
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -221,12 +198,6 @@
 
 
 
-
-
-
-
-
-
 ( Instruction Representation
 ( ==========================
 
@@ -325,38 +296,5 @@
 (   This can be done using graphviz dot, but text would be better, so
 (   the diagram can be in this document. Can I write my definitions such
 (   that the reader has the same level of understanding? 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
