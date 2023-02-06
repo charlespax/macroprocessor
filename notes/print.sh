@@ -10,7 +10,7 @@ fi
 file=$1
 
 # set the default number of lines to 20
-lines=50
+lines=64
 
 # check if a second argument was passed
 if [ $# -eq 2 ]; then
