@@ -74,7 +74,7 @@
 
 ( List of figures
 ( ---------------
-(           Figure 1: Architecture block diagram
+(           Figure abd: Architecture block diagram
 
 ( List of tables
 ( --------------
@@ -130,7 +130,7 @@
 ( ** Introduction **
 ( ******************
 
-( The Macro Processor is a microprocessor with an unconventional disign
+( The Macro Processor is a microprocessor with an unconventional design
 ( goal: understandability. An individual human should be able to visually
 ( observe the integrated circuit (IC) with an optical microscope and
 ( verify the layout and function of the circuit.
@@ -199,8 +199,8 @@
 ( by Philip Koopman.
 
 
-( Figure 1: Architecture block diagram
-
+( Figure abd: Architecture block diagram
+( TODO: add a shifter to the diagram
 (                   +-----+     |||        +-----+
 (                   | DS  |<===>|||        | TOS |<=+
 (                   +-----+     |D|====+   +-----+  |
@@ -271,7 +271,7 @@
 (       RS- ( decriment RS )
 
 ( Instruction Register:
-(       >IR ( IR output enable )
+(       >IR ( IR input enable )
 
 ( Control Logic:
 
@@ -281,10 +281,12 @@
 (       PC+ ( increment PC )
 (       PC- (decriment PC )
 
+( Arithmetic Logic Unit
+( ---------------------
+( When ~>>ALU (ALU_OP = 0), ALU input A = 0x0
 
-( TODO: Does Control Logic do the incrimentation and decrementitation?
-(       or is that performed within PC? Perhaps any repeated logic 
-(       can be in the Control Logic.
+
+
 
 
 
@@ -508,6 +510,7 @@ Step 100:  PM> ,>xx ,PC+      ( source and destination as defined in IR )
 (       PM> ,>TOS ,MEMORY_OP
 ( TODO: make this correct
 
+
 ( <line 512, page 8>
 ( ***********
 ( ** RESET **
@@ -658,7 +661,7 @@ swap    n1 n2   -- n2 n1    Swap the order of the top two elements
 
 
 
-
+( TODO: add a page for an expanded architectual diagram
 
 
 
