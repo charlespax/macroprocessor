@@ -464,50 +464,49 @@
 (   +-----+-----+-----+-----+-----+------+------+-----+------+-----+
 ( 4 |     |     |     |     |  X  |      |      |     |      |     |
 
+( ***********************
+( ** Instruction Cycle **
+( ***********************
+
+Microinstructions
+---------------------
+Step 000:  PC> ,>MAR
+Step 001:  PM> ,>IR ,PC+
+Step 010:  CL = IR[ PM> ,>xx ,MEMORY_OP ]
+(if ~MEMORY_OP, then reset count, "single cycle instruction")
+Step 011:  PC> ,>MAR
+Step 100:  PM> ,>xx ,PC+      ( source and destination as defined in IR )
+(reset count)
+
+( TODO: LSB indicates if this is a memory operation
+(       0 - Reset the count
+(       1 - Read the next cell to destination
 
 
+( exe - execution
+( CL - control logic
+(         __________________________________________________________________________
+( RESET _/       
+(            _______         _______         _______         _______         _______
+(  CLK  ____/       \_______/       \_______/       \_______/       \_______/     
+(       ____         _______         _______         _______         _______
+( ~CLK      \_______/       \_______/       \_______/       \_______/       \_______
 
+( Step: 000           001              010             011            100
+(   CL: PC> ,>MAR   | PM> ,>IR ,PC+ |  CL=IR[]      |  PC> ,>MAR    | PM> ,>xx ,PC+
 
+(           |  PC> ,>MAR    | PM> ,>IR ,PC+ |  CL=IR[]      |  PC> ,>MAR    |  PM> ,>xx ,PC+
+(           .               .               .               .               .
+(           .               .               .               .               .
+(   PC: 0   .               .1              .               .               .
+(  MAR: ?   .0              .               .               .1              .
+(   IR: ?   .               .PM[0]          .               .               .
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+( This definitions is for illustrations
+( : PUSH ( n OPCODE --  )  ( copy the next cell of PM to the stack )
+(       TOS> >DS ,DS+
+(       PM> ,>TOS ,MEMORY_OP
+( TODO: make this correct
 
 ( <line 512, page 8>
 ( ***********
