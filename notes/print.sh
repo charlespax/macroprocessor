@@ -29,7 +29,7 @@ nl -b a $file > $file.numbered
 # split the file into groups of the specified number of lines and print each group
 split -l $lines $file.numbered -d -a 4 print_
 for i in print_*; do
-  lp -o cpi=14 -o lpi=7.5 -o page-bottom=72 -o page-left=72 -o page-right=72 -o page-top=72 $i
+  lp -o cpi=16 -o lpi=7 -o page-bottom=70 -o page-left=50 -o page-right=60 -o page-top=60 $i
 done
 
 # delete the temporary files
