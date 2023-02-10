@@ -1,47 +1,46 @@
 
 
 
-(  __  __                        _____                                        
-( |  \/  |                      |  __ \                                       
-( | \  / | __ _  ___ _ __ ___   | |__) | __ ___   ___ ___  ___ ___  ___  _ __ 
-( | |\/| |/ _` |/ __| '__/ _ \  |  ___/ '__/ _ \ / __/ _ \/ __/ __|/ _ \| '__|
-( | |  | | (_| | (__| | | (_) | | |   | | | (_) | (_|  __/\__ \__ \ (_) | |   
-( |_|  |_|\__,_|\___|_|  \___/  |_|   |_|  \___/ \___\___||___/___/\___/|_|   
-      
-(                by Charles Edward Pax
+\  __  __                        _____                                        
+\ |  \/  |                      |  __ \                                       
+\ | \  / | __ _  ___ _ __ ___   | |__) | __ ___   ___ ___  ___ ___  ___  _ __ 
+\ | |\/| |/ _` |/ __| '__/ _ \  |  ___/ '__/ _ \ / __/ _ \/ __/ __|/ _ \| '__|
+\ | |  | | (_| | (__| | | (_) | | |   | | | (_) | (_|  __/\__ \__ \ (_) | |   
+\ |_|  |_|\__,_|\___|_|  \___/  |_|   |_|  \___/ \___\___||___/___/\___/|_|   
+\
+\                                                          version: 2023-02-09
+\   by Charles Edward Pax
 
 
 
 
 
-(                   +-----+     |||        +-----+
-(                   | DS  |<===>|||        | TOS |<=+
-(                   +-----+     |D|====+   +-----+  |
-(                               |A|    |      |     |
-(                   +-----+     |T|  __V__  __V__   |
-(                   | RS  |<===>|A|  \ A  \/  B /   |
-(                   +-----+     |||   \  ALU   /    |
-(                               |B|    \______/     |
-(                   +-----+     |U|        |        |
-(                   | IO  |<===>|S|<=======*========+
-(                   +-----+     |||
-(                               |||     +-----+
-(                   +-----+     |||<===>| PC  |
-(                   | IR  |<====|||     +-----+
-(                   +-----+     |||
-(                     ||        |||     +-----+
-(                   +-----+     |||====>| MAR |
-(                   | CL  |     |||     +-----+
-(                   +-----+     |||       ||
-(                               |||     +-----+
-(                               |||<===>| PM  |
-(                               |||     +-----+
 
 
 
 
 
 
+\                   +-----+     |||        +-----+
+\                   | DS  |<===>|||        | TOS |<=+
+\                   +-----+     |D|====+   +-----+  |
+\                               |A|    |      |     |
+\                   +-----+     |T|  __V__  __V__   |
+\                   | RS  |<===>|A|  \ A  \/  B /   |
+\                   +-----+     |||   \  ALU   /    |
+\                               |B|    \______/     |
+\                   +-----+     |U|        |        |
+\                   | PC  |<===>|S|<=======*========+
+\                   +-----+     |||
+\                               |||     +-----+
+\                   +-----+     |||<===>| IR  |
+\                   | MAR |<====|||     + - - +
+\                   +-----+     |||     | CL  |
+\                      ||       |||     +-----+
+\                   +-----+     |||
+\                   | PM  |<===>|||     +-----+
+\                   +-----+     |||<===>| IO  |
+\                               |||     +-----+
 
 
 
@@ -61,31 +60,31 @@
 
 
 
-( <line 64, page 1>
-( ******************
-( ** Front Matter **
-( ******************
 
-( Line #    Name
-( ------    ---------------------------------
-(           Front Matter
-(           Introduction
-(           Architectual Overview
+\ <line 64, page 1>
+\ ******************
+\ ** Front Matter **
+\ ******************
 
-( List of figures
-( ---------------
-(           Figure abd: Architecture block diagram
+\ Line #    Name
+\ ------    ---------------------------------
+\           Front Matter
+\           Introduction
+\           Architectual Overview
 
-( List of tables
-( --------------
+\ List of figures
+\ ---------------
+\           Figure abd: Architecture block diagram
 
+\ List of tables
+\ --------------
 
-( TODO: RULE: Two empty lines preceed and follow each figure.
 
-( TODO: Write a script that will output the lines numbers and names of
-(       each section for inclusion here. Document the script in an
-(       appendix. Also a list of figures.
+\ TODO: RULE: Two empty lines preceed and follow each figure.
 
+\ TODO: Write a script that will output the lines numbers and names of
+\       each section for inclusion here. Document the script in an
+\       appendix. Also a list of figures.
 
 
 
@@ -125,35 +124,35 @@
 
 
 
-( <line 128, page 2>
-( ******************
-( ** Introduction **
-( ******************
 
-( The Macro Processor is a microprocessor with an unconventional design
-( goal: understandability. An individual human should be able to visually
-( observe the integrated circuit (IC) with an optical microscope and
-( verify the layout and function of the circuit.
+\ <line 128, page 2>
+\ ******************
+\ ** Introduction **
+\ ******************
 
-( This document is intended to be both documentation of the system and
-( the software supporting the system. If you have the documentation,
-( you have the code.
+\ The Macro Processor is a microprocessor with an unconventional design
+\ goal: understandability. An individual human should be able to visually
+\ observe the integrated circuit (IC) with an optical microscope and
+\ verify the layout and function of the circuit.
 
-( Lines that start with a '(' character are comments and are not processed
-( by Forth interperters. Empty lines are not processed by Forth. All other
-( lines are meant to be interperted by the Forth interperter.
+\ This document is intended to be both documentation of the system and
+\ the software supporting the system. If you have the documentation,
+\ you have the code.
 
-( This document is designed to be printed sixty-four lines per page. See
-( Appendix: Printing for more information including a bash script to
-( automate printing.
+\ Lines that start with a '(' character are comments and are not processed
+\ by Forth interperters. Empty lines are not processed by Forth. All other
+\ lines are meant to be interperted by the Forth interperter.
 
-( This processor is designed to run Forth. It may run other languages
-( with a bit of effort, but none will be made here.
+\ This document is designed to be printed sixty-four lines per page. See
+\ Appendix: Printing for more information including a bash script to
+\ automate printing.
 
-( This document contains a Forth language assembler. There are a set of
-( Forth words defined here that can be used to generate binary code that
-( can be run on the MacroProcessor.
+\ This processor is designed to run Forth. It may run other languages
+\ with a bit of effort, but none will be made here.
 
+\ This document contains a Forth language assembler. There are a set of
+\ Forth words defined here that can be used to generate binary code that
+\ can be run on the MacroProcessor.
 
 
 
@@ -189,104 +188,102 @@
 
 
 
-( <line 192, page 3>
-( ***************************
-( ** Architecture Overview **
-( ***************************
 
-( The overall design of the Central Processin Unit (CPU) is based on the
-( "canonical stack machine" as described in "Stack Machines: The New Wave"
-( by Philip Koopman.
+\ <line 192, page 3>
+\ ***************************
+\ ** Architecture Overview **
+\ ***************************
 
+\ The overall design of the Central Processin Unit (CPU) is based on the
+\ "canonical stack machine" as described in "Stack Machines: The New Wave"
+\ by Philip Koopman.
 
-( Figure abd: Architecture block diagram
-( TODO: add a shifter to the diagram
-(                   +-----+     |||        +-----+
-(                   | DS  |<===>|||        | TOS |<=+
-(                   +-----+     |D|====+   +-----+  |
-(                               |A|    |      |     |
-(                   +-----+     |T|  __V__  __V__   |
-(                   | RS  |<===>|A|  \ A  \/  B /   |
-(                   +-----+     |||   \  ALU   /    |
-(                               |B|    \______/     |
-(                   +-----+     |U|        |        |
-(                   | IO  |<===>|S|<=======*========+
-(                   +-----+     |||
-(                               |||     +-----+
-(                   +-----+     |||<===>| PC  |
-(                   | IR  |<====|||     +-----+
-(                   +-----+     |||
-(                     ||        |||     +-----+
-(                   +-----+     |||====>| MAR |
-(                   | CL  |     |||     +-----+
-(                   +-----+     |||       ||
-(                               |||     +-----+
-(                               |||<===>| PM  |
-(                               |||     +-----+
 
+\ Figure abd: Architecture block diagram
+\ TODO: add a shifter to the diagram
+\                   +-----+     |||        +-----+
+\                   | DS  |<===>|||        | TOS |<=+
+\                   +-----+     |D|====+   +-----+  |
+\                               |A|    |      |     |
+\                   +-----+     |T|  __V__  __V__   |
+\                   | RS  |<===>|A|  \ A  \/  B /   |
+\                   +-----+     |||   \  ALU   /    |
+\                               |B|    \______/     |
+\                   +-----+     |U|        |        |
+\                   | PC  |<===>|S|<=======*========+
+\                   +-----+     |||
+\                               |||     +-----+
+\                   +-----+     |||<===>| IR  |
+\                   | MAR |<====|||     + - - +
+\                   +-----+     |||     | CL  |
+\                      ||       |||     +-----+
+\                   +-----+     |||
+\                   | PM  |<===>|||     +-----+
+\                   +-----+     |||<===>| IO  |
+\                               |||     +-----+
 
-( The CPU contains the following items.
 
-( DS - Data Stack                 TOS - Top of Stack
-( RS - Return Stack               ALU - Arithmetic Logic Unit
-( IO - Input/Output               PC - Program Counter
-( IR - Instructions Register      MAR - Memory Access Register
-( CL - Control Logic              PM - Program Memory
+\ The CPU contains the following items.
 
-( Modules DS, RS, IO, PC, and PM are able to accept input from the
-( data bus or output to the data bus, as indicated by the double
-( arrows '<===>'. Multiplexors ensure only one module may
-( output a signal to the data bus and only one module may input
-( a signal from the data bus.
+\ DS - Data Stack                 TOS - Top of Stack
+\ RS - Return Stack               ALU - Arithmetic Logic Unit
+\ IO - Input/Output               PC - Program Counter
+\ IR - Instructions Register      MAR - Memory Access Register
+\ CL - Control Logic              PM - Program Memory
 
-( Modules IR and MAR are able to accept input from the data bus,
-( but are not able to putout their contents to the data bus.
+\ Modules DS, RS, IO, PC, and PM are able to accept input from the
+\ data bus or output to the data bus, as indicated by the double
+\ arrows '<===>'. Multiplexors ensure only one module may
+\ output a signal to the data bus and only one module may input
+\ a signal from the data bus.
 
-( ALU always accepts input from TOS via input B and is able
-( to accept input from the data bus via input A. ALU is can
-( output to either TOS or the data bus.
+\ Modules IR and MAR are able to accept input from the data bus,
+\ but are not able to putout their contents to the data bus.
 
-( TOS always outputs to ALU input B. TOS always accepts input
-( from ALU. TOS can recieve data from the data bus by passing
-( the signal through ALU.
+\ ALU always accepts input from TOS via input B and is able
+\ to accept input from the data bus via input A. ALU is can
+\ output to either TOS or the data bus.
 
+\ TOS always outputs to ALU input B. TOS always accepts input
+\ from ALU. TOS can recieve data from the data bus by passing
+\ the signal through ALU.
 
 
 
-( <line 256, page 4>
-( *********************
-( ** Module Features **
-( *********************
 
-( Data Stack:
-(       >DS ( DS intput enable )
-(       DS> ( DS output enable )
-(       DS+ ( increment DS )
-(       DS- ( decriment DS )
 
-( Return Stack:
-(       >RS ( RS input enable )
-(       RS> ( RS output enable )
-(       RS+ ( increment RS )
-(       RS- ( decriment RS )
 
-( Instruction Register:
-(       >IR ( IR input enable )
+\ <line 256, page 4>
+\ *********************
+\ ** Module Features **
+\ *********************
 
-( Control Logic:
+\ Data Stack:
+\       >DS ( DS intput enable )
+\       DS> ( DS output enable )
+\       DS+ ( increment DS )
+\       DS- ( decriment DS )
 
-( Program Counter:
-(       >PC ( PC input enable )
-(       PC> ( PC output enable )
-(       PC+ ( increment PC )
-(       PC- (decriment PC )
+\ Return Stack:
+\       >RS ( RS input enable )
+\       RS> ( RS output enable )
+\       RS+ ( increment RS )
+\       RS- ( decriment RS )
 
-( Arithmetic Logic Unit
-( ---------------------
-( When ~>>ALU (ALU_OP = 0), ALU input A = 0x0
+\ Instruction Register:
+\       >IR ( IR input enable )
 
+\ Control Logic:
 
+\ Program Counter:
+\       >PC ( PC input enable )
+\       PC> ( PC output enable )
+\       PC+ ( increment PC )
+\       PC- (decriment PC )
 
+\ Arithmetic Logic Unit
+\ ---------------------
+\ When ~>>ALU (ALU_OP = 0), ALU input A = 0x0
 
 
 
@@ -317,28 +314,28 @@
 
 
 
-( <line 320, page 5>
-( ****************************************
-( ** Instruction Set Architecture (ISA) **
-( ****************************************
 
-( Instructions are created by doing a bitwise OR of multiple words
-( from the definitions below.
 
 
-(       xxxx             Bits 15-12 - Bus driver select
-(           xxxx         Bits 11-08 - Destination select
-(               xxxx     Bits 7-4 - ALU operation
-(                   xxx  Bits 3-1 - Stack incrementing
-(                      x Bit 0 - Memory operation
+\ <line 320, page 5>
+\ ****************************************
+\ ** Instruction Set Architecture (ISA) **
+\ ****************************************
 
+\ Instructions are created by doing a bitwise OR of multiple words
+\ from the definitions below.
 
 
+\       xxxx             Bits 15-12 - Bus driver select
+\           xxxx         Bits 11-08 - Destination select
+\               xxxx     Bits 7-4 - ALU operation
+\                   xxx  Bits 3-1 - Stack incrementing
+\                      x Bit 0 - Memory operation
 
-( Figure ISA: Instruction Set Architecture
 
 
 
+\ Figure ISA: Instruction Set Architecture
 
 
 
@@ -348,7 +345,6 @@
 
 
 
-During a NOP, nothing is asserted on the data bus.
 
 
 
@@ -381,11 +377,15 @@ During a NOP, nothing is asserted on the data bus.
 
 
 
-( <line 384, page 6>
-( Figure ISA: Instruction Set Architecture
+
+
+
+
+\ <line 384, page 6>
+\ Figure ISA: Instruction Set Architecture
 
 : NOP     %0000000000000000 ; (  -- n ) ( No Operation. )
-(         %0000------------ ; (  --  ) ( See NOP. Bits 15-12 - Bus driver select. )
+\         %0000------------ ; (  --  ) ( See NOP. Bits 15-12 - Bus driver select. )
 : DS>     %0001000000000000 ; (  -- n ) ( Data Stack output )
 : RS>     %0010000000000000 ; (  -- n ) ( Return Stack output )
 : PC>     %0011000000000000 ; (  -- n ) ( Program Counter outout )
@@ -393,15 +393,15 @@ During a NOP, nothing is asserted on the data bus.
 : IO>     %0101000000000000 ; (  -- n ) ( Input/Output output )
 : TOS>    %0110000000000000 ; (  -- n ) ( Top Of Stack output )
 : ALU>    %0111000000000000 ; (  -- n ) ( ALU to bus output )
-(         %1000------------ ; (  -- n ) (  )
-(         %1001------------ ; (  -- n ) (  )
-(         %1010------------ ; (  -- n ) (  )
-(         %1011------------ ; (  -- n ) (  )
-(         %1100------------ ; (  -- n ) (  )
-(         %1101------------ ; (  -- n ) (  )
-(         %1110------------ ; (  -- n ) (  )
-(         %1111------------ ; (  -- n ) (  )
-(         %----0000-------- ; (  --  ) ( See NOP. Bits 11-08 - Destination select. )
+\         %1000------------ ; (  -- n ) (  )
+\         %1001------------ ; (  -- n ) (  )
+\         %1010------------ ; (  -- n ) (  )
+\         %1011------------ ; (  -- n ) (  )
+\         %1100------------ ; (  -- n ) (  )
+\         %1101------------ ; (  -- n ) (  )
+\         %1110------------ ; (  -- n ) (  )
+\         %1111------------ ; (  -- n ) (  )
+\         %----0000-------- ; (  --  ) ( See NOP. Bits 11-08 - Destination select. )
 : >DS     %0000000100000000 ; (  -- n ) ( into Data Stack )
 : >RS     %0000001000000000 ; (  -- n ) ( into Return Stack )
 : >PC     %0000001100000000 ; (  -- n ) ( into Program Counter )
@@ -411,51 +411,51 @@ During a NOP, nothing is asserted on the data bus.
 : >ALU    %0000011100000000 ; (  -- n ) ( into Arithmetic Logic Unit )
 : >MAR    %0000100000000000 ; (  -- n ) ( into Memory Access Register )
 : >IR     %0000100100000000 ; (  -- n ) ( into Instruction Register )
-(         %----1010-------- ; (  -- n ) (  )
-(         %----1011-------- ; (  -- n ) (  )
-(         %----1100-------- ; (  -- n ) (  )
-(         %----1101-------- ; (  -- n ) (  )
-(         %----1110-------- ; (  -- n ) (  )
-(         %----1111-------- ; (  -- n ) (  )
-(         %--------0000---- ; (  --  ) ( See NOP. Bits 7-4 - ALU operation )
+\         %----1010-------- ; (  -- n ) (  )
+\         %----1011-------- ; (  -- n ) (  )
+\         %----1100-------- ; (  -- n ) (  )
+\         %----1101-------- ; (  -- n ) (  )
+\         %----1110-------- ; (  -- n ) (  )
+\         %----1111-------- ; (  -- n ) (  )
+\         %--------0000---- ; (  --  ) ( See NOP. Bits 7-4 - ALU operation )
 : ALU_ADD %0000000000010000 ; (  -- n ) ( ALU ADD enable )
-: ALU_SUB %0000000000100000 ; (  -- n ) ( ALU SUB enable ) (necessary? 2s compliment
+: ALU_SUB %0000000000100000 ; (  -- n ) ( ALU SUB enable ) \ necessary? 2s compliment
 : ALU_AND %0000000000110000 ; (  -- n ) ( ALU AND enable )
 : ALU_OR  %0000000001000000 ; (  -- n ) ( ALU OR enable )
 : ALU_XOR %0000000001010000 ; (  -- n ) ( ALU XOR enable )
 : ALU_<<  %0000000001100000 ; (  -- n ) (  )
 : ALU_>>  %0000000001110000 ; (  -- n ) (  )
-(         %--------1000---- ; (  -- n ) (  )
-(         %--------1001---- ; (  -- n ) (  )
-(         %--------1010---- ; (  -- n ) (  )
-(         %--------1011---- ; (  -- n ) (  )
-(         %--------1101---- ; (  -- n ) (  )
-(         %--------1110---- ; (  -- n ) (  )
-(         %--------1111---- ; (  -- n ) (  )
-(         %------------000- ; (  --  ) ( See NOP. Bits 3-1 - Stack incrementing. )
-: DS+     %0000000000000010 ; (  -- n ) (  )
-: DS-     %0000000000000100 ; (  -- n ) (  )
-: RS+     %0000000000000110 ; (  -- n ) (  )
-: RS-     %0000000000001000 ; (  -- n ) (  )
-: PC+     %0000000000001010 ; (  -- n ) (  )    ( Is this necessary? )
-(         %------------110- ; (  -- n ) (  )
-(         %------------111- ; (  -- n ) (  )
-(         %---------------0 ; (  --  ) ( See NOP. Bit 0 - Memory operation. )
+\         %--------1000---- ; (  -- n ) (  )
+\         %--------1001---- ; (  -- n ) (  )
+\         %--------1010---- ; (  -- n ) (  )
+\         %--------1011---- ; (  -- n ) (  )
+\         %--------1101---- ; (  -- n ) (  )
+\         %--------1110---- ; (  -- n ) (  )
+\         %--------1111---- ; (  -- n ) (  )
+\         %------------000- ; (  --  ) ( See NOP. Bits 3-1 - Stack incrementing. )
+: DS++    %0000000000000010 ; (  -- n ) (  )
+: DS--    %0000000000000100 ; (  -- n ) (  )
+: RS++    %0000000000000110 ; (  -- n ) (  )
+: RS--    %0000000000001000 ; (  -- n ) (  )
+: PC++    %0000000000001010 ; (  -- n ) (  )               \ Is this necessary?
+\         %------------110- ; (  -- n ) (  )
+\         %------------111- ; (  -- n ) (  )
+\         %---------------0 ; (  --  ) ( See NOP. Bit 0 - Memory operation. )
 : MOP     %0000000000000001 ; (  --  ) ( memory access microinscruction enable )
 
 
 
-( <line 448, page 7>
-( *************************************
-( ** Combinational Instruction Words **
-( *************************************
+\ <line 448, page 7>
+\ *************************************
+\ ** Combinational Instruction Words **
+\ *************************************
 
-( Given the nature of the instruction format, the base control words
-( can be combined into instructions by using a bitwise OR
-( operations.
+\ Given the nature of the instruction format, the base control words
+\ can be combined into instructions by using a bitwise OR
+\ operations.
 
-( We will define another set of words identical to the list of
-( control words, but with the addition of a bitwise OR operation.
+\ We will define another set of words identical to the list of
+\ control words, but with the addition of a bitwise OR operation.
 
 : ,NOP  NOP  OR ; (  -- n ) ( No Operation )
 : ,DS>  DS>  OR ; (  -- n ) ( Data Stack output )
@@ -474,32 +474,35 @@ During a NOP, nothing is asserted on the data bus.
 : ,>ALU >ALU OR ; (  -- n ) ( into Arithmetic Logic Unit )
 : ,>MAR >MAR OR ; (  -- n ) ( into Memory Access Register )
 : ,>IR  >IR  OR ; (  -- n ) ( into Instruction Register )
-: ,ADD  ADD  OR ; (  -- n ) ( ALU ADD enable )
-: ,SUB  SUB  OR ; (  -- n ) ( ALU SUB enable )
-: ,AND  AND  OR ; (  -- n ) ( ALU AND enable )
-: ,OR   OR   OR ; (  -- n ) ( ALU OR enable )
-: ,XOR  XOR  OR ; (  -- n ) ( ALU XOR enable )
-: ,RS+ RS+   OR ; (  -- n ) ( increment RS )
-: ,RS- RS-   OR ; (  -- n ) ( decremetn RS )
+: ,ALU_ADD  ALU_ADD  OR ; (  -- n ) ( ALU ADD enable )
+: ,ALU_SUB  ALU_SUB  OR ; (  -- n ) ( ALU SUB enable )
+: ,ALU_AND  ALU_AND  OR ; (  -- n ) ( ALU AND enable )
+: ,ALU_OR   ALU_OR   OR ; (  -- n ) ( ALU OR enable )
+: ,ALU_XOR  ALU_XOR  OR ; (  -- n ) ( ALU XOR enable )
+: ,DS++ DS++   OR ; (  -- n ) ( increment RS )
+: ,DS-- DS--   OR ; (  -- n ) ( decremetn RS )
+: ,RS++ RS++   OR ; (  -- n ) ( increment RS )
+: ,RS-- RS--   OR ; (  -- n ) ( decremetn RS )
 
-( This notation results in clear instructions without requiring
-( an assembler. Take, for example, copying the contents of PC into
-( RS and incrimenting RS.
+\ This notation results in clear instructions without requiring
+\ an assembler. Take, for example, copying the contents of PC into
+\ RS and incrimenting RS.
+
+\              PC> ,>RS ,RS+
+
+\ Step 1. PC> places %0011000000000000 onto the stack
+\ Step 2. ,>RS places %0000001000000000 on the stack and performs
+\         a bitwise OR, leaving %0011001000000000 on the stack.
+\ Step 3. ,RS+ places %0000000000000001 on the stack and performs
+\         a bitwise OR, leaving %0011001000000001 on the stack.
+
+\ TODO: implement RS+
+
+\ Not every combination makes sense even though it is possible.
+\ For example PC> ,>RS ,ADD will copy the contents of PS to RS
+\ and will enable the ALU ADD function, but nothing will be
+\ added because the ALU is not active.
 
-(              PC> ,>RS ,RS+
-
-( Step 1. PC> places %0011000000000000 onto the stack
-( Step 2. ,>RS places %0000001000000000 on the stack and performs
-(         a bitwise OR, leaving %0011001000000000 on the stack.
-( Step 3. ,RS+ places %0000000000000001 on the stack and performs
-(         a bitwise OR, leaving %0011001000000001 on the stack.
-
-( TODO: implement RS+
-
-( Not every combination makes sense even though it is possible.
-( For example PC> ,>RS ,ADD will copy the contents of PS to RS
-( and will enable the ALU ADD function, but nothing will be
-( added because the ALU is not active.
 
 
 
@@ -508,91 +511,91 @@ During a NOP, nothing is asserted on the data bus.
 
 
 
+\ <line 512, page 8>
+\ ********************************
+\ ** Instruction Representation **
+\ ********************************
 
-( <line 512, page 8>
-( ********************************
-( ** Instruction Representation **
-( ********************************
+\ Figure 2. Instructions step-by-step
 
-( Figure 2. Instructions step-by-step
+\   | DS  | RS  | IO  |  IR===CL  | ALU  | TOS  | IP  |  MAR===PM  |
+\   +-----+-----+-----+-----+-----+------+------+-----+------+-----+
+\ 0 |     |     |     |     |  X  |      |      |     |      |     | +NOP
+\   +-----+-----+-----+-----+-----+------+------+-----+------+-----+
+\ 1 |     |     |     |     |  X  |      |      | PC> | >MAR |     | IP> ,>MAR
+\   +-----+-----+-----+-----+-----+------+------+-----+------+-----+
+\ 2 |     |     |     | >IR |  X  |      |      |     |      | PM> | PM> ,>IR
+\   +-----+-----+-----+-----+-----+------+------+-----+------+-----+
+\ 3 |     |     |     |     |  X  |      |      |     |      |     | 
+\   +-----+-----+-----+-----+-----+------+------+-----+------+-----+
+\ 4 |     |     |     |     |  X  |      |      |     |      |     |
 
-(   | DS  | RS  | IO  |  IR===CL  | ALU  | TOS  | IP  |  MAR===PM  |
-(   +-----+-----+-----+-----+-----+------+------+-----+------+-----+
-( 0 |     |     |     |     |  X  |      |      |     |      |     | +NOP
-(   +-----+-----+-----+-----+-----+------+------+-----+------+-----+
-( 1 |     |     |     |     |  X  |      |      | PC> | >MAR |     | IP> ,>MAR
-(   +-----+-----+-----+-----+-----+------+------+-----+------+-----+
-( 2 |     |     |     | >IR |  X  |      |      |     |      | PM> | PM> ,>IR
-(   +-----+-----+-----+-----+-----+------+------+-----+------+-----+
-( 3 |     |     |     |     |  X  |      |      |     |      |     | 
-(   +-----+-----+-----+-----+-----+------+------+-----+------+-----+
-( 4 |     |     |     |     |  X  |      |      |     |      |     |
+\ ***********************
+\ ** Instruction Cycle **
+\ ***********************
 
-( ***********************
-( ** Instruction Cycle **
-( ***********************
+\ Microinstructions
+\ ---------------------
+\ Step 000:  PC> ,>MAR
+\ Step 001:  PM> ,>IR ,PC+
+\ Step 010:  CL = IR[ PM> ,>xx ,MEMORY_OP ]
+\ if ~MEMORY_OP, then reset count, "single cycle instruction")
+\ Step 011:  PC> ,>MAR
+\ Step 100:  PM> ,>xx ,PC+      ( source and destination as defined in IR )
+\ reset count)
 
-Microinstructions
----------------------
-Step 000:  PC> ,>MAR
-Step 001:  PM> ,>IR ,PC+
-Step 010:  CL = IR[ PM> ,>xx ,MEMORY_OP ]
-(if ~MEMORY_OP, then reset count, "single cycle instruction")
-Step 011:  PC> ,>MAR
-Step 100:  PM> ,>xx ,PC+      ( source and destination as defined in IR )
-(reset count)
+\ TODO: LSB indicates if this is a memory operation
+\       0 - Reset the count
+\       1 - Read the next cell to destination
 
-( TODO: LSB indicates if this is a memory operation
-(       0 - Reset the count
-(       1 - Read the next cell to destination
 
+\ exe - execution
+\ CL - control logic
+\         __________________________________________________________________________
+\ RESET _/       
+\            _______         _______         _______         _______         _______
+\  CLK  ____/       \_______/       \_______/       \_______/       \_______/     
+\       ____         _______         _______         _______         _______
+\ ~CLK      \_______/       \_______/       \_______/       \_______/       \_______
 
-( exe - execution
-( CL - control logic
-(         __________________________________________________________________________
-( RESET _/       
-(            _______         _______         _______         _______         _______
-(  CLK  ____/       \_______/       \_______/       \_______/       \_______/     
-(       ____         _______         _______         _______         _______
-( ~CLK      \_______/       \_______/       \_______/       \_______/       \_______
+\ Step: 000           001              010             011            100
+\   CL: PC> ,>MAR   | PM> ,>IR ,PC+ |  CL=IR[]      |  PC> ,>MAR    | PM> ,>xx ,PC+
 
-( Step: 000           001              010             011            100
-(   CL: PC> ,>MAR   | PM> ,>IR ,PC+ |  CL=IR[]      |  PC> ,>MAR    | PM> ,>xx ,PC+
+\           |  PC> ,>MAR    | PM> ,>IR ,PC+ |  CL=IR[]      |  PC> ,>MAR    |  PM> ,>xx ,PC+
+\           .               .               .               .               .
+\           .               .               .               .               .
+\   PC: 0   .               .1              .               .               .
+\  MAR: ?   .0              .               .               .1              .
+\   IR: ?   .               .PM[0]          .               .               .
 
-(           |  PC> ,>MAR    | PM> ,>IR ,PC+ |  CL=IR[]      |  PC> ,>MAR    |  PM> ,>xx ,PC+
-(           .               .               .               .               .
-(           .               .               .               .               .
-(   PC: 0   .               .1              .               .               .
-(  MAR: ?   .0              .               .               .1              .
-(   IR: ?   .               .PM[0]          .               .               .
+\ This definitions is for illustrations
+\ : PUSH ( n OPCODE --  )  ( copy the next cell of PM to the stack )
+\       TOS> >DS ,DS+
+\       PM> ,>TOS ,MEMORY_OP
+\ TODO: make this correct
 
-( This definitions is for illustrations
-( : PUSH ( n OPCODE --  )  ( copy the next cell of PM to the stack )
-(       TOS> >DS ,DS+
-(       PM> ,>TOS ,MEMORY_OP
-( TODO: make this correct
 
+\ <line 576, page 9>
+\ ***********
+\ ** RESET **
+\ ***********
 
-( <line 576, page 9>
-( ***********
-( ** RESET **
-( ***********
+\ - After RESET MAR is set to all zeroes, which will select the first
+\   cell of PM.
 
-( - After RESET MAR is set to all zeroes, which will select the first
-(   cell of PM.
+\ **********************
+\ ** Status and Flags **
+\ **********************
+\ - Instead of having a flags register, try to make a design where at
+\   the end of each subroutine a status cell is pushed onto the stack.
+\   This could simplify the hardware at the expense of software
+\   complication.
+\ - Only some words would need to do this. It whould be obvious to the
+\   programmer which words. Perhaps only ALU or conditional words.
+\ - I can make an RTOS or other small OS. Tasks communicate via
+\   the stack.
+\   Each task consumes TOS and upon exit, pushes to TOS.
 
-( **********************
-( ** Status and Flags **
-( **********************
-( - Instead of having a flags register, try to make a design where at
-(   the end of each subroutine a status cell is pushed onto the stack.
-(   This could simplify the hardware at the expense of software
-(   complication.
-( - Only some words would need to do this. It whould be obvious to the
-(   programmer which words. Perhaps only ALU or conditional words.
-( - I can make an RTOS or other small OS. Tasks communicate via
-(   the stack.
-(   Each task consumes TOS and upon exit, pushes to TOS.
 
 
 
@@ -617,10 +620,10 @@ Step 100:  PM> ,>xx ,PC+      ( source and destination as defined in IR )
 
 
 
+\ ****************
+\ ** Interrupts **
+\ ****************
 
-( ****************
-( ** Interrupts **
-( ****************
 
 
 
@@ -636,60 +639,81 @@ Step 100:  PM> ,>xx ,PC+      ( source and destination as defined in IR )
 
 
 
+\ <line 640, page 10>
+\ *****************
+\ ** Other Notes **
+\ *****************
 
-( <line 640, page 10>
-( *****************
-( ** Other Notes **
-( *****************
+\ - Should I include zero register? Would this be done by the ALU?
+\ - How should the ALU and TOS be configured? See the Canonical Stack
+\   Machine and the RTX2000 as examples. Several processors from
+\   "Stack Machine" use the same configuration at the RTS2000.
+\ - In the final book, include a branch diagram for each word in the
+\   non-ANS Forth dictionary using graphviz dot.
+\   * Both DS> and INC_DS can execute at the same time or individually,
+\     one cell or two cells respectively. We can keep them as two
+\     separate words or combine them into one hand-coded POP. There
+\     is a tradeoff between speed and memory.
+\   * Two adjacent singleton branches could ind8icate a possible
+\     new word. Maybe we can find some interesting properties.
+\ - I could potentially make the data register a set of sixteen
+\   bidirectional shift registers in parallel. Possibly make them
+\   circular/linear selectable.
+\ - Is it possible to use materials in the semiconductor manufacturing
+\   process that will allow each layer to fluress when exposed to a
+\   specific frequency of light? This would be great to visual
+\   inspection of the device.
+\ - Add a binary tree word diagra to each word in the dictionary.
+\   This can be done using graphviz dot, but text would be better, so
+\   the diagram can be in this document. Can I write my definitions such
+\   that the reader has the same level of understanding? 
+\ - How do I deal with ALU flags/status?
+\ - Is anything memory-mapped?
+\ - DS+ DS++ or DS+1 ?
 
-( - Should I include zero register? Would this be done by the ALU?
-( - How should the ALU and TOS be configured? See the Canonical Stack
-(   Machine and the RTX2000 as examples. Several processors from
-(   "Stack Machine" use the same configuration at the RTS2000.
-( - In the final book, include a branch diagram for each word in the
-(   non-ANS Forth dictionary using graphviz dot.
-(   * Both DS> and INC_DS can execute at the same time or individually,
-(     one cell or two cells respectively. We can keep them as two
-(     separate words or combine them into one hand-coded POP. There
-(     is a tradeoff between speed and memory.
-(   * Two adjacent singleton branches could ind8icate a possible
-(     new word. Maybe we can find some interesting properties.
-( - I could potentially make the data register a set of sixteen
-(   bidirectional shift registers in parallel. Possibly make them
-(   circular/linear selectable.
-( - Is it possible to use materials in the semiconductor manufacturing
-(   process that will allow each layer to fluress when exposed to a
-(   specific frequency of light? This would be great to visual
-(   inspection of the device.
-( - Add a binary tree word diagra to each word in the dictionary.
-(   This can be done using graphviz dot, but text would be better, so
-(   the diagram can be in this document. Can I write my definitions such
-(   that the reader has the same level of understanding? 
-( - How do I deal with ALU flags/status?
-( - Is anything memory-mapped?
-( - DS+ DS++ or DS+1 ?
-These notes are based on "Stack Computers: The New Wave" Table 3.1.
 
-!       n1 addr --          Store n1 at location addr in PM
-@       addr    -- n1       Fetch the value at location addr in PM as n1
-+       n1 n2   -- n3       Add n1 and n2, giving n3
--       n1 n2   -- n3       Subtract n2 rom n1, giving n3
-and     n1 n2   -- n3       Perform a bitwise AND on n1 and n2, giving n3
-or      n1 n2   -- n3       Perform a bitwise OR on n1 and n2, giving n3
-xor     n1 n2   -- n3       Perform a bitwise XOR on n1 and n2, giving n3
->r      n1      --          Push n1 on to the return stack
-r>              -- n1       Pop RS, push to TOS
-dup     n1      -- n1 n1    Duplicate n1 to TOS
-drop    n1      --          Drop n1 from the stack
-over    n1 n2   -- n1 n2 n1 Duplicate the second stack element to TOS
-swap    n1 n2   -- n2 n1    Swap the order of the top two elements
-[if]    n1      --          If n1 == 0, branch to address in next cell
-[call]          --          Perform a subroutine call to address in next cell
-[exit]          --          Perform a subroutine return
-[lit]           -- n1       Push the value in the next cell to DS
+
+
+
+
+
+
+
+
+
+
+\ These notes are based on "Stack Computers: The New Wave" Table 3.1.
+
+\ !       n1 addr --          Store n1 at location addr in PM
+\ @       addr    -- n1       Fetch the value at location addr in PM as n1
+\ +       n1 n2   -- n3       Add n1 and n2, giving n3
+\ -       n1 n2   -- n3       Subtract n2 rom n1, giving n3
+\ and     n1 n2   -- n3       Perform a bitwise AND on n1 and n2, giving n3
+\ or      n1 n2   -- n3       Perform a bitwise OR on n1 and n2, giving n3
+\ xor     n1 n2   -- n3       Perform a bitwise XOR on n1 and n2, giving n3
+\ >r      n1      --          Push n1 on to the return stack
+\ r>              -- n1       Pop RS, push to TOS
+\ dup     n1      -- n1 n1    Duplicate n1 to TOS
+\ drop    n1      --          Drop n1 from the stack
+\ over    n1 n2   -- n1 n2 n1 Duplicate the second stack element to TOS
+\ swap    n1 n2   -- n2 n1    Swap the order of the top two elements
+\ [if]    n1      --          If n1 == 0, branch to address in next cell
+\ [call]          --          Perform a subroutine call to address in next cell
+\ [exit]          --          Perform a subroutine return
+\ [lit]           -- n1       Push the value in the next cell to DS
    
 
+\ <line 704, page 11>
+\ **************
+\ ** Glossary **
+\ **************
 
+\ CPU - See central processin unit
+\ central processin unit - TODO: definition here
+\ IC - See integrated circuit
+\ instruction set architecture - TODO: definition here
+\ integrated cirtuit - TODO: definition here
+\ ISA - See instruction set archiceture
 
 
 
@@ -701,17 +725,8 @@ swap    n1 n2   -- n2 n1    Swap the order of the top two elements
 
 
 
-( <line 704, page 11>
-( **************
-( ** Glossary **
-( **************
+\ TODO: add a page for an expanded architectual diagram
 
-( CPU - See central processin unit
-( central processin unit - TODO: definition here
-( IC - See integrated circuit
-( instruction set architecture - TODO: definition here
-( integrated cirtuit - TODO: definition here
-( ISA - See instruction set archiceture
 
 
 
@@ -723,7 +738,6 @@ swap    n1 n2   -- n2 n1    Swap the order of the top two elements
 
 
 
-( TODO: add a page for an expanded architectual diagram
 
 
 
@@ -753,7 +767,54 @@ swap    n1 n2   -- n2 n1    Swap the order of the top two elements
 
 
 
+\ <line 768, page 12>
+\ Figure dia: Full diagram
 
+\  16-bit                               16-bit
+\   |||         +-----------------+      |||             +-------+
+\   |||-------->| Data Stack      |<====>|||             | Top   |
+\   |||         |   DS>           |      |||======\\     | of    |<======\\
+\   |||         |   >DS           |      |||      ||     | Stack |       ||
+\   |||         |   DS++          |      |||      ||     |       |       ||
+\   |||         |   DS--          |      |||      ||     +-------+       ||
+\   |C|         +-----------------+      |D|      ||        ||           ||
+\   |O|                                  |A|      ||        ||           ||
+\   |N|         +-----------------+      |T|  ____\/___  ___\/____       ||
+\   |T|-------->| Return Stack    |<====>|A|  \    A   \/   B    /       ||
+\   |R|         |   RS>           |      |||   \                /   |||  ||
+\   |O|         |   >RS           |      |B|    \     ALU      /----|||  ||
+\   |L|         |   RS++          |      |U|     \            /-----|||  ||
+\   |||         |   RS--          |      |S|      \          /      |||  ||
+\   |B|         +-----------------+      |||       \________/       |||  ||
+\   |U|                                  |||           ||           |||  ||
+\   |S|         +-----------------+      |||           ||           |||  ||
+\   |||-------->| Program Counter |<====>|||     +-----\/-----+     |||  ||
+\   |||         |   PC>           |      |||<====|  Shifter   |==========//
+\   |||         |   >PC           |      |||     +------------+     |||
+\   |||         |   PC+           |      |||                        |||  ALU_ADD
+\   |||         |                 |      |||                        |||  ALU_SUB
+\   |||         +-----------------+      |||     +-------------+    |||  ALU_AND
+\   |||                                  |||====>| Instruction |    |||  ALU_OR
+\   |||         +-----------------+      |||     | Register    |    |||  ALU_XOR
+\   |||-------->| Memory Access   |<=====|||     |   >IR       |    |||  ALU_>>
+\   |||         | Register        |      |||     |             |    |||  ALU_>>
+\   |||         |   >MAR          |      |||     + - - - - - - +    |||
+\   |||         |                 |      |||     | Control     |===>|||
+\   |||         |                 |      |||     | Logic       |    |||
+\   |||         +-----------------+      |||     +-------------+    |||
+\   |||                 ||               |||                        |||
+\   |||                 ||               |||                        |||
+\   |||         +-------\/--------+      |||     +---------+        |||
+\   |||-------->| Program Memory  |<====>|||<===>| Input/  |        |||
+\   |||         |   PM>           |      |||     | Output  |        |||
+\   |||         |   >PM           |              |   IO>   |        |||
+\   |||         |                 |              |   >IO   |        |||
+\   |||         |                 |              |         |        |||
+\   |||         +-----------------+              +---------+        |||
+\   |||                                                             |||
+\   \\\-------------------------------------------------------------///
+\    \\-------------------------------------------------------------//
+\     \-------------------------------------------------------------/
 
 
 
@@ -765,68 +826,9 @@ swap    n1 n2   -- n2 n1    Swap the order of the top two elements
 
 
 
-( <line 768, page 12>
-( Figure dia: Full diagram
 
-(   |||         +-----------------+      |||             +------+
-(   |||---------| Data Stack      |<====>|||             | TOS  |
-(   |||---------|   DS>           |      |||======\\     |      |<=======\\
-(   |||         |   >DS           |      |||      ||     |      |        ||
-(   |||         |   DS++          |      |||      ||     |      |        ||
-(   |||         |   DS--          |      |||      ||     |      |        ||
-(   |C|         +-----------------+      |D|      ||     +------+        ||
-(   |O|                                  |A|      ||        ||           ||
-(   |N|         +-----------------+      |T|  ____\/___  ___\/____       ||
-(   |T|---------| Return Stack    |<====>|A|  \    A   \/   B    /       ||
-(   |R|---------|   RS>           |      |||   \                /   |||  ||
-(   |O|         |   >RS           |      |B|    \     ALU      /----|||  ||
-(   |L|         |   RS++          |      |U|     \            /-----|||  ||
-(   |||         |   RS--          |      |S|      \          /------|||  ||
-(   |B|         +-----------------+      |||       \________/       |||  ||
-(   |U|                                  |||           ||           |||  ||
-(   |S|         +-----------------+      |||           ||           |||  ||
-(   |||---------| Program Counter |<====>|||     +-----\/-----+     |||  ||
-(   |||---------|   PC>           |      |||<====|  Shifter   |==========//
-(   |||         |   >PC           |      |||     +------------+     |||
-(   |||         |   PC+           |      |||                        |||  ALU_ADD
-(   |||         |                 |      |||                        |||  ALU_SUB
-(   |||         +-----------------+      |||                        |||  ALU_AND
-(   |||                                  |||                        |||  ALU_OR
-(   |||         +-----------------+      |||     +-----+  +-----+   |||  ALU_XOR
-(   |||---------| Memory Access   |<=====|||====>| IR  |  | CL  |   |||  ALU_>>
-(   |||---------| Register        |      |||     | >IR |  |     |---\||  ALU_>>
-(   |||         |   >MAR          |      |||     |     |==|     |---\\|
-(   |||         |                 |      |||     |     |  |     |---\\\
-(   |||         |                 |      |||     |     |  |     |   |||
-(   |||         +-----------------+      |||     +-----+  +-----+   |||
-(   |||                 ||               |||                        |||
-(   |||                 ||               |||                        |||
-(   |||         +-------\/--------+      |||     +---------+        |||
-(   |||---------| Program Memory  |<====>|||<===>| Input/  |        |||
-(   |||---------|   PM>           |      |||     | Output  |        |||
-(   |||         |   >PM           |              |   IO>   |        |||
-(   |||         |                 |              |   >IO   |        |||
-(   |||         |                 |              |         |        |||
-(   |||         +-----------------+              +---------+        |||
-(   |||                                                             |||
-(   \\\-------------------------------------------------------------///
-(    \\-------------------------------------------------------------//
-(     \-------------------------------------------------------------/
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-( <line 832, page 13>
+\ <line 832, page 13>
