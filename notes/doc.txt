@@ -61,7 +61,7 @@
 
 
 
-\ <line 64, page 1>
+\ <line 64, page 1>    MacroProcessor v2023-02-09
 \ ******************
 \ ** Front Matter **
 \ ******************
@@ -71,6 +71,7 @@
 \           Front Matter
 \           Introduction
 \           Architectual Overview
+\           Change Log
 
 \ List of figures
 \ ---------------
@@ -124,8 +125,7 @@
 
 
 
-
-\ <line 128, page 2>
+\ <line 128, page 2>    MacroProcessor v2023-02-09
 \ ******************
 \ ** Introduction **
 \ ******************
@@ -189,7 +189,7 @@
 
 
 
-\ <line 192, page 3>
+\ <line 192, page 3>    MacroProcessor v2023-02-09
 \ ***************************
 \ ** Architecture Overview **
 \ ***************************
@@ -253,7 +253,7 @@
 
 
 
-\ <line 256, page 4>
+\ <line 256, page 4>    MacroProcessor v2023-02-09
 \ *********************
 \ ** Module Features **
 \ *********************
@@ -261,14 +261,14 @@
 \ Data Stack:
 \       >DS ( DS intput enable )
 \       DS> ( DS output enable )
-\       DS+ ( increment DS )
-\       DS- ( decriment DS )
+\       DS++ ( increment DS )
+\       DS-- ( decriment DS )
 
 \ Return Stack:
 \       >RS ( RS input enable )
 \       RS> ( RS output enable )
-\       RS+ ( increment RS )
-\       RS- ( decriment RS )
+\       RS++ ( increment RS )
+\       RS-- ( decriment RS )
 
 \ Instruction Register:
 \       >IR ( IR input enable )
@@ -278,13 +278,15 @@
 \ Program Counter:
 \       >PC ( PC input enable )
 \       PC> ( PC output enable )
-\       PC+ ( increment PC )
-\       PC- (decriment PC )
+\       PC++ ( increment PC )
+\       PC-- (decriment PC )           / TODO: why?
 
 \ Arithmetic Logic Unit
 \ ---------------------
 \ When ~>>ALU (ALU_OP = 0), ALU input A = 0x0
 
+\ "ALU> ,ALU_AND" will always output zero to the bus
+\ "ALU_AND" makes TOS zero
 
 
 
@@ -315,9 +317,7 @@
 
 
 
-
-
-\ <line 320, page 5>
+\ <line 320, page 5>    MacroProcessor v2023-02-09
 \ ****************************************
 \ ** Instruction Set Architecture (ISA) **
 \ ****************************************
@@ -340,6 +340,12 @@
 
 
 
+\ ALU OP codes to add (these have flags)
+\ -------------------
+\ ADD^ add
+\ ADC^ add with carry
+\ CMP^ compare
+\ SBB^ subtract with borrow
 
 
 
@@ -375,17 +381,11 @@
 
 
 
-
-
-
-
-
-
-\ <line 384, page 6>
+\ <line 384, page 6>    MacroProcessor v2023-02-09
 \ Figure ISA: Instruction Set Architecture
 
 : NOP     %0000000000000000 ; (  -- n ) ( No Operation. )
-\         %0000------------ ; (  --  ) ( See NOP. Bits 15-12 - Bus driver select. )
+\         %0000------------ ; (  --  ) ( See NOP. Bits 15-12 - Source enable )
 : DS>     %0001000000000000 ; (  -- n ) ( Data Stack output )
 : RS>     %0010000000000000 ; (  -- n ) ( Return Stack output )
 : PC>     %0011000000000000 ; (  -- n ) ( Program Counter outout )
@@ -401,7 +401,7 @@
 \         %1101------------ ; (  -- n ) (  )
 \         %1110------------ ; (  -- n ) (  )
 \         %1111------------ ; (  -- n ) (  )
-\         %----0000-------- ; (  --  ) ( See NOP. Bits 11-08 - Destination select. )
+\         %----0000-------- ; (  --  ) ( See NOP. Bits 11-08 - Destination enable )
 : >DS     %0000000100000000 ; (  -- n ) ( into Data Stack )
 : >RS     %0000001000000000 ; (  -- n ) ( into Return Stack )
 : >PC     %0000001100000000 ; (  -- n ) ( into Program Counter )
@@ -417,7 +417,7 @@
 \         %----1101-------- ; (  -- n ) (  )
 \         %----1110-------- ; (  -- n ) (  )
 \         %----1111-------- ; (  -- n ) (  )
-\         %--------0000---- ; (  --  ) ( See NOP. Bits 7-4 - ALU operation )
+\         %--------0000---- ; (  --  ) ( See NOP. Bits 7-4 - ALU operation select )
 : ALU_ADD %0000000000010000 ; (  -- n ) ( ALU ADD enable )
 : ALU_SUB %0000000000100000 ; (  -- n ) ( ALU SUB enable ) \ necessary? 2s compliment
 : ALU_AND %0000000000110000 ; (  -- n ) ( ALU AND enable )
@@ -432,20 +432,20 @@
 \         %--------1101---- ; (  -- n ) (  )
 \         %--------1110---- ; (  -- n ) (  )
 \         %--------1111---- ; (  -- n ) (  )
-\         %------------000- ; (  --  ) ( See NOP. Bits 3-1 - Stack incrementing. )
+\         %------------000- ; (  --  ) ( See NOP. Bits 3-1 - Stack increment select )
 : DS++    %0000000000000010 ; (  -- n ) (  )
-: DS--    %0000000000000100 ; (  -- n ) (  )
-: RS++    %0000000000000110 ; (  -- n ) (  )
-: RS--    %0000000000001000 ; (  -- n ) (  )
-: PC++    %0000000000001010 ; (  -- n ) (  )               \ Is this necessary?
-\         %------------110- ; (  -- n ) (  )
+: RS++    %0000000000000100 ; (  -- n ) (  )
+: PC++    %0000000000000110 ; (  -- n ) (  )
+\         %------------100- ; (  -- n ) (  )
+: DS--    %0000000000001010 ; (  -- n ) (  )               \ Is this necessary?
+: RS--    %0000000000001100 ; (  -- n ) (  )
 \         %------------111- ; (  -- n ) (  )
 \         %---------------0 ; (  --  ) ( See NOP. Bit 0 - Memory operation. )
 : MOP     %0000000000000001 ; (  --  ) ( memory access microinscruction enable )
 
 
 
-\ <line 448, page 7>
+\ <line 448, page 7>    MacroProcessor v2023-02-09
 \ *************************************
 \ ** Combinational Instruction Words **
 \ *************************************
@@ -509,9 +509,7 @@
 
 
 
-
-
-\ <line 512, page 8>
+\ <line 512, page 8>    MacroProcessor v2023-02-09
 \ ********************************
 \ ** Instruction Representation **
 \ ********************************
@@ -525,10 +523,8 @@
 \ 1 |     |     |     |     |  X  |      |      | PC> | >MAR |     | IP> ,>MAR
 \   +-----+-----+-----+-----+-----+------+------+-----+------+-----+
 \ 2 |     |     |     | >IR |  X  |      |      |     |      | PM> | PM> ,>IR
-\   +-----+-----+-----+-----+-----+------+------+-----+------+-----+
-\ 3 |     |     |     |     |  X  |      |      |     |      |     | 
-\   +-----+-----+-----+-----+-----+------+------+-----+------+-----+
-\ 4 |     |     |     |     |  X  |      |      |     |      |     |
+\ TODO: woud this look better with fewer lines?
+\ TODO: Is this useful? Maybe put in scratchpad until needed
 
 \ ***********************
 \ ** Instruction Cycle **
@@ -537,16 +533,19 @@
 \ Microinstructions
 \ ---------------------
 \ Step 000:  PC> ,>MAR
-\ Step 001:  PM> ,>IR ,PC+
+\ Step 001:  PM> ,>IR ,PC++
 \ Step 010:  CL = IR[ PM> ,>xx ,MEMORY_OP ]
-\ if ~MEMORY_OP, then reset count, "single cycle instruction")
+\ if ~MEMORY_OP, then reset step count
 \ Step 011:  PC> ,>MAR
-\ Step 100:  PM> ,>xx ,PC+      ( source and destination as defined in IR )
-\ reset count)
+\ Step 100:  PM> ,>xx ,PC++          \ >xx and other bits from step 010
+\ reset step count
 
 \ TODO: LSB indicates if this is a memory operation
 \       0 - Reset the count
 \       1 - Read the next cell to destination
+
+\ TODO: can steps 010 and 011 be combined?
+\ TODO: 
 
 
 \ exe - execution
@@ -558,10 +557,10 @@
 \       ____         _______         _______         _______         _______
 \ ~CLK      \_______/       \_______/       \_______/       \_______/       \_______
 
-\ Step: 000           001              010             011            100
-\   CL: PC> ,>MAR   | PM> ,>IR ,PC+ |  CL=IR[]      |  PC> ,>MAR    | PM> ,>xx ,PC+
+\ Step: 000           001              010             011           100
+\   CL: PC> ,>MAR   |PM> ,>IR ,PC++ |  CL=IR[]      |  PC> ,>MAR    |PM> ,>xx ,PC++
 
-\           |  PC> ,>MAR    | PM> ,>IR ,PC+ |  CL=IR[]      |  PC> ,>MAR    |  PM> ,>xx ,PC+
+\           |  PC> ,>MAR    |PM> ,>IR ,PC++ |  CL=IR[]      |  PC> ,>MAR    |PM> ,>xx ,PC++
 \           .               .               .               .               .
 \           .               .               .               .               .
 \   PC: 0   .               .1              .               .               .
@@ -570,12 +569,11 @@
 
 \ This definitions is for illustrations
 \ : PUSH ( n OPCODE --  )  ( copy the next cell of PM to the stack )
-\       TOS> >DS ,DS+
+\       TOS> >DS ,DS++
 \       PM> ,>TOS ,MEMORY_OP
 \ TODO: make this correct
 
-
-\ <line 576, page 9>
+\ <line 576, page 9>    MacroProcessor v2023-02-09
 \ ***********
 \ ** RESET **
 \ ***********
@@ -639,7 +637,7 @@
 
 
 
-\ <line 640, page 10>
+\ <line 640, page 10>    MacroProcessor v2023-02-09
 \ *****************
 \ ** Other Notes **
 \ *****************
@@ -663,16 +661,16 @@
 \   process that will allow each layer to fluress when exposed to a
 \   specific frequency of light? This would be great to visual
 \   inspection of the device.
-\ - Add a binary tree word diagra to each word in the dictionary.
+\ - Add a binary tree word diagram to each word in the dictionary.
 \   This can be done using graphviz dot, but text would be better, so
 \   the diagram can be in this document. Can I write my definitions such
 \   that the reader has the same level of understanding? 
 \ - How do I deal with ALU flags/status?
 \ - Is anything memory-mapped?
-\ - DS+ DS++ or DS+1 ?
-
-
-
+\ - See Forth v6 at mosaic-industries.com
+\ - The memory has two bytes per cell. Use address bits 14-0 as
+\   memory bits 15-1, with bit zero = 0. Use address bit 15 to switch
+\   to another memory unit or control structure.
 
 
 
@@ -703,7 +701,7 @@
 \ [lit]           -- n1       Push the value in the next cell to DS
    
 
-\ <line 704, page 11>
+\ <line 704, page 11>    MacroProcessor v2023-02-09
 \ **************
 \ ** Glossary **
 \ **************
@@ -767,7 +765,7 @@
 
 
 
-\ <line 768, page 12>
+\ <line 768, page 12>    MacroProcessor v2023-02-09
 \ Figure dia: Full diagram
 
 \  16-bit                               16-bit
@@ -797,7 +795,7 @@
 \   |||                                  |||====>| Instruction |    |||  ALU_OR
 \   |||         +-----------------+      |||     | Register    |    |||  ALU_XOR
 \   |||-------->| Memory Access   |<=====|||     |   >IR       |    |||  ALU_>>
-\   |||         | Register        |      |||     |             |    |||  ALU_>>
+\   |||         | Register        |      |||     |             |    |||  ALU_<<
 \   |||         |   >MAR          |      |||     + - - - - - - +    |||
 \   |||         |                 |      |||     | Control     |===>|||
 \   |||         |                 |      |||     | Logic       |    |||
@@ -818,6 +816,9 @@
 
 
 
+\ TODO: move control logic near each module. Each module taps into the lines
+\       from the control bus with whatever logic they need.
+\ TODO: Figure out where the instruction step counter and logic goes.
 
 
 
@@ -828,7 +829,4 @@
 
 
 
-
-
-
-\ <line 832, page 13>
+\ <line 832, page 13>    MacroProcessor v2023-02-09
