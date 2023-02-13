@@ -723,7 +723,7 @@
 
 
 
-\ TODO: add a page for an expanded architectual diagram
+
 
 
 
@@ -769,64 +769,114 @@
 \ Figure dia: Full diagram
 
 \  16-bit                               16-bit
-\   |||         +-----------------+      |||             +-------+
-\   |||-------->| Data Stack      |<====>|||             | Top   |
-\   |||         |   DS>           |      |||======\\     | of    |<======\\
-\   |||         |   >DS           |      |||      ||     | Stack |       ||
-\   |||         |   DS++          |      |||      ||     |       |       ||
-\   |||         |   DS--          |      |||      ||     +-------+       ||
-\   |C|         +-----------------+      |D|      ||        ||           ||
-\   |O|                                  |A|      ||        ||           ||
-\   |N|         +-----------------+      |T|  ____\/___  ___\/____       ||
-\   |T|-------->| Return Stack    |<====>|A|  \    A   \/   B    /       ||
-\   |R|         |   RS>           |      |||   \                /   |||  ||
-\   |O|         |   >RS           |      |B|    \     ALU      /----|||  ||
-\   |L|         |   RS++          |      |U|     \            /-----|||  ||
-\   |||         |   RS--          |      |S|      \          /      |||  ||
-\   |B|         +-----------------+      |||       \________/       |||  ||
-\   |U|                                  |||           ||           |||  ||
-\   |S|         +-----------------+      |||           ||           |||  ||
-\   |||-------->| Program Counter |<====>|||     +-----\/-----+     |||  ||
-\   |||         |   PC>           |      |||<====|  Shifter   |==========//
-\   |||         |   >PC           |      |||     +------------+     |||
-\   |||         |   PC+           |      |||                        |||  ALU_ADD
-\   |||         |                 |      |||                        |||  ALU_SUB
-\   |||         +-----------------+      |||     +-------------+    |||  ALU_AND
-\   |||                                  |||====>| Instruction |    |||  ALU_OR
-\   |||         +-----------------+      |||     | Register    |    |||  ALU_XOR
-\   |||-------->| Memory Access   |<=====|||     |   >IR       |    |||  ALU_>>
-\   |||         | Register        |      |||     |             |    |||  ALU_<<
-\   |||         |   >MAR          |      |||     + - - - - - - +    |||
-\   |||         |                 |      |||     | Control     |===>|||
-\   |||         |                 |      |||     | Logic       |    |||
-\   |||         +-----------------+      |||     +-------------+    |||
-\   |||                 ||               |||                        |||
-\   |||                 ||               |||                        |||
-\   |||         +-------\/--------+      |||     +---------+        |||
-\   |||-------->| Program Memory  |<====>|||<===>| Input/  |        |||
-\   |||         |   PM>           |      |||     | Output  |        |||
-\   |||         |   >PM           |              |   IO>   |        |||
-\   |||         |                 |              |   >IO   |        |||
-\   |||         |                 |              |         |        |||
-\   |||         +-----------------+              +---------+        |||
-\   |||                                                             |||
-\   \\\-------------------------------------------------------------///
-\    \\-------------------------------------------------------------//
-\     \-------------------------------------------------------------/
+\   |||  +-+    +-----------------+      |||             +-------+
+\   |||--|L|--->| Data Stack      |<====>|||             | Top   |
+\   |||  |O|    |   DS>           |      |||======\\     | of    |<==========\\
+\   |||  |G|    |   >DS           |      |||      ||     | Stack |           ||
+\   |||  |I|    |   DS++          |      |||      ||     |       |<-\        ||
+\   | |  |C|    |   DS--          |      | |      ||     +-------+  |        ||
+\   |C|  +-+    +-----------------+      |D|      ||        ||      |        ||
+\   |O|                                  |A|      ||        ||      |        ||
+\   |N|  +-+    +-----------------+      |T|  ____\/___  ___\/____  |        ||
+\   |T|--|L|--->| Return Stack    |<====>|A|  \    A   \/   B    /  |        ||
+\   |R|  |O|    |   RS>           |      |||   \                /  +-+  |||  ||
+\   |O|  |G|    |   >RS           |      |B|    \     ALU      /<--|L|--|||  ||
+\   |L|  |I|    |   RS++          |      |U|     \            /    |O|  |||  ||
+\   |||  |C|    |   RS--          |      |S|      \          /     |G|  |||  ||
+\   |B|  +-+    +-----------------+      | |       \________/      |I|  |||  ||
+\   |U|                                  |||           ||    /-----|C|  |||  ||
+\   |S|  +-+    +-----------------+      |||           ||    v     +-+  |||  ||
+\   | |--|L|--->| Program Counter |<====>|||     +-----\/-----+         |||  ||
+\   |||  |O|    |   PC>           |      |||<====|  Shifter   |==============//
+\   |||  |G|    |   >PC           |      |||     +------------+         |||
+\   |||  |I|    |   PC+           |      |||                            |||  ALU_ADD
+\   |||  |C|    |                 |      |||                            |||  ALU_SUB
+\   |||  +-+    +-----------------+      |||     +-------------+        |||  ALU_AND
+\   |||                                  |||====>| Instruction |        |||  ALU_OR
+\   |||  +-+    +-----------------+      |||     | Register    |        |||  ALU_XOR
+\   |||--|L|--->| Memory Access   |<=====|||     |   >IR       |        |||  ALU_>>
+\   |||  |O|    | Register        |      |||     |             |        |||  ALU_<<
+\   |||  |G|    |   >MAR          |      |||     + - - - - - - +        |||  ALU_TOS
+\   |||  |I|    |                 |      |||     | Step        |=======>|||
+\   |||  |C|    |                 |      |||     | Counter     |        |||
+\   |||  +-+    +-----------------+      |||     +-------------+        |||
+\   |||                 ||               |||                            |||
+\   |||                 ||               |||                            |||
+\   |||  +-+    +-------\/--------+      |||     +-------------+   +-+  |||
+\   |||--|L|--->| Program Memory  |<====>|||<===>| Input/Output|<--|L|--|||
+\   |||  |O|    |   PM>           |      |||     | Output      |   |O|  |||
+\   |||  |G|    |   >PM           |              |   IO>       |   |G|  |||
+\   |||  |I|    |                 |              |   >IO       |   |I|  |||
+\   |||  |C|    |                 |              |             |   |C|  |||
+\   |||  +-+    +-----------------+              +-------------+   +-+  |||
+\   |||                                                                 |||
+\   \\\-----------------------------------------------------------------///
+\    \\-----------------------------------------------------------------//
+\     \-----------------------------------------------------------------/
+\      
+\      Control Bus                      Step Counter
+\      ------------------------         ------------
+\      15-12 source enable              000 PC> ,>MAR
+\      11-08 destination enable         001 PM> ,>IR ,PC++
+\      07-04 ALU_OP                     010 CL = IR[]
+\      03-01 stack increment                (if not MEM_OP, reset counter
+\         00 MEM_OP                     011 OC> ,>MAR
+\                                       100 PM> ,>XX ,PC++
+\                                       101 reset step counter
 
-
-
-\ TODO: move control logic near each module. Each module taps into the lines
-\       from the control bus with whatever logic they need.
-\ TODO: Figure out where the instruction step counter and logic goes.
-
-
-
-
-
-
-
+\ TODO: Add a section describing the ALU
+\       ALU_ADD ALU_OR ALU_XOR ALU_ROTATE ALU_COMPARE ALU_COMPLEMENT
 
 
 
 \ <line 832, page 13>    MacroProcessor v2023-02-09
+: CALLI ( Call function located as address located in next cell in PM )
+        PC> ,>ALU ,ALU_ADD ,MOP
+        0x04
+        ALU> ,>RS ,RS++
+        JMPI
+        0xXX
+        RETURN
+        
+
+: JMP ( addr --  )  ( Jump to address on top of stack )
+        SWAP
+        DS> ,>PC ,DS--
+
+: JMPI (  --  ) ( Jump to address stored in next cell of PM )
+        PM> ,>PC ,MOP
+
+: RET (  --  ) ( RETURN )
+        RS> ,>PC ,RS--
+
+
+: SWAP ( n1 n2 -- n2 n1 ) ( swap the top to stack elements )
+        ALU> ,>RS ,RS++ ,ALU_TOS
+        DS> ,>ALU ,ALU_TOS
+        RS> ,>DS ,RS--
+
+\ These notes are based on "Stack Computers: The New Wave" Table 3.1.
+
+\ !       n1 addr --          Store n1 at location addr in PM
+\ @       addr    -- n1       Fetch the value at location addr in PM as n1
+\ +       n1 n2   -- n3       Add n1 and n2, giving n3
+\ -       n1 n2   -- n3       Subtract n2 rom n1, giving n3
+\ and     n1 n2   -- n3       Perform a bitwise AND on n1 and n2, giving n3
+\ or      n1 n2   -- n3       Perform a bitwise OR on n1 and n2, giving n3
+\ xor     n1 n2   -- n3       Perform a bitwise XOR on n1 and n2, giving n3
+\ >r      n1      --          Push n1 on to the return stack
+\ r>              -- n1       Pop RS, push to TOS
+\ dup     n1      -- n1 n1    Duplicate n1 to TOS
+\ drop    n1      --          Drop n1 from the stack
+\ over    n1 n2   -- n1 n2 n1 Duplicate the second stack element to TOS
+\ swap    n1 n2   -- n2 n1    Swap the order of the top two elements
+\ [if]    n1      --          If n1 == 0, branch to address in next cell
+\ [call]          --          Perform a subroutine call to address in next cell
+\ [exit]          --          Perform a subroutine return
+\ [lit]           -- n1       Push the value in the next cell to DS
+
+\ <line 896, page 14>    MacroProcessor v2023-02-09
+\ <line 960, page 15>    MacroProcessor v2023-02-09
+\ <line 1024, page 16>    MacroProcessor v2023-02-09
+\ <line 1088, page 17>    MacroProcessor v2023-02-09
+\ <line 1152, page 18>    MacroProcessor v2023-02-09
