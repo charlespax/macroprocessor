@@ -8,7 +8,7 @@
 \ | |  | | (_| | (__| | | (_) | | |   | | | (_) | (_|  __/\__ \__ \ (_) | |   
 \ |_|  |_|\__,_|\___|_|  \___/  |_|   |_|  \___/ \___\___||___/___/\___/|_|   
 \
-\                                                          version: 2023-02-09
+\                                                          version: 2023-02-13
 \   by Charles Edward Pax
 
 
@@ -22,22 +22,23 @@
 
 
 \                   +-----+     |||        +-----+
-\                   | DS  |<===>|||        | TOS |<=+
+\                   | DS  |<===>| |        | TOS |<=+
 \                   +-----+     |D|====+   +-----+  |
 \                               |A|    |      |     |
 \                   +-----+     |T|  __V__  __V__   |
 \                   | RS  |<===>|A|  \ A  \/  B /   |
 \                   +-----+     |||   \  ALU   /    |
 \                               |B|    \______/     |
-\                   +-----+     |U|        |        |
-\                   | PC  |<===>|S|<=======*========+
-\                   +-----+     |||
-\                               |||     +-----+
-\                   +-----+     |||<===>| IR  |
-\                   | MAR |<====|||     + - - +
-\                   +-----+     |||     | CL  |
-\                      ||       |||     +-----+
-\                   +-----+     |||
+\                               |U|        |        |
+\                   +-----+     |S|    +-------+    |
+\                   | PC  |<===>| |<===|shifter|====+
+\                   +-----+     |||    +-------+
+\                               |||
+\                   +-----+     |||     +-----+
+\                   | MAR |<====|||<===>| IR  |
+\                   +-----+     |||     + - - +
+\                      ||       |||     | CL  |
+\                   +-----+     |||     +-----+
 \                   | PM  |<===>|||     +-----+
 \                   +-----+     |||<===>| IO  |
 \                               |||     +-----+
@@ -60,11 +61,8 @@
 
 
 
-
-\ <line 64, page 1>    MacroProcessor v2023-02-09
-\ ******************
-\ ** Front Matter **
-\ ******************
+\ <line 64>  MacroProcessor v2023-02-13                                          <page 1>
+\ FRONT MATTER -------------------------------------------------------------------------\
 
 \ Line #    Name
 \ ------    ---------------------------------
@@ -83,9 +81,6 @@
 
 \ TODO: RULE: Two empty lines preceed and follow each figure.
 
-\ TODO: Write a script that will output the lines numbers and names of
-\       each section for inclusion here. Document the script in an
-\       appendix. Also a list of figures.
 
 
 
@@ -125,10 +120,13 @@
 
 
 
-\ <line 128, page 2>    MacroProcessor v2023-02-09
-\ ******************
-\ ** Introduction **
-\ ******************
+
+
+
+
+
+\ <line 128>  MacroProcessor v2023-02-13  FRONT MATTER                           <page 2>
+\ INTRODUCTION -------------------------------------------------------------------------\
 
 \ The Macro Processor is a microprocessor with an unconventional design
 \ goal: understandability. An individual human should be able to visually
@@ -189,10 +187,10 @@
 
 
 
-\ <line 192, page 3>    MacroProcessor v2023-02-09
-\ ***************************
-\ ** Architecture Overview **
-\ ***************************
+
+
+\ <line 192, page 3>    MacroProcessor v2023-02-13
+\ ARCHITECTUAL OVERVIEW ----------------------------------------------------------------\
 
 \ The overall design of the Central Processin Unit (CPU) is based on the
 \ "canonical stack machine" as described in "Stack Machines: The New Wave"
@@ -200,28 +198,28 @@
 
 
 \ Figure abd: Architecture block diagram
-\ TODO: add a shifter to the diagram
+
 \                   +-----+     |||        +-----+
-\                   | DS  |<===>|||        | TOS |<=+
+\                   | DS  |<===>| |        | TOS |<=+
 \                   +-----+     |D|====+   +-----+  |
 \                               |A|    |      |     |
 \                   +-----+     |T|  __V__  __V__   |
 \                   | RS  |<===>|A|  \ A  \/  B /   |
 \                   +-----+     |||   \  ALU   /    |
 \                               |B|    \______/     |
-\                   +-----+     |U|        |        |
-\                   | PC  |<===>|S|<=======*========+
-\                   +-----+     |||
-\                               |||     +-----+
-\                   +-----+     |||<===>| IR  |
-\                   | MAR |<====|||     + - - +
-\                   +-----+     |||     | CL  |
-\                      ||       |||     +-----+
-\                   +-----+     |||
+\                               |U|        |        |
+\                   +-----+     |S|    +-------+    |
+\                   | PC  |<===>| |<===|shifter|====+
+\                   +-----+     |||    +-------+
+\                               |||
+\                   +-----+     |||     +-----+
+\                   | MAR |<====|||<===>| IR  |
+\                   +-----+     |||     + - - +
+\                      ||       |||     | CL  |
+\                   +-----+     |||     +-----+
 \                   | PM  |<===>|||     +-----+
 \                   +-----+     |||<===>| IO  |
 \                               |||     +-----+
-
 
 \ The CPU contains the following items.
 
@@ -253,10 +251,10 @@
 
 
 
-\ <line 256, page 4>    MacroProcessor v2023-02-09
-\ *********************
-\ ** Module Features **
-\ *********************
+
+
+\ <line 256, page 4>    MacroProcessor v2023-02-13
+\ MODULE FEATURES ----------------------------------------------------------------------\
 
 \ Data Stack:
 \       >DS ( DS intput enable )
@@ -317,25 +315,25 @@
 
 
 
-\ <line 320, page 5>    MacroProcessor v2023-02-09
-\ ****************************************
-\ ** Instruction Set Architecture (ISA) **
-\ ****************************************
+
+
+\ <line 320, page 5>    MacroProcessor v2023-02-13
+\ INSTRUCTION SET ARCHITECTURE (ISA) ---------------------------------------------------\
 
 \ Instructions are created by doing a bitwise OR of multiple words
 \ from the definitions below.
 
 
-\       xxxx             Bits 15-12 - Bus driver select
-\           xxxx         Bits 11-08 - Destination select
-\               xxxx     Bits 7-4 - ALU operation
-\                   xxx  Bits 3-1 - Stack incrementing
+\       xxxx             Bits 15-12 - source enable
+\           xxxx         Bits 11-08 - Destination enable
+\               xxxx     Bits 7-4 - ALU operation select
+\                   xxx  Bits 3-1 - Stack increment select
 \                      x Bit 0 - Memory operation
 
 
 
 
-\ Figure ISA: Instruction Set Architecture
+
 
 
 
@@ -347,6 +345,8 @@
 \ CMP^ compare
 \ SBB^ subtract with borrow
 
+\ The CPU should have flags for instructions. Forth will have
+\ flags placed on the stack.
 
 
 
@@ -381,17 +381,19 @@
 
 
 
-\ <line 384, page 6>    MacroProcessor v2023-02-09
+\ <line 384, page 6>    MacroProcessor v2023-02-13
 \ Figure ISA: Instruction Set Architecture
 
+\ Word    Binary OP Code      Stack     OP Code Description
+\ ------- -----------------   --------- -------------------------------------------------
 : NOP     %0000000000000000 ; (  -- n ) ( No Operation. )
-\         %0000------------ ; (  --  ) ( See NOP. Bits 15-12 - Source enable )
+\         %0000------------ ; (  --  )  ( See NOP. Bits 15-12 - Source enable )
 : DS>     %0001000000000000 ; (  -- n ) ( Data Stack output )
 : RS>     %0010000000000000 ; (  -- n ) ( Return Stack output )
 : PC>     %0011000000000000 ; (  -- n ) ( Program Counter outout )
 : PM>     %0100000000000000 ; (  -- n ) ( Program Memory output )
 : IO>     %0101000000000000 ; (  -- n ) ( Input/Output output )
-: TOS>    %0110000000000000 ; (  -- n ) ( Top Of Stack output )
+:         %0110------------ ; (  --  )  (  )
 : ALU>    %0111000000000000 ; (  -- n ) ( ALU to bus output )
 \         %1000------------ ; (  -- n ) (  )
 \         %1001------------ ; (  -- n ) (  )
@@ -401,13 +403,13 @@
 \         %1101------------ ; (  -- n ) (  )
 \         %1110------------ ; (  -- n ) (  )
 \         %1111------------ ; (  -- n ) (  )
-\         %----0000-------- ; (  --  ) ( See NOP. Bits 11-08 - Destination enable )
+\         %----0000-------- ; (  --  )  ( See NOP. Bits 11-08 - Destination enable )
 : >DS     %0000000100000000 ; (  -- n ) ( into Data Stack )
 : >RS     %0000001000000000 ; (  -- n ) ( into Return Stack )
 : >PC     %0000001100000000 ; (  -- n ) ( into Program Counter )
 : >PM     %0000010000000000 ; (  -- n ) ( into Program Memory )
 : >IO     %0000010100000000 ; (  -- n ) ( into Input/Output )
-: >TOS    %0000011000000000 ; (  -- n ) ( into Top Of Stack )
+:         %----0110-------- ; (  --  )  (  )
 : >ALU    %0000011100000000 ; (  -- n ) ( into Arithmetic Logic Unit )
 : >MAR    %0000100000000000 ; (  -- n ) ( into Memory Access Register )
 : >IR     %0000100100000000 ; (  -- n ) ( into Instruction Register )
@@ -417,7 +419,7 @@
 \         %----1101-------- ; (  -- n ) (  )
 \         %----1110-------- ; (  -- n ) (  )
 \         %----1111-------- ; (  -- n ) (  )
-\         %--------0000---- ; (  --  ) ( See NOP. Bits 7-4 - ALU operation select )
+\         %--------0000---- ; (  --  )  ( See NOP. Bits 7-4 - ALU operation select )
 : ALU_ADD %0000000000010000 ; (  -- n ) ( ALU ADD enable )
 : ALU_SUB %0000000000100000 ; (  -- n ) ( ALU SUB enable ) \ necessary? 2s compliment
 : ALU_AND %0000000000110000 ; (  -- n ) ( ALU AND enable )
@@ -425,14 +427,14 @@
 : ALU_XOR %0000000001010000 ; (  -- n ) ( ALU XOR enable )
 : ALU_<<  %0000000001100000 ; (  -- n ) (  )
 : ALU_>>  %0000000001110000 ; (  -- n ) (  )
-\         %--------1000---- ; (  -- n ) (  )
+\ ALU_TOS %0000000010000000 ; (  -- n ) ( Sets ALU for bus passthrough of TOS )
 \         %--------1001---- ; (  -- n ) (  )
 \         %--------1010---- ; (  -- n ) (  )
 \         %--------1011---- ; (  -- n ) (  )
 \         %--------1101---- ; (  -- n ) (  )
 \         %--------1110---- ; (  -- n ) (  )
 \         %--------1111---- ; (  -- n ) (  )
-\         %------------000- ; (  --  ) ( See NOP. Bits 3-1 - Stack increment select )
+\         %------------000- ; (  --  )  ( See NOP. Bits 3-1 - Stack increment select )
 : DS++    %0000000000000010 ; (  -- n ) (  )
 : RS++    %0000000000000100 ; (  -- n ) (  )
 : PC++    %0000000000000110 ; (  -- n ) (  )
@@ -440,15 +442,11 @@
 : DS--    %0000000000001010 ; (  -- n ) (  )               \ Is this necessary?
 : RS--    %0000000000001100 ; (  -- n ) (  )
 \         %------------111- ; (  -- n ) (  )
-\         %---------------0 ; (  --  ) ( See NOP. Bit 0 - Memory operation. )
-: MOP     %0000000000000001 ; (  --  ) ( memory access microinscruction enable )
+\         %---------------0 ; (  --  )  ( See NOP. Bit 0 - Memory operation )
+: MOP     %0000000000000001 ; (  --  )  ( memory access microinscruction enable )
 
-
-
-\ <line 448, page 7>    MacroProcessor v2023-02-09
-\ *************************************
-\ ** Combinational Instruction Words **
-\ *************************************
+\ <line 448>  MacroProcessor v2023-02-13  INSTRUCTION SET ARCHICETURE            <page 7>
+\ COMBINATIONAL INSTRUCTION WORDS ------------------------------------------------------\
 
 \ Given the nature of the instruction format, the base control words
 \ can be combined into instructions by using a bitwise OR
@@ -463,7 +461,6 @@
 : ,PC>  PC>  OR ; (  -- n ) ( Program Counter outout )
 : ,PM>  PM>  OR ; (  -- n ) ( Program Memory output )
 : ,IO>  IO>  OR ; (  -- n ) ( Input/Output output )
-: ,TOS> TOS> OR ; (  -- n ) ( Top Of Stack output )
 : ,ALU> ALU> OR ; (  -- n ) (  )
 : ,>DS  >DS  OR ; (  -- n ) ( into Data Stack )
 : ,>RS  >RS  OR ; (  -- n ) ( into Return Stack )
@@ -483,6 +480,7 @@
 : ,DS-- DS--   OR ; (  -- n ) ( decremetn RS )
 : ,RS++ RS++   OR ; (  -- n ) ( increment RS )
 : ,RS-- RS--   OR ; (  -- n ) ( decremetn RS )
+; ,ALU_TOS OR ; (  -- n ) ( TOS passthrough )
 
 \ This notation results in clear instructions without requiring
 \ an assembler. Take, for example, copying the contents of PC into
@@ -490,13 +488,15 @@
 
 \              PC> ,>RS ,RS+
 
-\ Step 1. PC> places %0011000000000000 onto the stack
-\ Step 2. ,>RS places %0000001000000000 on the stack and performs
-\         a bitwise OR, leaving %0011001000000000 on the stack.
-\ Step 3. ,RS+ places %0000000000000001 on the stack and performs
-\         a bitwise OR, leaving %0011001000000001 on the stack.
+\ Step 1. PC> places onto the stack  %0011000000000000
+\ Step 2. ,>RS places onto the stack %0000001000000000 
+\         and performs a bitwise OR,
+\         leaving onto the stack     %0011001000000000
+\ Step 3. ,RS+ places onto the stack %0000000000000001
+\         and performs a bitwise OR,
+\         leaving on the stack       %0011001000000001
 
-\ TODO: implement RS+
+\ TODO: implement RS++
 
 \ Not every combination makes sense even though it is possible.
 \ For example PC> ,>RS ,ADD will copy the contents of PS to RS
@@ -509,35 +509,17 @@
 
 
 
-\ <line 512, page 8>    MacroProcessor v2023-02-09
-\ ********************************
-\ ** Instruction Representation **
-\ ********************************
-
-\ Figure 2. Instructions step-by-step
-
-\   | DS  | RS  | IO  |  IR===CL  | ALU  | TOS  | IP  |  MAR===PM  |
-\   +-----+-----+-----+-----+-----+------+------+-----+------+-----+
-\ 0 |     |     |     |     |  X  |      |      |     |      |     | +NOP
-\   +-----+-----+-----+-----+-----+------+------+-----+------+-----+
-\ 1 |     |     |     |     |  X  |      |      | PC> | >MAR |     | IP> ,>MAR
-\   +-----+-----+-----+-----+-----+------+------+-----+------+-----+
-\ 2 |     |     |     | >IR |  X  |      |      |     |      | PM> | PM> ,>IR
-\ TODO: woud this look better with fewer lines?
-\ TODO: Is this useful? Maybe put in scratchpad until needed
-
-\ ***********************
-\ ** Instruction Cycle **
-\ ***********************
+\ <line 512, page 8>    MacroProcessor v2023-02-13
+\ INSTRUCTION CYCLE --------------------------------------------------------------------\
 
 \ Microinstructions
 \ ---------------------
 \ Step 000:  PC> ,>MAR
 \ Step 001:  PM> ,>IR ,PC++
 \ Step 010:  CL = IR[ PM> ,>xx ,MEMORY_OP ]
-\ if ~MEMORY_OP, then reset step count
-\ Step 011:  PC> ,>MAR
-\ Step 100:  PM> ,>xx ,PC++          \ >xx and other bits from step 010
+\ (if ~MEMORY_OP, then reset step count)
+\ Step 011:  PC> ,>MAR                           \ PC++ here?
+\ Step 100:  PM> ,>xx ,PC++                      \ >xx and other bits from step 010
 \ reset step count
 
 \ TODO: LSB indicates if this is a memory operation
@@ -545,8 +527,14 @@
 \       1 - Read the next cell to destination
 
 \ TODO: can steps 010 and 011 be combined?
-\ TODO: 
+\ TODO: TODO: include ALU glag affects?
+\ TODO: Write a section that describes the instruction cycle
+\ TODO: Do I always want to increment PC? What about when JMP? If I load an address
+\       into PD, I probably want the value to remain in PC until it is used.
 
+
+
+\ Figure timing: Timing chart description of the instruction cycle.
 
 \ exe - execution
 \ CL - control logic
@@ -558,14 +546,18 @@
 \ ~CLK      \_______/       \_______/       \_______/       \_______/       \_______
 
 \ Step: 000           001              010             011           100
-\   CL: PC> ,>MAR   |PM> ,>IR ,PC++ |  CL=IR[]      |  PC> ,>MAR    |PM> ,>xx ,PC++
+\   CL: PC> ,>MAR   | PM> ,>IR ,PC++|  CL=IR[]      |  PC> ,>MAR    | PM> ,>xx ,PC++
 
-\           |  PC> ,>MAR    |PM> ,>IR ,PC++ |  CL=IR[]      |  PC> ,>MAR    |PM> ,>xx ,PC++
+\           |  PC> ,>MAR    | PM> ,>IR ,PC++|  CL=IR[]      |  PC> ,>MAR    | PM> ,>xx ,PC++
 \           .               .               .               .               .
 \           .               .               .               .               .
 \   PC: 0   .               .1              .               .               .
 \  MAR: ?   .0              .               .               .1              .
 \   IR: ?   .               .PM[0]          .               .               .
+
+\ TODO: Write an explaination of the instrucion cycle timing chart
+\       Maybe a diagram of the MEM_OP branching.
+
 
 \ This definitions is for illustrations
 \ : PUSH ( n OPCODE --  )  ( copy the next cell of PM to the stack )
@@ -573,17 +565,21 @@
 \       PM> ,>TOS ,MEMORY_OP
 \ TODO: make this correct
 
-\ <line 576, page 9>    MacroProcessor v2023-02-09
-\ ***********
-\ ** RESET **
-\ ***********
+
+
+
+
+
+
+
+
+\ <line 576, page 9>    MacroProcessor v2023-02-13
+\ RESET --------------------------------------------------------------------------------\
 
 \ - After RESET MAR is set to all zeroes, which will select the first
 \   cell of PM.
 
-\ **********************
-\ ** Status and Flags **
-\ **********************
+\ STATUS AND FLAGS ---------------------------------------------------------------------\
 \ - Instead of having a flags register, try to make a design where at
 \   the end of each subroutine a status cell is pushed onto the stack.
 \   This could simplify the hardware at the expense of software
@@ -618,9 +614,7 @@
 
 
 
-\ ****************
-\ ** Interrupts **
-\ ****************
+\ INTERRUPTS ---------------------------------------------------------------------------\
 
 
 
@@ -637,7 +631,13 @@
 
 
 
-\ <line 640, page 10>    MacroProcessor v2023-02-09
+
+
+
+
+
+
+\ <line 640, page 10>    MacroProcessor v2023-02-13
 \ *****************
 \ ** Other Notes **
 \ *****************
@@ -671,6 +671,19 @@
 \ - The memory has two bytes per cell. Use address bits 14-0 as
 \   memory bits 15-1, with bit zero = 0. Use address bit 15 to switch
 \   to another memory unit or control structure.
+\ - How does CALL, RETURN, EXIT, etc. work?
+\ - How does a memory unit work?
+\ - Memory Map
+\     - address bit 0 is always 0
+\ - Look into JonesForth
+\ - "Look at "the bitcoin bitfield (interpreter.h, line 43) in ROM chip"
+\ - Look at xxd for text to binary
+\ - SmithForth, a very nice layout for simple Forth interpreter. See
+\   "SmithForth Workings" on youtube
+\ - See retroforth.org, camelforth, collapse OS, midrocore on github (forth2020,
+\   MicroForth
+\ -  Read "Moving Forth" by Brad Rodriguez
+\ - See github.com/miniforth. Fits on a boot sector
 
 
 
@@ -680,43 +693,15 @@
 
 
 
-\ These notes are based on "Stack Computers: The New Wave" Table 3.1.
 
-\ !       n1 addr --          Store n1 at location addr in PM
-\ @       addr    -- n1       Fetch the value at location addr in PM as n1
-\ +       n1 n2   -- n3       Add n1 and n2, giving n3
-\ -       n1 n2   -- n3       Subtract n2 rom n1, giving n3
-\ and     n1 n2   -- n3       Perform a bitwise AND on n1 and n2, giving n3
-\ or      n1 n2   -- n3       Perform a bitwise OR on n1 and n2, giving n3
-\ xor     n1 n2   -- n3       Perform a bitwise XOR on n1 and n2, giving n3
-\ >r      n1      --          Push n1 on to the return stack
-\ r>              -- n1       Pop RS, push to TOS
-\ dup     n1      -- n1 n1    Duplicate n1 to TOS
-\ drop    n1      --          Drop n1 from the stack
-\ over    n1 n2   -- n1 n2 n1 Duplicate the second stack element to TOS
-\ swap    n1 n2   -- n2 n1    Swap the order of the top two elements
-\ [if]    n1      --          If n1 == 0, branch to address in next cell
-\ [call]          --          Perform a subroutine call to address in next cell
-\ [exit]          --          Perform a subroutine return
-\ [lit]           -- n1       Push the value in the next cell to DS
-   
 
-\ <line 704, page 11>    MacroProcessor v2023-02-09
-\ **************
-\ ** Glossary **
-\ **************
 
-\ CPU - See central processin unit
-\ central processin unit - TODO: definition here
-\ IC - See integrated circuit
-\ instruction set architecture - TODO: definition here
-\ integrated cirtuit - TODO: definition here
-\ ISA - See instruction set archiceture
 
 
 
 
 
+\ <line 704>  MacroProcessor v2023-02-13 OTHER NOTES                 <page 11>
 
 
 
@@ -765,7 +750,23 @@
 
 
 
-\ <line 768, page 12>    MacroProcessor v2023-02-09
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\ <line 768>  MacroProcessor v2023-02-13 OTHER NOTES                            <page 12>
+\ HARDWARE DIAGRAM ---------------------------------------------------------------------\
 \ Figure dia: Full diagram
 
 \  16-bit                               16-bit
@@ -813,7 +814,6 @@
 \   \\\-----------------------------------------------------------------///
 \    \\-----------------------------------------------------------------//
 \     \-----------------------------------------------------------------/
-\      
 \      Control Bus                      Step Counter
 \      ------------------------         ------------
 \      15-12 source enable              000 PC> ,>MAR
@@ -826,10 +826,12 @@
 
 \ TODO: Add a section describing the ALU
 \       ALU_ADD ALU_OR ALU_XOR ALU_ROTATE ALU_COMPARE ALU_COMPLEMENT
+\       FLAGS: A-B=0, ZERO=1
+\       A-B<0, NEGATIVE=1
+\       ALU overflow bit, OVERFLOW=1
+\ <line 832>  MacroProcessor v2023-02-13 HARDWARE DIAGRAM                       <page 13>
+\ DICTIONARY DEFINITIONS ---------------------------------------------------------------\
 
-
-
-\ <line 832, page 13>    MacroProcessor v2023-02-09
 : CALLI ( Call function located as address located in next cell in PM )
         PC> ,>ALU ,ALU_ADD ,MOP
         0x04
@@ -875,8 +877,106 @@
 \ [exit]          --          Perform a subroutine return
 \ [lit]           -- n1       Push the value in the next cell to DS
 
-\ <line 896, page 14>    MacroProcessor v2023-02-09
-\ <line 960, page 15>    MacroProcessor v2023-02-09
-\ <line 1024, page 16>    MacroProcessor v2023-02-09
-\ <line 1088, page 17>    MacroProcessor v2023-02-09
-\ <line 1152, page 18>    MacroProcessor v2023-02-09
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\ <line 896>  MacroProcessor v2023-02-13 DICTIONARY DEFINITIONS                 <page 14>
+\ SCRIPTS ------------------------------------------------------------------------------\
+
+\ CODE: print.sh - Print this document
+
+\ #!/bin/bash
+
+\ # check if an argument was passed
+\ if [ $# -eq 0 ]; then
+\   echo "Error: No argument provided"
+\   exit 1
+\ fi
+
+\ # store the argument as a variable
+\ file=$1
+
+\ # set the default number of lines to 20
+\ lines=64
+
+\ # check if a second argument was passed
+\ if [ $# -eq 2 ]; then
+\   lines=$2
+\ fi
+
+\ # check if the argument is a file
+\ if [ ! -f "$file" ]; then
+\   echo "Error: First argument is not a file"
+\   exit 1
+\ fi
+
+\ # add line numbers to the file
+\ nl -b a $file > $file.numbered
+
+\ # split the file into groups of the specified number of lines and print each group
+\ split -l $lines $file.numbered -d -a 4 print_
+\ for i in print_*; do
+  lp -o cpi=16 -o lpi=7 -o page-bottom=70 -o page-left=50 -o page-right=60 -o page-top=60 $i
+\ done
+
+\ # delete the temporary files
+\ rm print_*
+\ rm $file.numbered
+
+\ # exit the script with a success status code
+\ exit 0
+
+\ TODO: write a script to generate table of contents
+\ TODO: write a script to generate a lis of figures/ tables
+\ TODO: write a script to generate the page footer
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\ <line 960>  MacroProcessor v2023-02-13  SCRIPTS                               <page 15>
+\ DOCUMENT CONVENTIONS -----------------------------------------------------------------\
+
+\ TABLES AND FIGURES -------------------------------------------------------------------\
+
+\ - Each table/figure is preceeded and followed by two empty lines
+
+\ <line 1024>  MacroProcessor v2023-02-13  TABLES AND FIGURES                   <page 16>
+
+\ --------------------------------------------------------------------------------------\
+\ <line 1088>  MacroProcessor v2023-02-13                                       <page 17>
+
+\ --------------------------------------------------------------------------------------\
+\ <line 1024>  MacroProcessor v2023-02-13                                       <page 18>
+
+
+
+
+
+
+
+
+
