@@ -261,7 +261,7 @@
 \ by Philip Koopman.
 
 
-\ ---------------------------------------------------------------------------------------
+\ -- Figure abds: Architecture block diagram (simplified) -------------------------------
 \                         +-----+     |||        +-----+
 \                         | DS  |<===>|||        | TOS |<=+
 \                         +-----+     | |====+   +-----+  |
@@ -284,7 +284,7 @@
 \                         +-----+     |||<===>| IO  |
 \                                     |||     +-----+
 \
-\ -- Figure abds: Architecture block diagram (simplified) -------------------------------
+\ ---------------------------------------------------------------------------------------
 
 
 \ The CPU contains the following items.
@@ -465,9 +465,8 @@
 \
 \    xxxx             Bits 15-12 - source enable
 \        xxxx         Bits 11-08 - Destination enable
-\            xxxx     Bits 7-4 - ALU operation select
-\                xxx  Bits 3-1 - Stack increment select
-\                   x Bit 0 - reserved
+\            xxxx     Bits 7-4   - ALU operation select
+\                xxxx Bits 3-0   - ALU flags
 \
 \ ---------------------------------------------------------------------------------------
 
@@ -491,6 +490,7 @@
 \
 \ ---------------------------------------------------------------------------------------
 
+\ TODO: Discuss other bit fields here
 
 
 
@@ -501,7 +501,7 @@
 
 
 
-\ Instructions are created by doing a bitwise OR of multiple words from the definitions below.
+
 
 
 
@@ -646,6 +646,7 @@
 \ We will define another set of words identical to the list of control words, but with
 \ the addition of a bitwise OR operation.
 
+\ -- Figure orw: OR words ---------------------------------------------------------------
 
 : ,NOP  NOP  OR ;         (  --  ) ( OR with NOP )
 : ,DS>  DS>  OR ;         (  --  ) ( OR with Data Stack output )
@@ -668,17 +669,16 @@
 : ,ALU_AND  ALU_AND  OR ; (  --  ) ( OR with ALU AND enable )
 : ,ALU_OR   ALU_OR   OR ; (  --  ) ( OR with ALU OR enable )
 : ,ALU_XOR  ALU_XOR  OR ; (  --  ) ( OR with ALU XOR enable )
+; ,ALU_TOS  ALU_TOS OR ;  (  --  ) ( OR with TOS passthrough )
 : ,DS++ DS++   OR ;       (  --  ) ( OR with increment RS )
 : ,DS-- DS--   OR ;       (  --  ) ( OR with decremetn RS )
 : ,RS++ RS++   OR ;       (  --  ) ( OR with increment RS )
 : ,RS-- RS--   OR ;       (  --  ) ( OR with decremetn RS )
-; ,ALU_TOS ALU_TOS OR ;   (  --  ) ( OR with TOS passthrough )
 
+\ ---------------------------------------------------------------------------------------
 
-
-
-
-
+\ TODO: Discuss OR logic here
+\ Instructions are created by doing a bitwise OR of multiple words from the definitions below.
 
 
 
@@ -722,10 +722,9 @@
 
 \ TODO: expand on this
 
-\ Not every combination makes sense even though it is possible.
-\ For example PC> ,>RS ,ADD will copy the contents of PS to RS
-\ and will enable the ALU ADD function, but nothing will be
-\ added because the ALU is not active.
+\ Not every combination makes sense even though it is possible. For example PC> ,>RS ,ADD 
+\ will copy the contents of PS to RS and will enable the ALU ADD function, but nothing 
+\ will be added because the ALU is not active.
 
 \ Make an exercise where the ,ALU_AND and ,ALU_<< are used together. Instead, it 
 \ becomes ALU_>> due to the bitwise OR. It is possible to combine instructions,
@@ -733,9 +732,10 @@
 \ to not play with the low level words and instead, use the higher level words.
 \ Use PUSH and POP rather than the individual instructions.
 
-\ Any word that can be expressed in a single instruction, should be. Do so even
-\ if the word can be expressed using other Forth words. Not always good, but
-\ good for here I think.
+\ Any word that can be expressed in a single instruction, should be. Do so even if the 
+\ word can be expressed using other Forth words. Not always good, but good for here.
+
+
 
 
 
@@ -830,12 +830,6 @@
 
 
 \ <line 832 >  MacroProcessor v2023-02-14                                       <page 13>
-\ -- RESET ------------------------------------------------------------------------------
-
-\ - After RESET MAR is set to all zeroes, which will select the first
-\   cell of PM.
-
-
 \ -- Instruction Timing -----------------------------------------------------------------
 \ Instructions are executed. The control logic is configured in between each step.
 
@@ -859,6 +853,12 @@
 \ ---------------------------------------------------------------------------------------
 
 \ TODO: Write an explaination of the instrucion cycle timing chart
+
+
+
+
+
+
 
 
 
@@ -1024,7 +1024,8 @@
 \ <line 1024>  MacroProcessor v2023-02-14  OTHER NOTES                          <page 16>
 \ HARDWARE DIAGRAM ----------------------------------------------------------------------
 
-\ ---------------------------------------------------------------------------------------
+\ -- Figure abd: Architecture block diagram ---------------------------------------------
+
 \  16-bit                               16-bit
 \   |||  +-+    +-----------------+      |||             +-------+
 \   |||--|L|--->| Data Stack      |<====>|||             | Top   |
@@ -1079,10 +1080,9 @@
 \        3-1  stack increment                     11 CL = IR[]
 \          0  reserved                    
 \
-\ -- Figure abd: Architecture block diagram ---------------------------------------------
-\ TODO: Swap IR and IO           TODO: Combine all the ALU parts into one?
-\ TODO:
-
+\ ---------------------------------------------------------------------------------------
+\ TODO: Swap IR and IO
+\ TODO: Combine all the ALU parts into one, details in ALU section.
 
 
 \ <line 1088>  MacroProcessor v2023-02-14  HARDWARE DIAGRAM                     <page 17>
@@ -1156,6 +1156,8 @@
 
 \ #!/bin/bash
 
+\ # Bash script to print a plain text file 64 lines per page.
+
 \ if [ $# -eq 0 ]; then                         # check if an argument was passed
 \   echo "Error: No argument provided"
 \   exit 1
@@ -1191,8 +1193,6 @@
 \ TODO: write a script to generate table of contents
 \ TODO: write a script to generate a lis of figures/ tables
 \ TODO: write a script to generate the page footer
-
-
 
 
 
@@ -1345,9 +1345,9 @@
 \ DICTIONARY ----------------------------------------------------------------------------
 
 : !  ( n1 addr --  ) ( Store n1 at location addr in PM )
-        ALU> ,>MAR ,ALU_TOS ,DS--
+        ALU> ,>MAR ,ALU_TOS
         DS> ,>PM
-        DS> ,>ALU ,ALU_TOS ,DS--
+        DS> ,>TOS
 
 : @  ( addr -- n1 )  ( Fetch the value at location addr in PM as n1 )
         ALU> ,>MAR ,ALU_TOS
@@ -1489,11 +1489,11 @@
 
 \ 0xFF is what RESET puts into PC when One holds down the reset button (pulled high).
 
-
-
-
-
-
+\ Design the IC to have contacts for zebra pads. Connect to a LCD that has the 
+\ layout of the CPU on it. This would be a custom LCD with cells to represent components
+\ in the CPU, modules. Using a microscope you can see how the contacts connect to
+\ modules in the system. You can visually verify the LCD cells. It would be cool to
+\ watch your computer run this way. Maybe there is a better way to connect things.
 
 
 
