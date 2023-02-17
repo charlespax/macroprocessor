@@ -8,7 +8,7 @@
 \ | |  | | (_| | (__| | | (_) | | |   | | | (_) | (_|  __/\__ \__ \ (_) | |   
 \ |_|  |_|\__,_|\___|_|  \___/  |_|   |_|  \___/ \___\___||___/___/\___/|_|   
 \
-\                                                          version: 2023-02-14
+\                                                          version: 2023-02-16
 \         by Charles Edward Pax
 
 
@@ -21,27 +21,30 @@
 
 
 
-\                         +-----+     |||        +-----+
-\                         | DS  |<===>|||        | TOS |<=+
-\                         +-----+     | |====+   +-----+  |
-\                                     |D|    |      |     |
-\                         +-----+     |A|  __V__  __V__   |
-\                         | RS  |<===>|T|  \ A  \/  B /   |
-\                         +-----+     |A|   \  ALU   /    |
-\                                     | |    \______/     |
-\                                     |B|       ||        |
-\                         +-----+     |U|     +----+      |
-\                         | PC  |<===>|S|<====| BS |======+
-\                         +-----+     | |     +----+
-\                                     |||
-\                         +-----+     |||     +-----+
-\                         | MAR |<====|||====>| IR  |
-\                         +-----+     |||     + - - +
-\                            ||       |||     | CL  |
-\                         +-----+     |||     +-----+
-\                         | PM  |<===>|||     +-----+
-\                         +-----+     |||<===>| IO  |
-\                                     |||     +-----+
+\                         +-----+     |||====\\    //=====\\
+\                         | IO  |<===>|||    ||    ||     ||
+\                         +-----+     | |  __\/_  _\/__   ||
+\                                     |D|  \ A  \/  B /   ||
+\                         +-----+     |A|   \  ALU   /    ||
+\                         | PC  |<===>|T|    \______/     ||
+\                         +-----+     |A|       ||        ||
+\                                     | |     +------+    ||
+\                                     |B|<====| TOS  |====//
+\                         +-----+     |U|     +------+
+\                         | PM  |<===>|S|<===>| DS1  |
+\                         +-----+     | |     +------+
+\                            ||       |||<===>| DS2  |
+\                         +-----+     |||     +------+
+\                         | MAR |<====|||     +------+
+\                         +-----+     |||     + DS31 +
+\                                     |||     +------+
+\                         +-----+     |||
+\                         | IR  |<===>|||     +------+
+\                         +-----+     |||<====| RS   |
+\                         | CL  |     |||     +------+
+\                         +-----+     |||     +------+
+\                                             | RS31 |
+\                                             +------+
 
 
 
@@ -58,10 +61,7 @@
 
 
 
-
-
-
-\ <line 64>  MacroProcessor v2023-02-14                                          <page 1>
+\ <line 64>  MacroProcessor v2023-02-16                                          <page 1>
 \ FRONT MATTER --------------------------------------------------------------------------
 
 \ TODO: 
@@ -125,7 +125,7 @@
 
 
 
-\ <line 128>  MacroProcessor v2023-02-14  FRONT MATTER                           <page 2>
+\ <line 128>  MacroProcessor v2023-02-16  FRONT MATTER                           <page 2>
 \ INTRODUCTION --------------------------------------------------------------------------
 
 \ The MacroProcessor is a microprocessor with an unconventional design goal: 
@@ -189,7 +189,7 @@
 
 \ There is also a second comment in long form describing the function of this word.
 
-\ <line 192>  MacroProcessor v2023-02-14  INTRODUCTION                           <page 3>
+\ <line 192>  MacroProcessor v2023-02-16  INTRODUCTION                           <page 3>
 \ ---------------------------------------------------------------------------------------
 
 
@@ -253,7 +253,7 @@
 
 
 
-\ <line 256 >  MacroProcessor v2023-02-14                                        <page 4>
+\ <line 256 >  MacroProcessor v2023-02-16                                        <page 4>
 \ ARCHITECTUAL OVERVIEW -----------------------------------------------------------------
 
 \ The overall design of the Central Processin Unit (CPU) is based on the
@@ -262,27 +262,31 @@
 
 
 \ -- Figure abds: Architecture block diagram (simplified) -------------------------------
-\                         +-----+     |||        +-----+
-\                         | DS  |<===>|||        | TOS |<=+
-\                         +-----+     | |====+   +-----+  |
-\                                     |D|    |      |     |
-\                         +-----+     |A|  __V__  __V__   |
-\                         | RS  |<===>|T|  \ A  \/  B /   |
-\                         +-----+     |A|   \  ALU   /    |
-\                                     | |    \______/     |
-\                                     |B|       ||        |
-\                         +-----+     |U|     +----+      |
-\                         | PC  |<===>|S|<====| BS |======+
-\                         +-----+     | |     +----+
-\                                     |||
-\                         +-----+     |||     +-----+
-\                         | MAR |<====|||====>| IR  |
-\                         +-----+     |||     + - - +
-\                            ||       |||     | CL  |
-\                         +-----+     |||     +-----+
-\                         | PM  |<===>|||     +-----+
-\                         +-----+     |||<===>| IO  |
-\                                     |||     +-----+
+\
+\                         +-----+     |||====\\    //=====\\
+\                         | IO  |<===>|||    ||    ||     ||
+\                         +-----+     | |  __\/_  _\/__   ||
+\                                     |D|  \ A  \/  B /   ||
+\                         +-----+     |A|   \  ALU   /    ||
+\                         | PC  |<===>|T|    \______/     ||
+\                         +-----+     |A|       ||        ||
+\                                     | |     +------+    ||
+\                                     |B|<====| TOS  |====//
+\                         +-----+     |U|     +------+
+\                         | PM  |<===>|S|<===>| DS1  |
+\                         +-----+     | |     +------+
+\                            ||       |||<===>| DS2  |
+\                         +-----+     |||     +------+
+\                         | MAR |<====|||     +------+
+\                         +-----+     |||     + DS31 +
+\                                     |||     +------+
+\                         +-----+     |||
+\                         | IR  |<===>|||     +------+
+\                         +-----+     |||<====| RS   |
+\                         | CL  |     |||     +------+
+\                         +-----+     |||     +------+
+\                                             | RS31 |
+\                                             +------+
 \
 \ ---------------------------------------------------------------------------------------
 
@@ -295,93 +299,89 @@
 \ IR - Instructions Register      MAR - Memory Access Register
 \ CL - Control Logic              PM - Program Memory
 
-\ Modules DS, RS, IO, PC, and PM are able to accept input from the
-\ data bus or output to the data bus, as indicated by the double
-\ arrows '<===>'. Multiplexors ensure only one module may
-\ output a signal to the data bus and only one module may input
-\ a signal from the data bus.
+\ Modules DS, RS, IO, PC, and PM are able to accept input from the data bus or output to 
+\ the data bus, as indicated by the double arrows '<===>'. Multiplexors ensure only one 
+\ module may output a signal to the data bus and only one module may input a signal from 
+ \the data bus.
 
-\ Modules IR and MAR are able to accept input from the data bus,
-\ but are not able to putout their contents to the data bus.
+\ Modules IR and MAR are able to accept input from the data bus, but are not able to 
+\ output their contents to the data bus.
 
-\ ALU always accepts input from TOS via input B and is able
-\ to accept input from the data bus via input A. ALU is can
-\ output to either TOS or the data bus.
+\ ALU always accepts input from TOS via input B and is able to accept input from the
+\ data bus via input A. ALU is can output to either TOS or the data bus.
 
-\ TOS always outputs to ALU input B. TOS always accepts input
-\ from ALU. TOS can recieve data from the data bus by passing
-\ the signal through ALU.
-
+\ TOS always outputs to ALU input B. TOS always accepts input from ALU. TOS can 
+\ recieve data from the data bus by passing the signal through ALU.
 
 \ TODO: Write a section about stacks
 
 
 
-\ <line 320>  MacroProcessor v2023-02-14  ARCHITECTUAL OVERVIEW                  <page 5>
+\ <line 320>  MacroProcessor v2023-02-16  ARCHITECTUAL OVERVIEW                  <page 5>
 \ ---------------------------------------------------------------------------------------
 
+\ -- Figure abd: Architecture block diagram ---------------------------------------------
+\
+\                                       |||=====================\\        //=====\\
+\                                       |||  ALU_ADD  ALU_SUB   ||        ||     ||
+\  +-------------------+           IO>  |||  ALU_AND  ALU_OR    ||        ||     ||
+\  |   Input/          |             |  |||  ALU_XOR  ALU_>>    ||        ||     ||
+\  |   Output          |=============#=>|||  ALU_<<          ___\/___  ___\/___  ||
+\  |                   |================| |  TOS++           \   A   \/   B   /  ||
+\  |                   |-- >IO          | |  TOS--            \              /   ||
+\  +-------------------+                |1|           ALU_OP --\    ALU     /    ||
+\                                       |6|                     \__________/     ||
+\                                       | |                          ||          ||
+\  +-------------------+           PC>  |B|                          ||          ||
+\  |   Program         |             |  |I|  TOS>          +---------\/-----+    ||
+\  |   Counter         |=============#=>|T|  |             |   Top Of       |    ||
+\  |                   |================| |<=#=============|   Stack        |    ||
+\  |                   |-- >PC          |D|================|                |====//
+\  |                   |-- PC++         |A|         >TOS --|   (cell 0)     |
+\  +-------------------+                |T|  DS1>          +----------------+
+\                                       |A|  |             |   Data         |
+\                                  PM>  | |<=#=============|   Stack        |
+\  +-------------------+             |  |B|================|   Cell 1       |
+\  |   Program         |=============#=>|U|         >DS1 --|                |
+\  |   Memory          |================|S|  DS2>          +----------------+
+\  |                   |-- >PM          | |  |             |   Data         |
+\  +-------------------+                | |<=#=============|   Stack        |
+\  |   Memory          |================|||================|   Cell 2       |
+\  |   Access Reg.     |-- >MAR         |||         >DS2 --|                |
+\  +-------------------+                |||                +----------------+
+\                                       |||                |   DS3          |
+\                                       |||                +----------------+
+\  +-------------------+                |||                .                .
+\  |   Instruction     |================|||                +----------------+
+\  |   Register        |-- >IR          |||                |   DS31         |
+\  +-------------------+                |||                +----------------+
+\  |   Control Logic   |                |||
+\  |                   |                |||
+\  | Instruction Cycle |                |||  RS>           +----------------+
+\  | ----------------- |                |||  |             |   Return       |
+\  | 00 PC> ,>MAR      |                |||<=#=============|   Stack        |
+\  | 01 PM> ,>IR ,PC++ |                |||================|                |
+\  | 10 PC> ,>MAR      |                |||          >RS --|                |
+\  | 11 CL = IR[]      |                |||                +----------------+
+\  |                   |                |||                .                .
+\  +-------------------+                |||                +----------------+
+\                                       |||                |   RS31         |
+\                                                          +----------------+
+\
+\ ---------------------------------------------------------------------------------------
+
+\ pushing to TOS shifts down everything.
+\ pushing to DS1 shifts down everything below DS1 leaving TOS unmodified
+\ pushing to DS2 shifts down everything below DS2 leaving TOS and DS1 unmodified
+\ anything that can drive the data bus is multiplexed; only one output possible concurrently
+\ ALU input B is physically connected to the TOS register. Always connected.
+\ The ALU is always connected to TOS through a driver circuit. The value of TOS only
+\ changes when >TOS is HIGH.
+\ TODO: add symbols for the multiplexor to the large diagram. More detailed.
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\ <line 384 >  MacroProcessor v2023-02-14                                        <page 6>
+\ <line 384 >  MacroProcessor v2023-02-16                                        <page 6>
 \ MODULE OVERVIEW -----------------------------------------------------------------------
 
 \ -- Data Stack -------------------------------------------------------------------------
@@ -445,7 +445,7 @@
 
 
 
-\ <line 448>  MacroProcessor v2023-02-14  MODULE OVERVIEW                        <page 7>
+\ <line 448>  MacroProcessor v2023-02-16  MODULE OVERVIEW                        <page 7>
 \ INSTRUCTION SET ARCHITECTURE (ISA) ----------------------------------------------------
 
 \ The Instruction Set Architecture for the MacroProcessor is quite simple.
@@ -509,25 +509,25 @@
 
 
 
-\ <line 512>  MacroProcessor v2023-02-14  MODULE OVERVIEW                        <page 8>
+\ <line 512>  MacroProcessor v2023-02-16  MODULE OVERVIEW                        <page 8>
 \ <word>   <binary op code >     <stack >   <op code description>
 : NOP      %0000000000000000  ;  (  --  )  ( No Operation )
-\          %1111111111111111  ;  (  --  )  ( reserved )
+: RESET    %1111111111111111  ;  (  --  )  ( Reser system )
 \          %0000------------  ;  (  --  )  ( See NOP. Bits 15-12 - Source enable )
-: DS>      %0001000000000000  ;  (  --  )  ( Data Stack output )
+: DS1>     %0001000000000000  ;  (  --  )  ( Data Stack output )
 : RS>      %0010000000000000  ;  (  --  )  ( Return Stack output )
 : PC>      %0011000000000000  ;  (  --  )  ( Program Counter outout )
 : PM>      %0100000000000000  ;  (  --  )  ( Program Memory output )
 : IO>      %0101000000000000  ;  (  --  )  ( Input/Output output )
 \          %0110------------  ;  (  --  )  (  )
-: ALU>     %0111000000000000  ;  (  --  )  ( ALU to bus output )
+: TOS>     %0111000000000000  ;  (  --  )  ( TOS output. Same as DS0> )
 \          %1000------------  ;  (  --  )  (  )
 \          %1001------------  ;  (  --  )  (  )
-\          %1010------------  ;  (  --  )  (  )
+\ DS2>     %1010------------  ;  (  --  )  (  )
 \          %1011------------  ;  (  --  )  (  )
 \          %1100------------  ;  (  --  )  (  )
 \          %1101------------  ;  (  --  )  (  )
-\          %1110------------  ;  (  --  )  (  )
+\          %1110------------  ;  (  --  )  ( See RESET )
 \          %1111------------  ;  (  --  )  ( reserved )
 \          %----0000--------  ;  (  --  )  ( See NOP. Bits 11-08 - Destination enable )
 : >DS      %0000000100000000  ;  (  --  )  ( into Data Stack )
@@ -536,15 +536,15 @@
 : >PM      %0000010000000000  ;  (  --  )  ( into Program Memory )
 : >IO      %0000010100000000  ;  (  --  )  ( into Input/Output )
 \          %----0110--------  ;  (  --  )  (  )
-: >ALU     %0000011100000000  ;  (  --  )  ( into Arithmetic Logic Unit )
+: >TOS     %0000011100000000  ;  (  --  )  ( into TOS )
 : >MAR     %0000100000000000  ;  (  --  )  ( into Memory Access Register )
 : >IR      %0000100100000000  ;  (  --  )  ( into Instruction Register )
-\          %----1010--------  ;  (  --  )  (  )
+\ >DS2     %----1010--------  ;  (  --  )  (  )
 \          %----1011--------  ;  (  --  )  (  )
 \          %----1100--------  ;  (  --  )  (  )
 \          %----1101--------  ;  (  --  )  (  )
 \          %----1110--------  ;  (  --  )  (  )
-\          %----1111--------  ;  (  --  )  ( reserved )
+\          %----1111--------  ;  (  --  )  ( See RESET )
 \          %--------0000----  ;  (  --  )  ( See NOP. Bits 7-4 - ALU operation select )
 : ALU_ADD  %0000000000010000  ;  (  --  )  ( ALU ADD enable )
 : ALU_SUB  %0000000000100000  ;  (  --  )  ( ALU SUB enable ) \ necessary? 2s compliment
@@ -553,27 +553,27 @@
 : ALU_XOR  %0000000001010000  ;  (  --  )  ( ALU XOR enable )
 : ALU_<<   %0000000001100000  ;  (  --  )  (  )
 : ALU_>>   %0000000001110000  ;  (  --  )  (  )
-: ALU_TOS  %0000000010000000  ;  (  --  )  ( Sets ALU for bus passthrough of TOS )
+\          %0000000010000000  ;  (  --  )  (  )
 \          %--------1001----  ;  (  --  )  (  )
 \          %--------1010----  ;  (  --  )  (  )
 \          %--------1011----  ;  (  --  )  (  )
 \          %--------1101----  ;  (  --  )  (  )
-\          %--------1110----  ;  (  --  )  (  )
+\          %--------1110----  ;  (  --  )  ( See RESET )
 \          %--------1111----  ;  (  --  )  ( reserved )
-\          %------------000-  ;  (  --  )  ( See NOP. Bits 3-1 - Stack increment select )
-: DS++     %0000000000000010  ;  (  --  )  (  )
-: RS++     %0000000000000100  ;  (  --  )  (  )
-: PC++     %0000000000000110  ;  (  --  )  (  )
-\          %------------100-  ;  (  --  )  (  )
-: DS--     %0000000000001010  ;  (  --  )  (  )
-: RS--     %0000000000001100  ;  (  --  )  (  )
-\          %------------111-  ;  (  --  )  ( reserved )
-\          %---------------0  ;  (  --  )  ( See NOP )
-\          %0000000000000001  ;  (  --  )  ( reserved )
+\          %------------0000  ;  (  --  )  ( See NOP. Bits 3-0 - Conditional branching/flags)
+: if=0     %------------0001  ;  (  --  )  ( Zero )
+: if<0     %------------0010  ;  (  --  )  ( Sign )
+: if_C     %------------0100  ;  (  --  )  ( Carry )
+: if_OF    %------------1000  ;  (  --  )  ( Overflow )
+\          %------------1111  ;  (  --  )  ( See RESET )
 \
 \ -- Figure isa: Instruction Set Architecture -------------------------------------------
 
-\ <line 576>  MacroProcessor v2023-02-14  INSTRUCTION SET ARCHICETURE            <page 9>
+
+
+
+
+\ <line 576>  MacroProcessor v2023-02-16  INSTRUCTION SET ARCHICETURE            <page 9>
 \ ---------------------------------------------------------------------------------------
 
 \ TODO: Discuss how to combine DS> >RS using OR logic. Create a need for a better 
@@ -637,7 +637,7 @@
 
 
 
-\ <line 640 >  MacroProcessor v2023-02-14                                       <page 10>
+\ <line 640 >  MacroProcessor v2023-02-16                                       <page 10>
 \ COMBINATIONAL INSTRUCTION WORDS -------------------------------------------------------
 
 \ Given the nature of the instruction format, the base control words can be combined into
@@ -701,7 +701,7 @@
 
 
 
-\ <line 704 >  MacroProcessor v2023-02-14                                       <page 11>
+\ <line 704 >  MacroProcessor v2023-02-16                                       <page 11>
 \ ---------------------------------------------------------------------------------------
 
 \ This notation results in clear instructions without requiring
@@ -765,7 +765,7 @@
 
 
 
-\ <line 768 >  MacroProcessor v2023-02-14                                       <page 12>
+\ <line 768 >  MacroProcessor v2023-02-16                                       <page 12>
 \ INSTRUCTION CYCLE ---------------------------------------------------------------------
 
 \ The CPU has a four step instruction cycle. The first three steps prepare the CPU for
@@ -829,7 +829,7 @@
 
 
 
-\ <line 832 >  MacroProcessor v2023-02-14                                       <page 13>
+\ <line 832 >  MacroProcessor v2023-02-16                                       <page 13>
 \ -- Instruction Timing -----------------------------------------------------------------
 \ Instructions are executed. The control logic is configured in between each step.
 
@@ -893,7 +893,7 @@
 
 
 
-\ <line 896 >  MacroProcessor v2023-02-14                                       <page 14>
+\ <line 896 >  MacroProcessor v2023-02-16                                       <page 14>
 \ STATUS AND FLAGS ----------------------------------------------------------------------
 
 \ - Instead of having a flags register, try to make a design where at
@@ -957,7 +957,7 @@
 
 
 
-\ <line 960 >  MacroProcessor v2023-02-14                                       <page 15>
+\ <line 960 >  MacroProcessor v2023-02-16                                       <page 15>
 
 
 
@@ -1021,72 +1021,74 @@
 
 
 
-\ <line 1024>  MacroProcessor v2023-02-14  OTHER NOTES                          <page 16>
+\ <line 1024>  MacroProcessor v2023-02-16  OTHER NOTES                          <page 16>
 \ HARDWARE DIAGRAM ----------------------------------------------------------------------
 
-\ -- Figure abd: Architecture block diagram ---------------------------------------------
 
-\  16-bit                               16-bit
-\   |||  +-+    +-----------------+      |||             +-------+
-\   |||--|L|--->| Data Stack      |<====>|||             | Top   |
-\   |||  |O|    |   DS>           |      |||======\\     | of    |<==========\\
-\   |||  |G|    |   >DS           |      |||      ||     | Stack |           ||
-\   |||  |I|    |   DS++          |      |||      ||     |       |<-\        ||
-\   | |  |C|    |   DS--          |      | |      ||     +-------+  |        ||
-\   |C|  +-+    +-----------------+      |D|      ||        ||      |        ||
-\   |O|                                  |A|      ||        ||      |        ||
-\   |N|  +-+    +-----------------+      |T|  ____\/___  ___\/____  |        ||
-\   |T|--|L|--->| Return Stack    |<====>|A|  \    A   \/   B    /  |        ||
-\   |R|  |O|    |   RS>           |      |||   \                /  +-+  |||  ||
-\   |O|  |G|    |   >RS           |      |B|    \     ALU      /<--|L|--|||  ||
-\   |L|  |I|    |   RS++          |      |U|     \            /    |O|  |||  ||
-\   |||  |C|    |   RS--          |      |S|      \          /     |G|  |||  ||
-\   |B|  +-+    +-----------------+      | |       \________/      |I|  |||  ||
-\   |U|                                  |||           ||    /-----|C|  |||  ||
-\   |S|  +-+    +-----------------+      |||           ||    v     +-+  |||  ||
-\   | |--|L|--->| Program Counter |<====>|||     +-----\/-----+         |||  ||
-\   |||  |O|    |   PC>           |      |||<====|  Shifter   |==============//
-\   |||  |G|    |   >PC           |      |||     +------------+         |||
-\   |||  |I|    |   PC+           |      |||                            |||  ALU_ADD
-\   |||  |C|    |                 |      |||                            |||  ALU_SUB
-\   |||  +-+    +-----------------+      |||     +-------------+        |||  ALU_AND
-\   |||                                  |||====>| Instruction |        |||  ALU_OR
-\   |||  +-+    +-----------------+      |||     | Register    |        |||  ALU_XOR
-\   |||--|L|--->| Memory Access   |<=====|||     |   >IR       |        |||  ALU_>>
-\   |||  |O|    | Register        |      |||     |             |        |||  ALU_<<
-\   |||  |G|    |   >MAR          |      |||     + - - - - - - +        |||  ALU_TOS
-\   |||  |I|    |                 |      |||     | Step        |=======>|||
-\   |||  |C|    |                 |      |||     | Counter     |        |||
-\   |||  +-+    +-----------------+      |||     +-------------+        |||
-\   |||                 ||               |||                            |||
-\   |||                 ||               |||                            |||
-\   |||  +-+    +-------\/--------+      |||     +-------------+   +-+  |||
-\   |||--|L|--->| Program Memory  |<====>|||<===>| Input/Output|<--|L|--|||
-\   |||  |O|    |   PM>           |      |||     | Output      |   |O|  |||
-\   |||  |G|    |   >PM           |              |   IO>       |   |G|  |||
-\   |||  |I|    |                 |              |   >IO       |   |I|  |||
-\   |||  |C|    |                 |              |             |   |C|  |||
-\   |||  +-+    +-----------------+              +-------------+   +-+  |||
-\   |||                                                                 |||
-\   \\\-----------------------------------------------------------------///
-\    \\-----------------------------------------------------------------//
-\     \-----------------------------------------------------------------/
-\
-\   Bus Pins  Description                         Step Counter
-\      -----  ------------                        ------------
-\      15-12  source enable                       00 PC> ,>MAR
-\      11-08  destination enable                  01 PM> ,>IR ,PC++
-\        7-4  ALU_OP                              10 PC> ,>MAR
-\        3-1  stack increment                     11 CL = IR[]
-\          0  reserved                    
-\
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\ <line 1088>  MacroProcessor v2023-02-16  HARDWARE DIAGRAM                     <page 17>
 \ ---------------------------------------------------------------------------------------
-\ TODO: Swap IR and IO
-\ TODO: Combine all the ALU parts into one, details in ALU section.
 
 
-\ <line 1088>  MacroProcessor v2023-02-14  HARDWARE DIAGRAM                     <page 17>
-\ ---------------------------------------------------------------------------------------
 
 
 
@@ -1147,9 +1149,7 @@
 
 
 
-
-
-\ <line 1152>  MacroProcessor v2023-02-14  DICTIONARY DEFINITIONS               <page 18>
+\ <line 1152>  MacroProcessor v2023-02-16  DICTIONARY DEFINITIONS               <page 18>
 \ SCRIPTS -------------------------------------------------------------------------------
 
 \ -- print.sh ---------------------------------------------------------------------------
@@ -1213,7 +1213,7 @@
 
 
 
-\ <line 1216>  MacroProcessor v2023-02-14  SCRIPTS                              <page 19>
+\ <line 1216>  MacroProcessor v2023-02-16  SCRIPTS                              <page 19>
 \ DOCUMENT CONVENTIONS ------------------------------------------------------------------
 
 \ - Sections are in all caps with a horizontal rule
@@ -1277,7 +1277,7 @@
 
 
 
-\ <line 1280>  MacroProcessor v2023-02-14                                       <page 20>
+\ <line 1280>  MacroProcessor v2023-02-16                                       <page 20>
 \ ---------------------------------------------------------------------------------------
 
 
@@ -1341,7 +1341,7 @@
 
 
 
-\ <line 1344>  MacroProcessor v2023-02-14                                       <page 21>
+\ <line 1344>  MacroProcessor v2023-02-16                                       <page 21>
 \ DICTIONARY ----------------------------------------------------------------------------
 
 : !  ( n1 addr --  ) ( Store n1 at location addr in PM )
@@ -1405,7 +1405,7 @@
 
 
 
-\ <line 1408>  MacroProcessor v2023-02-14  DICTIONARY                           <page 22>
+\ <line 1408>  MacroProcessor v2023-02-16  DICTIONARY                           <page 22>
 \ -- OTHER NOTES ------------------------------------------------------------------------
 
 \ - Should I include zero register? Would this be done by the ALU?
@@ -1469,9 +1469,71 @@
 
 
 
-\ <line 1472>  MacroProcessor v2023-02-14  OTHER NOTES                          <page 23>
+\ <line 1472>  MacroProcessor v2023-02-16  OTHER NOTES                          <page 23>
 \ ---------------------------------------------------------------------------------------
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\ <line 1536>  MacroProcessor v2023-02-16                                       <page 24>
 \ RESET sets PC to 0x00. Also sets the instruction step counter to step 000. Step 001 
 \ puts 0x00 into MAR.
 
@@ -1497,40 +1559,3 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\ <line 1536 >  MacroProcessor v2023-02-14                                      <page 24>
