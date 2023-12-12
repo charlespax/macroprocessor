@@ -19,15 +19,15 @@ To compile the main kaobook sample document, execute compileall.sh.
 
 To remove generated files, execute clean.sh.
 
-TODO: Add directions to get a system prepared to compile this book on 
-Linux Mint.
+Commands to get setup the compile environment in Linux Mint 21.2:
+sudo apt-get install texlive texlive-latex-extra texlive-fonts-extra texlive-science texlive-bibtex-extra biber
 
+You sould probably accomplish the same thing by installing texlive-full, but
+I have not tried this.
+sudo apt-get install texlive-full
 
 Troubleshooting
 -------------------
-
-Error: `newpxtext.sty' not found.
-Solution:  sudo apt-get install texlive-fonts-extra package.
 
 Error: `biblatex.sty' not found
 Solution:  sudo apt-get install texlive-bibtex-extra biber
