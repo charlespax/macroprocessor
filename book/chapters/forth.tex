@@ -1,0 +1,75 @@
+\setchapterimage{seaside}
+\setchapterpreamble[u]{\margintoc}
+\chapter{The Forth Programming Language}
+\labch{forth}
+
+%
+% Key concepts and abilities
+%==============================================================================
+\begin{kaobox}[frametitle=In This Chapter]
+you will learn
+\begin{itemize}
+	\item First topic
+	\item Second topic
+        \item Third topic
+\end{itemize}
+
+you will be able to
+\begin{itemize}
+        \item Task one
+        \item Task two
+        \item Task three
+\end{itemize}
+\end{kaobox}
+
+% Introductory paragraph goes here
+\blindtext
+
+%
+% Section: The Forth Inner Interpreter
+%====================================================================
+\section{The Forth Inner Interpreter}
+This section gives a general explaination\sidenote[]{Use sidenotes if necessary} 
+of the chapter topic\sidecite{Loeliger1981}.
+
+The word \lstinline|:| causes the innter interpreter to enter compile mode. The name of the
+word is next, followed by the definition. The word \lstinline|;| causes the inner
+interpreter to exit compilation and reenter interpretation mode.
+
+Example:
+\begin{lstlisting}[caption={Definition of \lstinline|dup| in Forth.}]
+: square ( x -- x )
+    dup
+    *
+    :
+\end{lstlisting}
+
+This, of course, can be more conveniently written on a single line
+\begin{lstlisting}[style=kaolstplain,linewidth=1.5\textwidth]
+: square ( x -- x )
+    dup * ;
+\end{lstlisting}
+
+\section{Return Stack}
+The top of the return stack holds the return address. When a function call is made, the return address
+must be stored.  If the call command is executed at address x, the return address x+1 is pushed to the top of the return stack.
+
+\section{Data Stack}
+The data styack is where temporary data is stored.
+
+If a system has only one hardware stack, it shoulld be used for the data stack. Data 
+manipulations are more common than function calls and the hardware stack is faster 
+than memory access. The call stack will need to be stored in memory.
+
+%
+% Section: The Forth Outter Interpreter
+%====================================================================
+\section{The Forth Outter Interpreter}
+This an intermediate section. There will be several. each such section will cover a
+discrete topic within this chapter.
+
+\marginnote{Margin notes can be used to explain detail or add reminders that would
+otherwise break the flow of the document. I think sidenotes are numbered while
+margin notes are not.}
+
+\blindtext
