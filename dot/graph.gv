@@ -1,0 +1,22 @@
+digraph g {
+fontname="Helvetica,Arial,sans-serif"
+node [fontname="Helvetica,Arial,sans-serif"]
+edge [fontname="Helvetica,Arial,sans-serif"]
+graph [rankdir = "LR"];
+node [fontsize = "16" shape = "ellipse"];
+edge [];
+
+     "+" [label = "<f0> +      | <f1> \>TOS ADD OR | <f2> POP" shape = "record"];
+   "pop" [label = "<f0> POP    | <f1> DS\>         | <f2> DS+" shape = "record"];
+"\>tos+" [label = "<f0> \>TOS ADD OR | <f1> \>TOS        | <f2> ADD | <f3> OR" shape = "record"];
+  "ds\>" [label = "<f0> DS\>   | <f1> %00000100" shape = "record"];
+   "ds+" [label = "<f0> DS+    | <f1> %00100000" shape = "record"];
+ "\>tos" [label = "<f0> \>TOS  | <f1> %10000000" shape = "record"];
+   "add" [label = "<f0> ADD    | <f1> %01000000" shape = "record"];
+     "+":f1 ->    "\>tos+":f0 [id = 1];
+     "+":f2 ->    "pop":f0 [id = 0];
+   "pop":f1 ->     "ds\>":f0 [id = 2];
+   "pop":f2 -> "ds+":f0 [id = 3];
+"\>tos+":f1 -> "\>tos":f0 [id = 3];
+"\>tos+":f2 -> "add":f0 [id = 3];
+}
