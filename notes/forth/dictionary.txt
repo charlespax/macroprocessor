@@ -1,0 +1,77 @@
+This file is a dictionary of Forth words and terminology.
+
+Glossary
+===================
+
+CFA - See Code Field Address
+LFA - See Link Field Address
+NFA - See Name Field Address
+PFA - See Parameter Field Address
+
+Code Field Address - 
+Link Field Addresss - 
+Name Field Address - 
+Parameter Field Address - 
+
+
+Code definition - 
+
+IMMEDIATE word - A word that has the IMMEDIATE bit set in its dictionary
+    header. Is executed during interpretation. Is executed during 
+    compilation rather than compiled into a definition.
+
+
+Machine-code word - A word that is directly executed by the CPU. Does not 
+    call other Forth words. May exit via a jump instruction to the 
+    address of NEXT or by including the contents of NEXT inline, thereby 
+    avoiding a jump instruction. Examples include the words NEXT EXECUTE 
+    BRANCH and EXIT .
+
+
+Threaded-code word - A word that contains other Forth words. May also 
+    contain machine-code words. Exits by calling the Forth word ; .
+
+
+
+Dictionary
+===================
+
+;  "Semi-colon"
+Terminates a definition created by : .
+
+1. Exits colon definition mode
+2. Addes the definition to the dictionary
+3. Enters interpretation mode
+
+    : ; ( -- )
+        ( definition goes here ) ;
+
+
+NEXT  "Next"
+Terminates a code-word and jumps to the next instruction.
+
+1. Fetch the Code Field Address (CFA),
+   which is stored in a cell,
+   which is pointed to by the Forth Instruction Pointer (IP)
+2. Increment the Forth IP,
+   which will then point to the proceeding cell,
+   which contains the next Forth instruction
+3. Jump to the fetched CFA
+
+    : NEXT ( -- )
+        RS> ,>PC ,R--
+
+
+Notes:
+   - What is a cell? I think this is address of the code field of the
+   proceeding Forth word. The IP always points to the next CFA to be
+   executed.
+   - Does the cell located at the CFA hold a machine instruction or
+   is there a Forth dictionary word there? I think the contents of the
+   cell pointed to by the CFA in the IP is always a machine instruction.
+   I think the word INTERPRET handles the task of looking through the
+   dictionary and determining the CFA of that word. The CFA should be
+   the first cell of a word's code field, which can be one or more cells.
+
+
+

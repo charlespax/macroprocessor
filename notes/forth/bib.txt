@@ -1,0 +1,37 @@
+This file lists resources and their descriptions.
+
+Title:  Implementing the Forth Inner Interpreter in High Level Forth
+Date:  2016-09
+URL:  http://www.euroforth.org/ef16/papers/hoffmann.pdf
+Abstract:  This document defines a Forth threaded code (inner) interpreter written entirely in
+    high level standard Forth. For this it defines a specific threaded code structure of colon
+    definitions, a compiler from high level Forth to this threaded code and a corresponding
+    inner interpreter to execute it. This inner interpreter can run in a stepwise way and so gives
+    the surrounding environment control of its execution behavior. A real time environment
+    thus might slice the execution of threaded code in small pieces and provide an interactive
+    command shell while still meeting its real time requirements.
+References:
+    [1] A synchronous FORTH framework for hard real-time control, U. Hoffmann and A. Read, euroForth 2016
+    [2] Threaded Interpretive Languages: Their Design and Implementation, R. G. Loeliger, McGraw Hill, 1981
+Notes:
+   - This paper describes a Forth inner interpreter that runs inside a Forth system. This allows
+   the Forth system to control the execution of the 'virtual' interpreter. This is relevant
+   to Real-Time Operating Systems (RTOS).
+   - This paper is not relevant to the MacroProcessor Forth system
+
+Title:  Fig-Forth internals
+Date: 2021-09
+URL:  https://www.jimbrooks.org/archive/programming/forth/FIG-FORTH_internals.php
+Abstract:  My notes from studying and modifying 8086 assembly code of FIG-FORTH. Describes
+    how FIG-FORTH interpreter executes internally, how interpreting and compiling are virtually 
+    the same operation, ingenious solutions used to assemble FORTH interpreter. Also describes 
+    modifying FIG-FORTH to have direct-threaded code (DTC). 
+Notes:
+    - These notes are likely to be useful in understanding more low-level information.
+    - This is not a walkthrough of the Forth system
+    -"When FORTH starts, it begins executing machine-code of physical CPU. FORTH registers 
+    IP SP RP of FORTH virtual processor are initialized. System words COLD WARM ABORT are 
+    executed which completes initialization. ABORT executes QUIT"
+    - "During execution of COLD which starts a FIG-FORTH system, QUIT creates command 
+    prompt. QUIT contains words QUERY INTERPRET. QUERY accepts commands, INTERPRET 
+    interprets or compiles them. QUIT emits OK message after INTERPRET returns."
