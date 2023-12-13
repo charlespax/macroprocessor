@@ -26,6 +26,59 @@ you will be able to
 \blindtext
 
 %
+% Section: Dictionay Entry Format
+%====================================================================
+\section{Dictionary Entry Format}
+
+The dictionary entry format is dependent upon the Forth implmentation, but a typical
+16-bit Forth system will implement the structure described in \reffig{dictionaryEntryFormat}.
+
+\begin{figure}
+\begin{bytefield}[bitwidth=1.25em]{16}
+\bitheader{0-15} \\
+\begin{rightwordgroup}{name field}
+    \bitbox{1}{$p$} & \bitbox{15}{$name$ length ($n$ characters)} \\
+    \bitbox{16}{$name[0]$} \\
+    \bitbox{16}{$\cdots$} \\
+    \bitbox{16}{$name[n]$}
+\end{rightwordgroup} \\
+    \begin{rightwordgroup}[rightcurly=.]{link address field}
+    \wordbox{1}{link address}
+\end{rightwordgroup} \\
+    \begin{rightwordgroup}[rightcurly=.]{code address field}
+    \wordbox{1}{code address}
+\end{rightwordgroup} \\
+\begin{rightwordgroup}{data field}
+    \wordbox{3}{data}
+\end{rightwordgroup}
+\end{bytefield}
+
+\begin{flushleft}
+where, \\
+$p$ is the precedence bit,\\
+$name$ length is the number of characters in the word name, \\
+$char_n$ is the $n^{th}$ character in name,
+link address is an address pointing to the first cell of the previous dictionary entry's name field, \\
+code address is the address of the machine instruction the interpreter will load for
+execution, and \\
+data is any data that is required for execution.
+\end{flushleft}
+\caption[Dictionary entry format]{This is the MacroController Forth dictionary 
+    entry format for a 16-bit system. Other Forth systems may implement a differnt format.}
+	\labfig{dictionaryEntryFormat}
+\end{figure}
+
+\todo[noline]{Decide if the name field characters are 16-bit or 8-bit in the final implementation.}
+\marginnote{The code address field is also known as the code pointer field. The data field
+is also known as the parameter field.}
+
+Precedence bit. 0 - address of the word gets compiled normally. 1 - The word is executed 
+during compilation.
+
+Are the characters in the name field limited to ASCII? Is there any technical reason they
+could not be any arbitrary 16-bit value? Maybe null would be a problem.
+
+%
 % Section: The Forth Inner Interpreter
 %====================================================================
 \section{The Forth Inner Interpreter}
