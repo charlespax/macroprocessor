@@ -37,15 +37,61 @@ Explain what an ISA is.
 \section{Instruction cycle}
 \blindtext
 
+\begin{figure}
+\begin{bytefield}[bitwidth=1em]{16}
+    \bitheader[endianness=big]{0-15} \\
+\begin{rightwordgroup}{name field}
+    \begin{leftwordgroup}[leftcurly=.]{bx0000}
+        \bitbox{1}{$p$} &
+        \bitbox{15}{$n$}
+    \end{leftwordgroup} \\
+    \bitbox{16}{$name_0$} \\
+    \bitbox{16}{$\cdots$} \\
+    \begin{leftwordgroup}[leftcurly=.]{bx0000 + $n$}
+        \bitbox{16}{$name_n$}
+    \end{leftwordgroup}
+\end{rightwordgroup} \\
+\begin{rightwordgroup}[rightcurly=.]{link address field}
+    \begin{leftwordgroup}[leftcurly=.]{bx0000 + $n$ + 1}
+        \wordbox{1}{link address}
+    \end{leftwordgroup}
+\end{rightwordgroup} \\
+\begin{rightwordgroup}[rightcurly=.]{code address field}
+    \begin{leftwordgroup}[leftcurly=.]{bx0000 + $n$ + 2}
+        \wordbox{1}{code address}
+    \end{leftwordgroup}
+\end{rightwordgroup} \\
+\begin{rightwordgroup}{data field ($m \ge 1$ cell)}
+    \begin{leftwordgroup}[leftcurly=.]{bx0000 + $n$ + 3}
+        \wordbox{1}{$data_0$}
+    \end{leftwordgroup} \\
+    \wordbox{1}{$\cdots$} \\
+    \begin{leftwordgroup}[leftcurly=.]{bx0000 + $n + 3 + m$}
+    \wordbox{1}{$data_m$}
+    \end{leftwordgroup}
+\end{rightwordgroup}
+\end{bytefield}
+
+    \begin{flushleft}
+        where, \\
+        $n$ is the number of characters in the word's name (e.g. DUP$_n = 3$), \\
+        $m$ is the number of cells in the data field, \\
+        $name_n$ is the $n^{th}$ character of the name, and \\
+        $data_m$ is the $m^{th}$ cell of the data field.
+    \end{flushleft}
+
+\caption[Dictionary entry format]{This is the MacroController Forth dictionary 
+    entry format for a 16-bit system. Other Forth systems may implement a differnt format.}
+	\labfig{dictionaryEntryFormat}
+\end{figure}
+
 %
 % Section: Instruction Format
 %==============================================================================
 \section{Instruction Format}
-\blindtext
 
 %
 % Section: Instruction Timing
 %==============================================================================
 \section{Instruction Timing}
-\blindtext
 
