@@ -1,3 +1,6 @@
+% This document is retired as of 2023-12-20.
+% All information is accounted for.
+
 This file lists resources and their descriptions.
 
 Title:  Implementing the Forth Inner Interpreter in High Level Forth

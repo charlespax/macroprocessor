@@ -61,8 +61,34 @@
 % Load package for drawing diagrams
 \usetikzlibrary{positioning, matrix, arrows.meta,calc}
 
-% New Commands
+% New Command for fixed width text
 \newcommand{\fixed}[1]{\texttt{#1}}
+
+%----------------------------------------------------------------------------------------
+% Packages to consider
+%----------------------------------------------------------------------------------------
+% CircuiTikZ
+% https://ctan.org/pkg/circuitikz
+% The package provides a set of macros for naturally typesetting electrical and (somewhat 
+% less naturally, perhaps) electronic networks. 
+
+
+%----------------------------------------------------------------------------------------
+% Notes
+%----------------------------------------------------------------------------------------
+% - This Reddit thread has many good links for understanding the inner workings of
+%   the Forth system.
+%   https://www.reddit.com/r/Forth/comments/8j6rsw/i_dont_understand_whats_happening_under_the_hood/
+%
+% - Check out preForth and seedForth. There's a video on youtube
+%
+% - Structure the book based on abstraction layers
+%   * Instruction Set Architecture
+%   * Machine Architecture
+%   * Machine code
+%   * Hardware Architecture
+%   * Hardware virtualization
+%   * ASIC implementation
 
 %---------------------------------------------------------------------------------------
 
@@ -219,6 +245,8 @@
 \backmatter % Denotes the end of the main document content
 \setchapterstyle{plain} % Output plain chapters from this point onwards
 
+
+
 %----------------------------------------------------------------------------------------
 %	BIBLIOGRAPHY
 %----------------------------------------------------------------------------------------
@@ -227,6 +255,44 @@
 
 \defbibnote{bibnote}{Works are listed in order of first citation.\par\bigskip} % Prepend this text to the bibliography
 \printbibliography[heading=bibintoc, title=Bibliography, prenote=bibnote] % Add the bibliography heading to the ToC, set the title of the bibliography and output the bibliography note
+
+This file lists resources and their descriptions.
+
+Title:  Implementing the Forth Inner Interpreter in High Level Forth
+Date:  2016-09
+URL:  http://www.euroforth.org/ef16/papers/hoffmann.pdf
+Abstract:  This document defines a Forth threaded code (inner) interpreter written entirely in
+    high level standard Forth. For this it defines a specific threaded code structure of colon
+    definitions, a compiler from high level Forth to this threaded code and a corresponding
+    inner interpreter to execute it. This inner interpreter can run in a stepwise way and so gives
+    the surrounding environment control of its execution behavior. A real time environment
+    thus might slice the execution of threaded code in small pieces and provide an interactive
+    command shell while still meeting its real time requirements.
+References:
+    [1] A synchronous FORTH framework for hard real-time control, U. Hoffmann and A. Read, euroForth 2016
+    [2] Threaded Interpretive Languages: Their Design and Implementation, R. G. Loeliger, McGraw Hill, 1981
+Notes:
+   - This paper describes a Forth inner interpreter that runs inside a Forth system. This allows
+   the Forth system to control the execution of the 'virtual' interpreter. This is relevant
+   to Real-Time Operating Systems (RTOS).
+   - This paper is not relevant to the MacroProcessor Forth system
+
+Title:  Fig-Forth internals
+Date: 2021-09
+URL:  https://www.jimbrooks.org/archive/programming/forth/FIG-FORTH\_internals.php
+Abstract:  My notes from studying and modifying 8086 assembly code of FIG-FORTH. Describes
+    how FIG-FORTH interpreter executes internally, how interpreting and compiling are virtually 
+    the same operation, ingenious solutions used to assemble FORTH interpreter. Also describes 
+    modifying FIG-FORTH to have direct-threaded code (DTC). 
+Notes:
+    - These notes are likely to be useful in understanding more low-level information.
+    - This is not a walkthrough of the Forth system
+    -"When FORTH starts, it begins executing machine-code of physical CPU. FORTH registers 
+    IP SP RP of FORTH virtual processor are initialized. System words COLD WARM ABORT are 
+    executed which completes initialization. ABORT executes QUIT"
+    - "During execution of COLD which starts a FIG-FORTH system, QUIT creates command 
+    prompt. QUIT contains words QUERY INTERPRET. QUERY accepts commands, INTERPRET 
+    interprets or compiles them. QUIT emits OK message after INTERPRET returns."
 
 %----------------------------------------------------------------------------------------
 %	NOMENCLATURE
@@ -242,6 +308,8 @@
 
 %\printnomenclature % Output the nomenclature
 
+
+
 %----------------------------------------------------------------------------------------
 %	GLOSSARY
 %----------------------------------------------------------------------------------------
@@ -252,6 +320,98 @@
 \glsaddall % print all terms in the glossary, not only referenced words
 \printglossary[title=Glossary, toctitle=Glossary,nonumberlist] % Output the glossary, 'title' is the chapter heading for the glossary, toctitle is the table of contents heading
 
+
+This file is a dictionary of Forth words and terminology.
+
+Glossary
+===================
+
+CFA - See Code Field Address
+LFA - See Link Field Address
+NFA - See Name Field Address
+PFA - See Parameter Field Address
+
+Code Field Address - 
+Link Field Addresss - 
+Name Field Address - 
+Parameter Field Address - 
+
+
+Code definition - 
+
+IMMEDIATE word - A word that has the IMMEDIATE bit set in its dictionary
+    header. Is executed during interpretation. Is executed during 
+    compilation rather than compiled into a definition.
+
+
+Machine-code word - A word that is directly executed by the CPU. Does not 
+    call other Forth words. May exit via a jump instruction to the 
+    address of NEXT or by including the contents of NEXT inline, thereby 
+    avoiding a jump instruction. Examples include the words NEXT EXECUTE 
+    BRANCH and EXIT .
+
+
+Threaded-code word - A word that contains other Forth words. May also 
+    contain machine-code words. Exits by calling the Forth word ; .
+
+
+
+Dictionary
+===================
+
+;  "Semi-colon"
+Terminates a definition created by : .
+
+1. Exits colon definition mode
+2. Addes the definition to the dictionary
+3. Enters interpretation mode
+
+    : ; ( -- )
+        ( definition goes here ) ;
+
+
+NEXT  "Next"
+Terminates a code-word and jumps to the next instruction.
+
+1. Fetch the Code Field Address (CFA),
+   which is stored in a cell,
+   which is pointed to by the Forth Instruction Pointer (IP)
+2. Increment the Forth IP,
+   which will then point to the proceeding cell,
+   which contains the next Forth instruction
+3. Jump to the fetched CFA
+
+    : NEXT ( -- )
+        RS> ,>PC ,R--
+
+
+Notes:
+   - What is a cell? I think this is address of the code field of the
+   proceeding Forth word. The IP always points to the next CFA to be
+   executed.
+   - Does the cell located at the CFA hold a machine instruction or
+   is there a Forth dictionary word there? I think the contents of the
+   cell pointed to by the CFA in the IP is always a machine instruction.
+   I think the word INTERPRET handles the task of looking through the
+   dictionary and determining the CFA of that word. The CFA should be
+   the first cell of a word's code field, which can be one or more cells.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 %----------------------------------------------------------------------------------------
 %	INDEX
 %----------------------------------------------------------------------------------------
@@ -259,6 +419,8 @@
 % The index needs to be compiled on the command line with 'makeindex main' from the template directory
 
 %\printindex % Output the index
+
+
 
 %----------------------------------------------------------------------------------------
 %	BACK COVER

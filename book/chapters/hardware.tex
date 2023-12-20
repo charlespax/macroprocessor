@@ -118,8 +118,6 @@ We will discuss stack computers\sidecite{Koopman1989}.
                                    2   -------------x-- sign
                                    1   --------------x- carry
                                    0   ---------------x overflow
-                                 
-                                                
 \end{lstlisting}
 \caption[Architecture Block Diagram]{Complete architecture block diagram}
 \end{figure*}
@@ -133,7 +131,6 @@ We will discuss stack computers\sidecite{Koopman1989}.
 
 \toprule
 Word     &  Binary OP code    &  OP code description \\
-\midrule
 \midrule
 NOP      &  \fixed{000 000 000 0000000}  &  No Operation \\
 RESET    &  \fixed{111 111 111 1111111}  &  Reset system \\
@@ -168,7 +165,7 @@ ALU\_>>  &  \fixed{... ... 111 . .. ....}  &  ALU bitchift right \\
 SMA\_MAR &  \fixed{... ... ... 0 .. ....}  &  Select Memory Address from MAR \\
 SMA\_PC  &  \fixed{... ... ... 1 .. ....}  &  Select Memory Address from PC  \\
 \\
-         &  \fixed{... ... ... . .. ....}  &  (unallocated) \\
+         &  \fixed{... ... ... . xx ....}  &  (unallocated) \\
 \\
 if=0     &  \fixed{... ... ... . .. 1...}  &  Zero \\
 if<0     &  \fixed{... ... ... . .. .1..}  &  Sign \\

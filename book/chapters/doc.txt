@@ -1,0 +1,1536 @@
+
+
+
+\  __  __                        _____                                        
+\ |  \/  |                      |  __ \                                       
+\ | \  / | __ _  ___ _ __ ___   | |__) | __ ___   ___ ___  ___ ___  ___  _ __ 
+\ | |\/| |/ _` |/ __| '__/ _ \  |  ___/ '__/ _ \ / __/ _ \/ __/ __|/ _ \| '__|
+\ | |  | | (_| | (__| | | (_) | | |   | | | (_) | (_|  __/\__ \__ \ (_) | |   
+\ |_|  |_|\__,_|\___|_|  \___/  |_|   |_|  \___/ \___\___||___/___/\___/|_|   
+\
+\                                                          version: 2023-02-17
+\         by Charles Edward Pax
+
+
+
+
+
+
+
+
+
+
+
+\                         +-----+     |||====\\    //=====\\
+\                         | PC  |<===>|||    ||    ||     ||
+\                         +-----+     | |  __\/_  _\/__   ||
+\                                     |D|  \ A  \/  B /   ||
+\                +-----+  +-----+     |A|   \  ALU   /    ||
+\                | IO  |==| MAR |<====|T|    \______/     ||
+\                +-----+  +-----+     |A|       ||        ||
+\                            ||       | |     +------+    ||
+\                         +-----+     |B|<====| TOS  |====//
+\                         | PM  |<===>|U|     +------+
+\                         +-----+     |S|<===>| DS1  |
+\                                     | |     +------+
+\                         +-----+     |||<===>| DS2  |
+\                         | IR  |<===>|||     +------+
+\                         +-----+     |||     +------+
+\                         | CL  |     |||     | DS31 |
+\                         +-----+     |||     +------+
+\                                     |||
+\                                     |||     +------+
+\                                     |||<====| RS   |
+\                                     |||     +------+
+\                                     |||     +------+
+\                                             | RS31 |
+\                                             +------+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\ <line 64>  MacroProcessor v2023-02-17                                          <page 1>
+\ FRONT MATTER --------------------------------------------------------------------------
+
+\ TODO: 
+\   Introduction
+\   Hardware diagram (simple)
+\   Hardware Overview (simple)
+\   Module Overview
+\   Hardware Diagram Detailed
+\   Module detailed description
+\   Arithmetic Logic Unit
+\   Step Counter
+\   Base Words
+\   ISA Table
+\   Combinational Words (single instruction)
+
+\ Line #    Section
+\ ------    ---------------------------------
+\     65    FRONT MATTER
+\    129    INTRODUCTION
+\    143    -- Basic conventions
+\    193    ARCHITECTUAL OVERVIEW
+
+\           List of figures
+\           ---------------------------------
+\    222    Figure abd: Architecture block diagram
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\ <line 128>  MacroProcessor v2023-02-17  FRONT MATTER                           <page 2>
+\ INTRODUCTION --------------------------------------------------------------------------
+
+\ The MacroProcessor is a microprocessor with an unconventional design goal: 
+\ understandability. An individual human should be able to visually observe the 
+\ integrated circuit (IC) with an optical microscope and verify the layout and function 
+\ of the circuit.
+
+\ This document is intended to be both documentation of the system and the software 
+\ supporting the system. If you have the documentation, you have the code.
+
+
+\ -- Basic conventions ------------------------------------------------------------------
+
+\ This document follows several basic conventions that you should know to get started.
+\ Further discussion of conventions appear the section CONVENTIONS.
+
+\ Lines beginning with the slash character (\) are comments and are ignored by a Forth 
+\ interperter. Additionally, empty lines are not processed by Forth. All other lines 
+\ will be interperted by the Forth interperter.
+
+\ You may have a better experience if you view this document with line numbers. See
+\ SCRIPTS for a bash script to automate printing with line numbers.
+
+\ Each page is sixty-four lines tall and ninety characters wide.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\ <line 192>  MacroProcessor v2023-02-17  INTRODUCTION                           <page 3>
+\ ---------------------------------------------------------------------------------------
+
+\ -- Forth Programming Language ---------------------------------------------------------
+
+\ TODO: This section should go elsewhere. Maybe delete entirely.
+
+\ MacroProcessor is design specifically to run the programming language knows as Forth.
+\ You will learn a bit of Forth as you read this document.
+
+\ Consider the Forth definition below.
+
+\     : @  ( addr -- n1 )  ( Fetch the value at location addr in PM as n1 )
+              ALU> ,>MAR ,ALU_TOS
+              PM> ,>ALU ,ALU_TOS
+
+\ The word ':' ("colon") tells the Forth interpreter to compile the following words
+\ rather than interpreting them. In interpretation mode, Forth will execute each word
+\ from left to right. Compilation mode instructs Forth to a compile the words and save
+\ them to a target destination. The default is to add the new word to the dictionary,
+\ but the compiled code can also be saved elsewhere.
+
+\ The word '@' is chosen by the programmer. In standard Forth the '@' word is used to
+\ get a value stored at a memory address and place it on top of the stack. The
+\ programmer would shoose 'SAVE' or any other word, but we will stick with convention.
+
+\ The '(' word marks the beginning of a comment and all following words will be
+\ ignored until the following ')', which will put the interpreter back into execution
+\ mode.
+
+\ Inside '(' and ')' we have a description of the Forth data stack before and after
+\ execution of the word ( e.g. before -- after ). In this case, addr is the address at
+\ which n1 will be retreived when this word is executed. After execution, the number
+\ n1 will be on the stack.
+
+\ There is also a second comment in long form describing the function of this word.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\ <line 256 >  MacroProcessor v2023-02-17  BLANK PAGE                            <page 4>
+\ ARCHITECTUAL OVERVIEW -----------------------------------------------------------------
+
+\ The overall design of the Central Processin Unit (CPU) is based on the
+\ "canonical stack machine" as described in "Stack Machines: The New Wave"
+\ by Philip Koopman.
+
+
+\ -- Figure abds: Architecture block diagram (simplified) -------------------------------
+\
+\                         +-----+     |||====\\    //=====\\
+\                         | PC  |<===>|||    ||    ||     ||
+\                         +-----+     | |  __\/_  _\/__   ||
+\                                     |D|  \ A  \/  B /   ||
+\                +-----+  +-----+     |A|   \  ALU   /    ||
+\                | IO  |==| MAR |<====|T|    \______/     ||
+\                +-----+  +-----+     |A|       ||        ||
+\                            ||       | |     +------+    ||
+\                         +-----+     |B|<====| TOS  |====//
+\                         | PM  |<===>|U|     +------+
+\                         +-----+     |S|<===>| DS1  |
+\                                     | |     +------+
+\                         +-----+     |||<===>| DS2  |
+\                         | IR  |<===>|||     +------+
+\                         +-----+     |||     +------+
+\                         | CL  |     |||     | DS31 |
+\                         +-----+     |||     +------+
+\                                     |||
+\                                     |||     +------+
+\                                     |||<====| RS   |
+\                                     |||     +------+
+\                                     |||     +------+
+\                                             | RS31 |
+\                                             +------+
+\
+\ ---------------------------------------------------------------------------------------
+
+
+\ The CPU contains the following items.
+
+\ DS - Data Stack                 TOS - Top of Stack
+\ RS - Return Stack               ALU - Arithmetic Logic Unit
+\ PC - Program Counter             PM - Program Memory
+\ IR - Instructions Register      MAR - Memory Access Register
+\ CL - Control Logic
+
+\ Modules DS, RS, PC, and PM are able to accept input from the data bus or output to 
+\ the data bus, as indicated by the double arrows '<===>'. Multiplexors ensure only one 
+\ module may output a signal to the data bus and only one module may input a signal from 
+\ the data bus.
+
+\ Modules IR and MAR are able to accept input from the data bus, but are not able to 
+\ output their contents to the data bus.
+
+\ ALU always accepts input from TOS via input B and is able to accept input from the
+\ data bus via input A. ALU is can output to either TOS or the data bus.
+
+\ TOS always outputs to ALU input B. TOS always accepts input from ALU. TOS can 
+\ recieve data from the data bus by passing the signal through ALU.
+
+\ IO is memory-mapped.
+
+
+
+\ <line 320>  MacroProcessor v2023-02-17  ARCHITECTUAL OVERVIEW                  <page 5>
+\ ---------------------------------------------------------------------------------------
+
+\ -- Figure abd: Architecture block diagram ---------------------------------------------
+\
+\                                       |||=====================\\        //====\\
+\                                       |||                     ||        ||    ||
+\                                       |||  ALU_AND  ALU_SUB   ||        ||    ||
+\                                       |||  ALU_AND  ALU_OR    ||        ||    ||
+\                                       |||  ALU_XOR  ALU_>>  __\/___  ___\/__  ||
+\                                       | |  ALU_<<           \  A   \/   B  /  ||
+\                                       | |  TOS++             \            /   ||
+\                                       |1|  TOS--     ALU_OP --\   ALU    /    ||
+\                                       |6|                      \________/     ||
+\                                       | |                          ||         ||
+\  +-------------------+           PC>  |B|                          ||         ||
+\  |   Program         |             |  |I|  TOS>          +---------\/-----+   ||
+\  |   Counter         |=============#=>|T|  |             |   Top Of       |   ||
+\  |                   |<===============| |<=#=============|   Stack        |===//
+\  |                   |-- >PC          |D|                |                |
+\  |                   |-- PC++         |A|         >TOS --|   (cell 0)     |
+\  +-------------------+                |T|  DS1>          +----------------+
+\                                       |A|  |             |   Data         |
+\  +-------------------+           PM>  | |<=#=============|   Stack        |
+\  |   Program         |             |  |B|===============>|   Cell 1       |
+\  |   Memory          |=============#=>|U|         >DS1 --|                |
+\  |                   |<===============|S|  DS2>          +----------------+
+\  |                   |-- >PM          | |  |             |   Data         |
+\  +-------------------+                | |<=#=============|   Stack        |
+\  |   Memory          |<===============|||===============>|   Cell 2       |
+\  |   Access Reg.     |-- >MAR         |||         >DS2 --|                |
+\  +-------------------+                |||                +----------------+
+\                                       |||                .                .
+\                                       |||                +----------------+
+\  +-------------------+                |||                |    DS31        |
+\  |   Instruction     |<===============|||                +----------------+
+\  |   Register        |-- >IR          |||
+\  +-------------------+                |||
+\  | Instruction Cycle |                |||  RS>           +----------------+
+\  |                   |                |||  |             |   Return       |
+\  | 00 PC> ,>MAR      |                |||<=#=============|   Stack        |
+\  | 01 PM> ,>IR ,PC++ |                |||===============>|                |
+\  | 11 CL = IR[]      |                             >RS --|                |
+\  |                   |                                   +----------------+
+\  +-------------------+                                   .                .
+\  |   Control Logic   | Bits  Instruction Format          +----------------+
+\  |                   | 15-13 xxx------------- xyz>       |   RS31         |
+\  +-------------------+ 12-10 ---xxx---------- >xyz       +----------------+
+\                         9-7  ------xxx------- ALU_OP
+\                         6-4  ---------x------ ROP (repeat OP)
+\                         6-4  ----------x----- 
+\                         6-4  -----------x---- 
+\                         3-0  ------------xxxx Condition FLAGS                  
+\
+\ ---------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+\ <line 384 >  MacroProcessor v2023-02-17                                        <page 6>
+\ MODULE OVERVIEW -----------------------------------------------------------------------
+
+\ Sources driving the data bus are limited to one concurrently via a multiplexor.
+
+
+\ -- INPUT/OUTPUT (IO) ------------------------------------------------------------------
+
+\ General Input/Output.
+
+
+\ -- PROGRAM COUNTER (PC) ---------------------------------------------------------------
+
+\ The Program Counter (PC) stores the Program Memory address of the instruction that will
+\ execute during the next instruction cycle. PC incriments automatically during the
+\ second step of each instruction cycle. The Program Counter can be incremented manually.
+
+
+\ -- PROGRAM MEMORY (PM) ----------------------------------------------------------------
+
+\ Program Memory.
+
+
+\ -- MEMORY ACCESS REGISTER (MAR) -------------------------------------------------------
+
+\ Memory access register.
+
+
+\ -- INSTRUCTION REGISTER (IR) ----------------------------------------------------------
+
+\ The Instruction register holds the instruction being executed during the fourth step of
+\ the current instruction cycle.
+
+
+\ -- CONTROL LOGIC ----------------------------------------------------------------------
+
+
+\ -- RETURN STACK -----------------------------------------------------------------------
+
+\ The Return stack is primarily used for storing return address for use when returning
+\ from a subroutine. It is sometimes used to store data temporarily suring a subrouting.
+\ Only the top element of the stack is directly accessible. There are 32 cells in total.
+
+
+\ -- DATA STACK (TOS, DS1, DS2) ---------------------------------------------------------
+
+\ The Data Stack (DS) is the primary location for storing working data. The top three
+\ are addressible. DS3 through DS31 cannot be directly accessed.
+
+\ 32 total cells. Each of TOS, DS1, and DS2 shifts out or down affecting only the cells 
+\ below, leaving the cells above unaffected. Each ALU_OP, except ALU_NOP, suppresses TOS 
+\ from shifting up or down. Each 
+
+
+\ -- ARITHMETIC LOGIC UNIT --------------------------------------------------------------
+
+\ ALU input B is physically connected to the TOS register. Always connected.
+\ When ~>>ALU (ALU_OP = 0), ALU input A = 0x0
+
+\ "ALU> ,ALU_AND" will always output zero to the bus
+\ "ALU_AND" makes TOS zero
+
+
+
+\ <line 448>  MacroProcessor v2023-02-17  MODULE OVERVIEW                        <page 7>
+\ INSTRUCTION SET ARCHITECTURE (ISA) ----------------------------------------------------
+
+\ The Instruction Set Architecture for the MacroProcessor is quite simple.
+
+
+
+\ -- INSTRUCTION FORMAT -----------------------------------------------------------------
+
+\ The macroProcessor has a single instruction format. Instructions are 16-bit. Fixed
+\ layout. Bits 15-12 select the source module. Bits 11-08 select the destination module.
+\ Bits 7-4 select which ALU operatoin to use. Bits 3-1 select which module to increment.
+\ Bit 0 is reserved.
+
+
+
+\ -- Figure inf: Instruction format -----------------------------------------------------
+\
+\    xxx              Bits 15-13 - source enable
+\       xxx           Bits 12-10 - Destination enable
+\          xxx        Bits 9-7   - ALU operation select
+\             x       Bit 6      - Repeat operation
+\              x      Bit 5
+\               x     Bit 4
+\                xxxx Bits 3-0   - ALU flags
+\
+\ ---------------------------------------------------------------------------------------
+
+
+\ See Figure sd below for which modules are selectable as source or destination. The
+\ Memory Access Register (MAR) and Instruction Register (IR) are not selectable as
+\ sources. This simplifies the circuitry as these are not necessary as sources.
+
+\ -- Figure sd: Source and destination selection ----------------------------------------
+\
+\    Source  Destination  Module
+\    ------  -----------  ----------------------------
+\      X         X        Data Stack (DS)
+\      X         X        Return Stack (RS)
+\      X         X        Program Counter (PC)
+\      -         X        Memory Access Register (MAR)
+\      X         X        Program Memory (PM)
+\      X         X        Arithmetic Logic Unit (ALU)
+\      -         X        Instruction Register (IR)
+\
+\ ---------------------------------------------------------------------------------------
+
+\ TODO: Discuss other bit fields here
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\ <line 512>  MacroProcessor v2023-02-17  MODULE OVERVIEW                        <page 8>
+\ <word>   <binary op code >     <stack >   <op code description>
+: NOP      %0000000000000000  ;  (  --  )  ( No Operation )
+: RESET    %1111111111111111  ;  (  --  )  ( Reser system )
+\          %0000------------  ;  (  --  )  ( See NOP. Bits 15-12 - Source enable )
+: DS1>     %0001000000000000  ;  (  --  )  ( Data Stack output )
+: RS>      %0010000000000000  ;  (  --  )  ( Return Stack output )
+: PC>      %0011000000000000  ;  (  --  )  ( Program Counter outout )
+: PM>      %0100000000000000  ;  (  --  )  ( Program Memory output )
+: IO>      %0101000000000000  ;  (  --  )  ( Input/Output output )
+\          %0110------------  ;  (  --  )  (  )
+: TOS>     %0111000000000000  ;  (  --  )  ( TOS output. Same as DS0> )
+\          %1000------------  ;  (  --  )  (  )
+\          %1001------------  ;  (  --  )  (  )
+\ DS2>     %1010------------  ;  (  --  )  (  )
+\          %1011------------  ;  (  --  )  (  )
+\          %1100------------  ;  (  --  )  (  )
+\          %1101------------  ;  (  --  )  (  )
+\          %1110------------  ;  (  --  )  ( See RESET )
+\          %1111------------  ;  (  --  )  ( reserved )
+\          %----0000--------  ;  (  --  )  ( See NOP. Bits 11-08 - Destination enable )
+: >DS      %0000000100000000  ;  (  --  )  ( into Data Stack )
+: >RS      %0000001000000000  ;  (  --  )  ( into Return Stack )
+: >PC      %0000001100000000  ;  (  --  )  ( into Program Counter )
+: >PM      %0000010000000000  ;  (  --  )  ( into Program Memory )
+: >IO      %0000010100000000  ;  (  --  )  ( into Input/Output )
+\          %----0110--------  ;  (  --  )  (  )
+: >TOS     %0000011100000000  ;  (  --  )  ( into TOS )
+: >MAR     %0000100000000000  ;  (  --  )  ( into Memory Access Register )
+: >IR      %0000100100000000  ;  (  --  )  ( into Instruction Register )
+\ >DS2     %----1010--------  ;  (  --  )  (  )
+\          %----1011--------  ;  (  --  )  (  )
+\          %----1100--------  ;  (  --  )  (  )
+\          %----1101--------  ;  (  --  )  (  )
+\          %----1110--------  ;  (  --  )  (  )
+\          %----1111--------  ;  (  --  )  ( See RESET )
+\          %--------0000----  ;  (  --  )  ( See NOP. Bits 7-4 - ALU operation select )
+: ALU_ADD  %0000000000010000  ;  (  --  )  ( ALU ADD enable )
+: ALU_SUB  %0000000000100000  ;  (  --  )  ( ALU SUB enable ) \ necessary? 2s compliment
+: ALU_AND  %0000000000110000  ;  (  --  )  ( ALU AND enable )
+: ALU_OR   %0000000001000000  ;  (  --  )  ( ALU OR enable )
+: ALU_XOR  %0000000001010000  ;  (  --  )  ( ALU XOR enable )
+: ALU_<<   %0000000001100000  ;  (  --  )  (  )
+: ALU_>>   %0000000001110000  ;  (  --  )  (  )
+\          %0000000010000000  ;  (  --  )  (  )
+\          %--------1001----  ;  (  --  )  (  )
+\          %--------1010----  ;  (  --  )  (  )
+\          %--------1011----  ;  (  --  )  (  )
+\          %--------1101----  ;  (  --  )  (  )
+\          %--------1110----  ;  (  --  )  ( See RESET )
+\          %--------1111----  ;  (  --  )  ( reserved )
+\          %------------0000  ;  (  --  )  ( See NOP. Bits 3-0 - Conditional branching/flags)
+: if=0     %------------0001  ;  (  --  )  ( Zero )
+: if<0     %------------0010  ;  (  --  )  ( Sign )
+: if_C     %------------0100  ;  (  --  )  ( Carry )
+: if_OF    %------------1000  ;  (  --  )  ( Overflow )
+\          %------------1111  ;  (  --  )  ( See RESET )
+\
+\ -- Figure isa: Instruction Set Architecture -------------------------------------------
+
+\ TODO: Adjust this table for the correct instruction format. 3-bit source and destionation.
+
+
+
+\ <line 576>  MacroProcessor v2023-02-17  INSTRUCTION SET ARCHICETURE            <page 9>
+\ ---------------------------------------------------------------------------------------
+
+\ TODO: Discuss how to combine DS> >RS using OR logic. Create a need for a better 
+\       notation.
+
+\ TODO: Note to the reader that DS> and ,DS> are quite different. Mention it here and
+\       then cover it again later. The code  ,>DS  easily could have been  >DS_OR  .
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\ <line 640 >  MacroProcessor v2023-02-17                                       <page 10>
+\ COMBINATIONAL INSTRUCTION WORDS -------------------------------------------------------
+
+\ Given the nature of the instruction format, the base control words can be combined into
+\ instructions by using a bitwise OR operations.
+
+\ We will define another set of words identical to the list of control words, but with
+\ the addition of a bitwise OR operation.
+
+\ -- Figure orw: OR words ---------------------------------------------------------------
+
+: ,NOP  NOP  OR ;         (  --  ) ( OR with NOP )
+: ,DS>  DS>  OR ;         (  --  ) ( OR with Data Stack output )
+: ,RS>  RS>  OR ;         (  --  ) ( OR with Return Stack output )
+: ,PC>  PC>  OR ;         (  --  ) ( OR with Program Counter outout )
+: ,PM>  PM>  OR ;         (  --  ) ( OR with Program Memory output )
+: ,IO>  IO>  OR ;         (  --  ) ( OR with Input/Output output )
+: ,ALU> ALU> OR ;         (  --  ) ( OR with ALU )
+: ,>DS  >DS  OR ;         (  --  ) ( OR with into Data Stack )
+: ,>RS  >RS  OR ;         (  --  ) ( OR with into Return Stack )
+: ,>PC  >PC  OR ;         (  --  ) ( OR with into Program Counter )
+: ,>PM  >PM  OR ;         (  --  ) ( OR with into Program Memory )
+: ,>IO  >IO  OR ;         (  --  ) ( OR with into Input/Output )
+: ,>TOS >TOS OR ;         (  --  ) ( OR with into Top Of Stack )
+: ,>ALU >ALU OR ;         (  --  ) ( OR with into Arithmetic Logic Unit )
+: ,>MAR >MAR OR ;         (  --  ) ( OR with into Memory Access Register )
+: ,>IR  >IR  OR ;         (  --  ) ( OR with into Instruction Register )
+: ,ALU_ADD  ALU_ADD  OR ; (  --  ) ( OR with ALU ADD enable )
+: ,ALU_SUB  ALU_SUB  OR ; (  --  ) ( OR with ALU SUB enable )
+: ,ALU_AND  ALU_AND  OR ; (  --  ) ( OR with ALU AND enable )
+: ,ALU_OR   ALU_OR   OR ; (  --  ) ( OR with ALU OR enable )
+: ,ALU_XOR  ALU_XOR  OR ; (  --  ) ( OR with ALU XOR enable )
+; ,ALU_TOS  ALU_TOS OR ;  (  --  ) ( OR with TOS passthrough )
+: ,DS++ DS++   OR ;       (  --  ) ( OR with increment RS )
+: ,DS-- DS--   OR ;       (  --  ) ( OR with decremetn RS )
+: ,RS++ RS++   OR ;       (  --  ) ( OR with increment RS )
+: ,RS-- RS--   OR ;       (  --  ) ( OR with decremetn RS )
+
+\ ---------------------------------------------------------------------------------------
+
+\ TODO: Discuss OR logic here
+\ Instructions are created by doing a bitwise OR of multiple words from the definitions below.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\ <line 704 >  MacroProcessor v2023-02-17                                       <page 11>
+\ ---------------------------------------------------------------------------------------
+
+\ This notation results in clear instructions without requiring
+\ an assembler. Take, for example, copying the contents of PC into
+\ RS and incrimenting RS.
+
+\              PC> ,>RS ,RS++  
+
+\ Step 1. PC> places onto the stack  %0011000000000000
+
+\ Step 2. ,>RS places onto the stack %0000001000000000 
+\         and performs a bitwise OR,
+\         leaving onto the stack     %0011001000000000
+
+\ Step 3. ,RS+ places onto the stack %0000000000000001
+\         and performs a bitwise OR,
+\         leaving on the stack       %0011001000000001
+
+\ TODO: expand on this
+
+\ Not every combination makes sense even though it is possible. For example PC> ,>RS ,ADD
+\ will copy the contents of PS to RS and will enable the ALU ADD function, but nothing 
+\ will be added because the ALU is not active.
+
+\ Make an exercise where the ,ALU_AND and ,ALU_<< are used together. Instead, it 
+\ becomes ALU_>> due to the bitwise OR. It is possible to combine instructions,
+\ but not all of them make sense or have expected behavior. This is a good reason
+\ to not play with the low level words and instead, use the higher level words.
+\ Use PUSH and POP rather than the individual instructions.
+
+\ Any word that can be expressed in a single instruction, should be. Do so even if the 
+\ word can be expressed using other Forth words. Not always good, but good for here.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\ <line 768 >  MacroProcessor v2023-02-17                                       <page 12>
+\ INSTRUCTION CYCLE ---------------------------------------------------------------------
+
+\ The CPU has a four step instruction cycle. The first three steps prepare the CPU for
+\ executing the main instruction while the fourth step is the actual user-defined
+\ instruction loaded into the Instruction Register (IR). This is hardwired to control the
+\ CPU to perform each step.
+
+
+\ -- Microinstructions-------------------------------------------------------------------
+
+\ The CPU automatically performs several instructions to prepare the CPU for executing
+\ each program instruction. For example, copying a program instruction into the 
+\ Instruction Register (IR).
+
+\ -- Figure ic: Instruction Cycle -------------------------------------------------------
+
+\ Step  Instruction
+\ ----  -----------
+\  00   PC> ,>MAR
+\  01   PM> ,>IR ,PC++
+\  10   PC> ,>MAR
+\  11   Control Logic = IR[ <instruction> ]
+
+\ ---------------------------------------------------------------------------------------
+
+\ Step 00 - PC> ,>MAR -------------------------------------------------------------------
+
+\  This copies the contents of the Program Counter (PC) into the Memory Access
+\ Register (MAR). If starting from RESET, PC will be automatically set to 0x00, which 
+\ will now be loaded into MAR. This will setup the PM such that it will output the 
+\ contents of PM[0x00] (the first cell of PM).
+
+
+\ Step 01 - PM> ,>IR ,PC++ --------------------------------------------------------------
+
+\ The cell at memory address 0x00 is moved to the Instruction Register (IR). PC is 
+\ incremented, so it will point to the next cell, which could be an instruction or data.
+
+
+\ Step 10 - PC> ,>MAR -------------------------------------------------------------------
+
+\ Pointing PM to the next cell allows for quick memory loading of a 16-bit 
+\ value to a destination depending on IR[].
+
+\ Step 11 - CL = IR[] -------------------------------------------------------------------
+
+\ The instruction in the Instruction Register (IR) is executed.
+
+
+\ TODO: Determine how the ALU flags affect execution.
+
+
+
+
+
+
+
+
+
+
+
+
+
+\ <line 832 >  MacroProcessor v2023-02-17  INSTRUCTION CYCLE                    <page 13>
+\ -- INSTRUCTION TIMING -----------------------------------------------------------------
+\ Instructions are executed. The control logic is configured in between each step.
+
+
+\ -- Figure timing: Timing chart --------------------------------------------------------
+\
+\         _______________________________________________________________________________
+\ RESET _/       
+
+\            _______         _______         _______         _______         _______     
+\  CLK  ____/       \_______/       \_______/       \_______/       \_______/       \____
+
+\       ... | Execute 00    | Execute 01    | Execute 10    | Execute 11   |
+\           |  PC> ,>MAR    | PM> ,>IR ,PC++| PC> ,>MAR     | CL=IR[]      | ...
+\       ____         _______         _______         _______         _______         ____
+\ ~CLK      \_______/       \_______/       \_______/       \_______/       \_______/    
+\
+\   ... Setup 00    | Setup 01      | Setup 10      | Setup 11      | ...
+\       PC> ,>MAR   | PM> ,>IR ,PC++| PC> ,>MAR     | CL=IR[]       |
+\
+\ ---------------------------------------------------------------------------------------
+
+\ TODO: Write an explaination of the instrucion cycle timing chart
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\ <line 896 >  MacroProcessor v2023-02-17  INSTRUCTION TIMING                   <page 14>
+\ ---------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\ <line 960 >  MacroProcessor v2023-02-17  BLANK PAGE                           <page 15>
+\ ---------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\ <line 1024>  MacroProcessor v2023-02-17  BLANK PAGE                           <page 16>
+\ ---------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\ <line 1088>  MacroProcessor v2023-02-17  BLANK PAGE                           <page 17>
+\ ---------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\ <line 1152>  MacroProcessor v2023-02-17  BLANK PAGE                           <page 18>
+\ SCRIPTS -------------------------------------------------------------------------------
+
+\ -- print.sh ---------------------------------------------------------------------------
+
+\ #!/bin/bash
+
+\ # Bash script to print a plain text file 64 lines per page.
+
+\ if [ $# -eq 0 ]; then                         # check if an argument was passed
+\   echo "Error: No argument provided"
+\   exit 1
+\ fi
+
+\ file=$1                                       # store the argument as a variable
+\ lines=64                                      # set the default number of lines to 20
+
+\ if [ $# -eq 2 ]; then                         # check if a second argument was passed
+\   lines=$2
+\ fi
+
+\ if [ ! -f "$file" ]; then                     # check if the argument is a file
+\   echo "Error: First argument is not a file"
+\   exit 1
+\ fi
+
+\ nl -b a $file > $file.numbered                # add line numbers to the file
+
+\ split -l $lines $file.numbered -d -a 4 print_ # split the file into groups of the
+\ for i in print_*; do                          # specified number of lines and print
+\  lp -o cpi=16 -o lpi=7 \                      # each group
+\  -o page-bottom=70 -o page-left=50 \
+\  -o page-right=60 -o page-top=60 $i
+\ done
+
+\ rm print_*                                    # delete the temporary files
+\ rm $file.numbered
+\ exit 0                                        # exit the script with a success status code
+
+
+\ -- frontmatter.sh ---------------------------------------------------------------------
+
+\ TODO: write a script to generate table of contents
+\ TODO: write a script to generate a lis of figures/ tables
+\ TODO: write a script to generate the page footer
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\ <line 1216>  MacroProcessor v2023-02-17  SCRIPTS                              <page 19>
+\ DOCUMENT CONVENTIONS ------------------------------------------------------------------
+
+\ - Sections are in all caps with a horizontal rule
+\ - Subsections are capitalized normally with a horizontal rule
+\ - Each section or subsection is preceeded by two empty lines and proceeded by one.
+\ - Each section begins on a new page
+\ - Each table/figure is preceeded and followed by two empty lines
+\ - The label and description for each figure appears below the figure
+\ - Two spaces before and after inline code
+\ - 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\ <line 1280>  MacroProcessor v2023-02-17  DOCUMENT CONVENTIONS                 <page 20>
+\ ---------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\ <line 1344>  MacroProcessor v2023-02-17  BLANK PAGE                           <page 21>
+\ DICTIONARY ----------------------------------------------------------------------------
+
+: !  ( n1 addr --  ) ( Store n1 at location addr in PM )
+        ALU> ,>MAR ,ALU_TOS
+        DS> ,>PM
+        DS> ,>TOS
+
+: @  ( addr -- n1 )  ( Fetch the value at location addr in PM as n1 )
+        ALU> ,>MAR ,ALU_TOS
+        PM> ,>ALU ,ALU_TOS
+
+: +  ( n1 n2 -- n3 )  ( Add n1 and n2, giving n3 )
+        DS> ,>ALU ,DS-- ,ALU_ADD
+
+: -      ( n1 n2 -- n3 )  ( Subtract n2 rom n1, giving n3 )
+        DS> ,>ALU ,DS-- ,ALU_SUB
+
+: AND    ( n1 n2 -- n3 )  ( Perform a bitwise AND on n1 and n2, giving n3 )
+        DS> ,>ALU ,DS-- ,ALU_AND
+
+: OR     ( n1 n2 -- n3 )  ( Perform a bitwise OR on n1 and n2, giving n3 )
+        DS> ,>ALU ,DS-- ,ALU_OR
+
+: XOR    ( n1 n2 -- n3 )  ( Perform a bitwise XOR on n1 and n2, giving n3 )
+        DS> ,>ALU ,DS-- ,ALU_XOR
+
+: >R  ( n1 --  )  ( Push n1 on to the return stack )
+        ALU> ,>RS ,ALU_TOS ,DS--
+        DS> ,>ALU ,ALU_TOS
+
+: R>  (  -- n1 )  ( Pop RS, push to TOS )
+        ALU> ,>DS ,DS++ ,ALU_TOS
+        RS> ,>ALU ,ALU_TOS ,RS--
+
+: DUP  ( n1 -- n1 n1 )  ( Duplicate n1 to TOS )
+        ALU> ,>DS ,DS++ ,ALU_TOS
+
+: DROP  ( n1 --  )  ( Drop n1 from the stack )
+        DS> ,>ALU ,ALU_TOS ,DS--
+
+: OVER  ( n1 n2 -- n1 n2 n1 )  ( Duplicate the second stack element to TOS )
+
+: SWAP  ( n1 n2 -- n2 n1 )  ( Swap the order of the top two elements )
+        ALU> ,>RS ,RS++ ,ALU_TOS
+        DS> ,>ALU ,ALU_TOS
+        RS> ,>DS ,RS--
+
+: [IF]  ( n1 --  )  ( If n1 == 0, branch to address in next cell )
+
+
+
+: [CALL]  (  --  )  ( Perform a subroutine call to address in next cell )
+
+
+
+: [EXIT]  (  --  )  ( Perform a subroutine return )
+       
+
+
+: [LIT]  (  -- n1 )  ( Push the value in the next cell to DS )
+
+
+
+\ <line 1408>  MacroProcessor v2023-02-17  DICTIONARY                           <page 22>
+\ ---------------------------------------------------------------------------------------
+
+\ -- RESET ------------------------------------------------------------------------------
+
+\ RESET sets PC to 0x00. Also sets the instruction step counter to step 000. Step 001 
+\ puts 0x00 into MAR.
+
+\ Hold down a button to set PC to a value other than zero? The system can boot  from an 
+\ address other than 0x00.
+
+\ The system can be reset by loading 0xFFFF into IR.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\ <line 1472>  MacroProcessor v2023-02-17  OTHER NOTES                          <page 23>
+\ -- NOTES ------------------------------------------------------------------------------
+
+\ - See Forth v6 at mosaic-industries.com
+\ - "Look at "the bitcoin bitfield (interpreter.h, line 43) in ROM chip"
+\ - SmithForth, a very nice layout for simple Forth interpreter. See
+\   "SmithForth Workings" on youtube
+\ - See retroforth.org, camelforth, collapse OS, midrocore on github (forth2020,
+\   MicroForth
+\ -  Read "Moving Forth" by Brad Rodriguez
+\ - See github.com/miniforth. Fits on a boot sector
+\ - Given SOURCE> >DESTINATION. Instead of being activated with bits 15-13 and 12-10,
+\   consider making a list of all sensible combinations and having each item in the
+\   list be activated with a unique combination of bits. Can the required number of
+\   bits be reduced? If so, theat bit can be used for something else.
+\       Any infrequently used combinations that can be implement in multiple 
+\   instructions can potentially be removed from the list.
+\ - Memory map the input/output. This reduces the number of modules to eight, which
+\   requires fewer bits to address.
+\ - How to implement interrupts?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\ <line 1536>  MacroProcessor v2023-02-17  NOTES                                <page 24>

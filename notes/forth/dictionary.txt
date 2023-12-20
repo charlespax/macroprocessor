@@ -1,3 +1,6 @@
+% This document is retired as of 2023-12-20.
+% All information is accounted for.
+
 This file is a dictionary of Forth words and terminology.
 
 Glossary
