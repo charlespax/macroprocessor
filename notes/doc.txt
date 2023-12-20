@@ -1,4 +1,5 @@
-
+% This document is retired as of 2023-12-20.
+% All information is accounted for.
 
 
 \  __  __                        _____                                        
