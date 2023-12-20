@@ -51,7 +51,18 @@
 %\counterwithin*{sidenote}{chapter}
 
 % Load the package for byte field graphic generation
+% https://ctan.org/pkg/bytefield
 \usepackage{bytefield}
+
+% Load the package for timing diagrams
+% https://ctan.org/pkg/tikz-timing
+\usepackage{tikz-timing}[2009/05/15]
+
+% Load package for drawing diagrams
+\usetikzlibrary{positioning, matrix, arrows.meta,calc}
+
+% New Commands
+\newcommand{\fixed}[1]{\texttt{#1}}
 
 %---------------------------------------------------------------------------------------
 

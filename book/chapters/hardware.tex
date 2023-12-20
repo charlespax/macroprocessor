@@ -80,7 +80,7 @@ We will discuss stack computers\sidecite{Koopman1989}.
           |   Program         |             |  |6| 110 ALU_<<   ALU_OP --\________/     ||
           |   Counter         |=============#=>| | 111 ALU_>>                ||         ||
           |                   |<===============|B|                           ||         ||
-   ~MAS --| (PC++)            |-- 001 >PC      |I|  101 TOS>      +----------\/----+    ||
+  SMA_x --| (1 PC++)          |-- 001 >PC      |I|  101 TOS>      +----------\/----+    ||
           |                   |                |T|  |             |   Top Of       |    ||
           +-------------------+                | |<=#=============|   Stack        |====//
               ||                               |D|                |                |
@@ -89,9 +89,9 @@ We will discuss stack computers\sidecite{Koopman1989}.
           | Memory  | Program |             |  |A|  |             |   Data         |
           | Address |  Memory |=============#=>| |<=#=============|   Stack        |
           |         |         |<===============|B|===============>|   Cell 1       |
-    MAS --|         |         |-- 010 >PM      |U|     110 >DS1 --|                |
-    0 PC  +---/\----+---------+                |S|  111 DS2>      +----------------+
-    1 MAR     ||                               | |  |             |   Data         |
+  SMA_x --|         |         |-- 010 >PM      |U|     110 >DS1 --|                |
+    0 MAR +---/\----+---------+                |S|  111 DS2>      +----------------+
+    1 PC      ||                               | |  |             |   Data         |
               ||                               | |<=#=============|   Stack        |
           +-------------------+                |||===============>|   Cell 2       |
           |  Memory           |<===============|||     111 >DS2 --|                |
@@ -104,88 +104,78 @@ We will discuss stack computers\sidecite{Koopman1989}.
           +-------------------+                |||  100 RS>       +----------------+
           | Instruction Cycle |                |||  |             |   Return       |
           |                   |                |||<=#=============|   Stack        |
-          | 00 MAS=0          |                |||===============>|                |
-          | 01 PM> ,>IR ,PC++ |                |||      100 >RS --|                |
+          | 00 SMA_PC         |                |||===============>|                |
+          | 01 PM> ,>IR ,PC++ |                |||      100 >RS --|   (cell 0)     |
           | 10                |                                   +----------------+
           | 11 CL = IR[]      |                                   .                .
           |                   |  Bits  Instruction Format         +----------------+
           +-------------------+  15-13 xxx------------- xyz>      |   RS31         |
           |   Control Logic   |  12-10 ---xxx---------- >xyz      +----------------+
           |                   |   9-7  ------xxx------- ALU_OP      
-          +-------------------+    6   ---------x------ Memory Address Select (MAS)
-                                   5   ----------x----- 
-                                   4   -----------x---- 
+          +-------------------+    6   ---------x------ Select Memory Address (SMA)
+                                  5-4  ----------xx---- (unallocated)
                                    3   ------------x--- zero
                                    2   -------------x-- sign
                                    1   --------------x- carry
                                    0   ---------------x overflow
-                                       000000xxxxxxxxxx NOP
                                  
                                                 
 \end{lstlisting}
 \caption[Architecture Block Diagram]{Complete architecture block diagram}
 \end{figure*}
 
-\begin{figure*}[h!]
-\begin{lstlisting}
-\ <word>   <binary op code >     <stack >   <op code description>
-: NOP      %0000000000000000  ;  (  --  )  ( No Operation )
-: RESET    %1111111111111111  ;  (  --  )  ( Reser system )
-\          %0000------------  ;  (  --  )  ( See NOP. Bits 15-12 - Source enable )
-: DS1>     %0001000000000000  ;  (  --  )  ( Data Stack output )
-: RS>      %0010000000000000  ;  (  --  )  ( Return Stack output )
-: PC>      %0011000000000000  ;  (  --  )  ( Program Counter outout )
-: PM>      %0100000000000000  ;  (  --  )  ( Program Memory output )
-: IO>      %0101000000000000  ;  (  --  )  ( Input/Output output )
-\          %0110------------  ;  (  --  )  (  )
-: TOS>     %0111000000000000  ;  (  --  )  ( TOS output. Same as DS0> )
-\          %1000------------  ;  (  --  )  (  )
-\          %1001------------  ;  (  --  )  (  )
-\ DS2>     %1010------------  ;  (  --  )  (  )
-\          %1011------------  ;  (  --  )  (  )
-\          %1100------------  ;  (  --  )  (  )
-\          %1101------------  ;  (  --  )  (  )
-\          %1110------------  ;  (  --  )  ( See RESET )
-\          %1111------------  ;  (  --  )  ( reserved )
-\          %----0000--------  ;  (  --  )  ( See NOP. Bits 11-08 - Destination enable )
-: >DS      %0000000100000000  ;  (  --  )  ( into Data Stack )
-: >RS      %0000001000000000  ;  (  --  )  ( into Return Stack )
-: >PC      %0000001100000000  ;  (  --  )  ( into Program Counter )
-: >PM      %0000010000000000  ;  (  --  )  ( into Program Memory )
-: >IO      %0000010100000000  ;  (  --  )  ( into Input/Output )
-\          %----0110--------  ;  (  --  )  (  )
-: >TOS     %0000011100000000  ;  (  --  )  ( into TOS )
-: >MAR     %0000100000000000  ;  (  --  )  ( into Memory Access Register )
-: >IR      %0000100100000000  ;  (  --  )  ( into Instruction Register )
-\ >DS2     %----1010--------  ;  (  --  )  (  )
-\          %----1011--------  ;  (  --  )  (  )
-\          %----1100--------  ;  (  --  )  (  )
-\          %----1101--------  ;  (  --  )  (  )
-\          %----1110--------  ;  (  --  )  (  )
-\          %----1111--------  ;  (  --  )  ( See RESET )
-\          %--------0000----  ;  (  --  )  ( See NOP. Bits 7-4 - ALU operation select )
-: ALU_ADD  %0000000000010000  ;  (  --  )  ( ALU ADD enable )
-: ALU_SUB  %0000000000100000  ;  (  --  )  ( ALU SUB enable ) \ necessary? 2s compliment
-: ALU_AND  %0000000000110000  ;  (  --  )  ( ALU AND enable )
-: ALU_OR   %0000000001000000  ;  (  --  )  ( ALU OR enable )
-: ALU_XOR  %0000000001010000  ;  (  --  )  ( ALU XOR enable )
-: ALU_<<   %0000000001100000  ;  (  --  )  (  )
-: ALU_>>   %0000000001110000  ;  (  --  )  (  )
-\          %0000000010000000  ;  (  --  )  (  )
-\          %--------1001----  ;  (  --  )  (  )
-\          %--------1010----  ;  (  --  )  (  )
-\          %--------1011----  ;  (  --  )  (  )
-\          %--------1101----  ;  (  --  )  (  )
-\          %--------1110----  ;  (  --  )  ( See RESET )
-\          %--------1111----  ;  (  --  )  ( reserved )
-\          %------------0000  ;  (  --  )  ( See NOP. Bits 3-0 - Conditional branching/flags)
-: if=0     %------------0001  ;  (  --  )  ( Zero )
-: if<0     %------------0010  ;  (  --  )  ( Sign )
-: if_C     %------------0100  ;  (  --  )  ( Carry )
-: if_OF    %------------1000  ;  (  --  )  ( Overflow )
-\          %------------1111  ;  (  --  )  ( See RESET )              
-\end{lstlisting}
+
+
+\begin{table*}[h!]
+%\small
 \caption[Instruction Set Architecture]{Instruction Set Architecture (ISA)}
-\end{figure*}
+\begin{tabular}{p{2cm} p{4.0cm} p{7.0cm} }
+
+\toprule
+Word     &  Binary OP code    &  OP code description \\
+\midrule
+\midrule
+NOP      &  \fixed{000 000 000 0000000}  &  No Operation \\
+RESET    &  \fixed{111 111 111 1111111}  &  Reset system \\
+\\
+NO>      &  \fixed{000 ... ... . .. ....}  &  No input source. High $Z$ \\
+PC>      &  \fixed{001 ... ... . .. ....}  &  Program Counter out \\
+PM>      &  \fixed{010 ... ... . .. ....}  &  Program Memory out \\
+MAR>     &  \fixed{011 ... ... . .. ....}  &  Memory Address Register out \\
+RS>      &  \fixed{100 ... ... . .. ....}  &  Return stack out \\
+TOS>     &  \fixed{101 ... ... . .. ....}  &  POP Data Stack cell 0 \\
+DS1>     &  \fixed{110 ... ... . .. ....}  &  POP Data Stack cell 1  \\
+DS2>     &  \fixed{111 ... ... . .. ....}  &  POP Data Stack cell 2 \\
+\\
+>NO      &  \fixed{... 000 ... . .. ....}  &  No output destination. \\
+>PC      &  \fixed{... 001 ... . .. ....}  &  Input to Program Counter \\
+>PM      &  \fixed{... 010 ... . .. ....}  &  Input to Program Memory \\
+>MAR     &  \fixed{... 011 ... . .. ....}  &  Input to Memory Address Register \\
+>RS      &  \fixed{... 100 ... . .. ....}  &  PUSH to Return stack \\
+>TOS     &  \fixed{... 101 ... . .. ....}  &  PUSH to Data Stack cell 0 \\
+>DS1     &  \fixed{... 110 ... . .. ....}  &  PUSH to Data Stack cell 1 \\
+>DS2     &  \fixed{... 111 ... . .. ....}  &  PUSH to Data Stack cell 2 \\
+\\
+ALU\_NOP &  \fixed{... ... 000 . .. ....}  &  No ALU operation selected \\
+ALU\_ADD &  \fixed{... ... 001 . .. ....}  &  ALU addition \\
+ALU\_SUB &  \fixed{... ... 010 . .. ....}  &  ALU subtraction \\
+ALU\_AND &  \fixed{... ... 011 . .. ....}  &  ALU bitwise AND \\
+ALU\_OR  &  \fixed{... ... 100 . .. ....}  &  ALU bitwise OR \\
+ALU\_XOR &  \fixed{... ... 101 . .. ....}  &  ALU bitwise XOR \\
+ALU\_<<  &  \fixed{... ... 110 . .. ....}  &  ALU bitshift left \\
+ALU\_>>  &  \fixed{... ... 111 . .. ....}  &  ALU bitchift right \\
+\\
+SMA\_MAR &  \fixed{... ... ... 0 .. ....}  &  Select Memory Address from MAR \\
+SMA\_PC  &  \fixed{... ... ... 1 .. ....}  &  Select Memory Address from PC  \\
+\\
+         &  \fixed{... ... ... . .. ....}  &  (unallocated) \\
+\\
+if=0     &  \fixed{... ... ... . .. 1...}  &  Zero \\
+if<0     &  \fixed{... ... ... . .. .1..}  &  Sign \\
+if\_C    &  \fixed{... ... ... . .. ..1.}  &  Carry \\
+if\_OF   &  \fixed{... ... ... . .. ...1}  &  Overflow \\
+\bottomrule
 
 
+\end{tabular}
+\end{table*}
