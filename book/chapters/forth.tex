@@ -30,39 +30,87 @@ you will be able to
 %====================================================================
 \section{Dictionary Entry Format}
 
+Each word in Forth is defined by a \gls{dictionaryEntry}
+\gls{immediateWord}.
+
+
+
 The dictionary entry format is dependent upon the Forth implmentation, but a typical
 16-bit Forth system will implement the structure described in \reffig{dictionaryEntryFormat}.
 
+
+\todo{Add headings for these three columns: Address, Contents, Description}
 \begin{figure}[hbt!]
-\begin{bytefield}[bitwidth=1.25em]{16}
-\bitheader{0-15} \\
+\begin{bytefield}[bitwidth=auto]{16}
+    \begin{rightwordgroup}[rightcurly=.]{\textbf{Notes}}
+            \begin{leftwordgroup}[leftcurly=.]{\textbf{Address}}
+                \wordbox[]{1}{\textbf{Content}}
+    \end{leftwordgroup}
+\end{rightwordgroup} \\
+    \bitheader[endianness=big]{15,14,0} \\
 \begin{rightwordgroup}{name field}
-    \bitbox{1}{$p$} & \bitbox{15}{$name$ length ($n$ characters)} \\
-    \bitbox{16}{$name[0]$} \\
-    \bitbox{16}{$\cdots$} \\
-    \bitbox{16}{$name[n]$}
+    \begin{leftwordgroup}[leftcurly=.]{Name Field Address (NFA)}
+        \bitbox{1}{$p$} &
+        \bitbox{15}{$n$}
+    \end{leftwordgroup} \\
+    \begin{leftwordgroup}[leftcurly=.]{NFA $+ 1$}
+        \bitbox{16}{$name_0$}
+    \end{leftwordgroup} \\
+    \wordbox[]{1}{$\vdots$} \\[1ex]
+    \begin{leftwordgroup}[leftcurly=.]{NFA $+ n + 1$}
+        \bitbox{16}{$name_n$}
+    \end{leftwordgroup}
 \end{rightwordgroup} \\
-    \begin{rightwordgroup}[rightcurly=.]{link address field}
-    \wordbox{1}{link address}
+\begin{rightwordgroup}[rightcurly=.]{link field}
+    \begin{leftwordgroup}[leftcurly=.]{Link Field Address (LFA)}
+        \wordbox{1}{link pointer}
+    \end{leftwordgroup}
 \end{rightwordgroup} \\
-    \begin{rightwordgroup}[rightcurly=.]{code address field}
-    \wordbox{1}{code address}
+\begin{rightwordgroup}[rightcurly=.]{code field}
+    \begin{leftwordgroup}[leftcurly=.]{Code Field Addresss (CFA)}
+        \wordbox{1}{code pointer}
+    \end{leftwordgroup}
 \end{rightwordgroup} \\
-\begin{rightwordgroup}{data field}
-    \wordbox{3}{data}
+\begin{rightwordgroup}{parameter field}
+    \begin{leftwordgroup}[leftcurly=.]{Parameter Field Address (PFA)}
+        \wordbox{1}{$parameter_0$}
+    \end{leftwordgroup} \\
+    \wordbox[]{1}{$\vdots$} \\[1ex]
+    \begin{leftwordgroup}[leftcurly=.]{PFA $+ c$}
+    \wordbox{1}{$parameter_c$}
+    \end{leftwordgroup}
 \end{rightwordgroup}
 \end{bytefield}
 
-\caption[Dictionary entry format]{This is the MacroController Forth dictionary 
-    entry format for a 16-bit system. Other Forth systems may implement a differnt format.}
+\caption[Dictionary entry format]{Dictionary entry format.}
 	\labfig{dictionaryEntryFormat}
 \end{figure}
 
-where, \\
-$p$ is the precedence bit,\\
-$name$ length is the number of characters in the word name, \\
-$char_n$ is the $n^{th}$ character in name,
-link address is an address pointing to the first cell of the previous dictionary entry's name field, \\
+where \\
+\todo{how are these items sorted? Alphabetical? Order of appearance?}
+NFA is the address pointing to the first cell in the word's name field, \\
+LFA is the address pointing to the word's link pointer field, \\
+CFA is the address pointing to the word's code pointer field, \\
+PFA is the address pointing to the first cell in the word's parameter field, \\
+$p$ is the precedence bit (0,1), \\
+$n$ is the number of characters in the word's name (e.g. DUP$_n = 3$), \\
+$name_n$ is the $n^{th}$ character in the name, \\
+$c$ is the number of cells in the parameter field, and \\
+$parameter_c$ is the $c^{th}$ cell in the parameter field.
+
+Each dictionary entry has a link pointer field, which holds an memory address pointing to the 
+preceeding dictionary entry. By design, when the system searches for a word it starts 
+at the end of the dictionary and works its way to the beginning by following these 
+pointers. We call these addresses link pointers because they link the words together and to
+distinguish them from pointers with other purposes.
+
+
+
+
+The link pointer of a dictionary entry points to the name field of the previous word. The value of a link pointer is equal to the NFA of the pervious dictionary entry.
+The link pointer is an address pointing to the first cell of the previous dictionary entry's name field. The LFA of a dictionary entry contains the NFA of the previous dictionary entry.i
+
+, \\
 code address is the address of the machine instruction the interpreter will load for
 execution, and \\
 data is any data that is required for execution.

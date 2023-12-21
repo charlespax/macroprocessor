@@ -1,6 +1,23 @@
+\newglossaryentry{dictionaryEntry}{
+    name={dictionary entry},
+    description={is a set of data describing a Forth word}
+}
+
 \newglossaryentry{immediateWord}{
 	name={immediate word},
-	description={is executed during compilation and interpretation}
+	description={A word that has the IMMEDIATE bit set in its dictionary
+    header. Is executed during interpretation. Is executed during 
+    compilation rather than compiled into a definition. Is executed during compilation and interpretation}
+}
+
+
+\newglossaryentry{Machine-code word}{
+    name={Machine-code word},
+    description={A word that is directly executed by the CPU. Does not 
+    call other Forth words. May exit via a jump instruction to the 
+    address of NEXT or by including the contents of NEXT inline, thereby 
+    avoiding a jump instruction. Examples include the words NEXT EXECUTE 
+    BRANCH and EXIT .}
 }
 
 \newglossaryentry{compileWord}{

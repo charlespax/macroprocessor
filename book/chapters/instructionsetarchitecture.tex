@@ -37,54 +37,6 @@ Explain what an ISA is.
 \section{Instruction cycle}
 \blindtext
 
-\begin{figure}[hbt!]
-\begin{bytefield}[bitwidth=auto]{16}
-    \bitheader[endianness=big]{15,14,0} \\
-\begin{rightwordgroup}{name field}
-    \begin{leftwordgroup}[leftcurly=.]{address ($a$)}
-        \bitbox{1}{$p$} &
-        \bitbox{15}{$n$}
-    \end{leftwordgroup} \\
-    \bitbox{16}{$name_0$} \\
-    \wordbox[]{1}{$\vdots$} \\[1ex]
-    \begin{leftwordgroup}[leftcurly=.]{$a$ + $n$}
-        \bitbox{16}{$name_n$}
-    \end{leftwordgroup}
-\end{rightwordgroup} \\
-\begin{rightwordgroup}[rightcurly=.]{link address field}
-    \begin{leftwordgroup}[leftcurly=.]{$a$ + $n$ + 1}
-        \wordbox{1}{link address}
-    \end{leftwordgroup}
-\end{rightwordgroup} \\
-\begin{rightwordgroup}[rightcurly=.]{code address field}
-    \begin{leftwordgroup}[leftcurly=.]{$a$ + $n$ + 2}
-        \wordbox{1}{code address}
-    \end{leftwordgroup}
-\end{rightwordgroup} \\
-\begin{rightwordgroup}{data field ($d \ge 1$ cell)}
-    \begin{leftwordgroup}[leftcurly=.]{$a$ + $n$ + 3}
-        \wordbox{1}{$data_0$}
-    \end{leftwordgroup} \\
-    \wordbox[]{1}{$\vdots$} \\[1ex]
-    \begin{leftwordgroup}[leftcurly=.]{$a$ + $n + 3 + d$}
-    \wordbox{1}{$data_d$}
-    \end{leftwordgroup}
-\end{rightwordgroup}
-\end{bytefield}
-
-\caption[Dictionary entry format]{This is the MacroController Forth dictionary 
-    entry format for a 16-bit system. Other Forth systems may implement a differnt format.}
-	\labfig{dictionaryEntryFormat}
-\end{figure}
-
-where \\
-$a$ is the address of the word, \\
-$p$ is the precedence bit (0,1), \\
-$n$ is the number of characters in the word's name (e.g. DUP$_n = 3$), \\
-$name_n$ is the $n^{th}$ character of the name, \\
-$d$ is the number of cells in the data field, and \\
-$data_d$ is the $d^{th}$ cell of the data field.
-
 %
 % Section: Instruction Format
 %==============================================================================

@@ -32,4 +32,5 @@ Troubleshooting
 Error: `biblatex.sty' not found
 Solution:  sudo apt-get install texlive-bibtex-extra biber
 
-
+Glossary not compiling
+sudo apt-get install xindy

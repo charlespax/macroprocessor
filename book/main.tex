@@ -302,11 +302,15 @@ Notes:
 
 \nomenclature{$c$}{Speed of light in a vacuum inertial frame}
 \nomenclature{$h$}{Planck constant}
+\nomenclature{CFA}{See Code Field Address}
+\nomenclature{LFA}{See Link Field Address}
+\nomenclature{NFA}{See Name Field Address}
+\nomenclature{PFA}{See Parameter Field Address}
 
 \renewcommand{\nomname}{Notation} % Rename the default 'Nomenclature'
 \renewcommand{\nompreamble}{The next list describes several symbols that will be later used within the body of the document.} % Prepend this text to the nomenclature
 
-%\printnomenclature % Output the nomenclature
+\printnomenclature % Output the nomenclature
 
 
 
@@ -320,35 +324,9 @@ Notes:
 \glsaddall % print all terms in the glossary, not only referenced words
 \printglossary[title=Glossary, toctitle=Glossary,nonumberlist] % Output the glossary, 'title' is the chapter heading for the glossary, toctitle is the table of contents heading
 
-
-This file is a dictionary of Forth words and terminology.
-
-Glossary
-===================
-
-CFA - See Code Field Address
-LFA - See Link Field Address
-NFA - See Name Field Address
-PFA - See Parameter Field Address
-
-Code Field Address - 
 Link Field Addresss - 
 Name Field Address - 
 Parameter Field Address - 
-
-
-Code definition - 
-
-IMMEDIATE word - A word that has the IMMEDIATE bit set in its dictionary
-    header. Is executed during interpretation. Is executed during 
-    compilation rather than compiled into a definition.
-
-
-Machine-code word - A word that is directly executed by the CPU. Does not 
-    call other Forth words. May exit via a jump instruction to the 
-    address of NEXT or by including the contents of NEXT inline, thereby 
-    avoiding a jump instruction. Examples include the words NEXT EXECUTE 
-    BRANCH and EXIT .
 
 
 Threaded-code word - A word that contains other Forth words. May also 
