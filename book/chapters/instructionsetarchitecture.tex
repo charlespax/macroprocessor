@@ -37,15 +37,126 @@ Explain what an ISA is.
 \section{Instruction cycle}
 \blindtext
 
+\begin{figure}[hbt!]
+\begin{bytefield}[bitwidth=auto]{16}
+    \bitheader[endianness=big]{15,14,0} \\
+\begin{rightwordgroup}{name field}
+    \begin{leftwordgroup}[leftcurly=.]{address ($a$)}
+        \bitbox{1}{$p$} &
+        \bitbox{15}{$n$}
+    \end{leftwordgroup} \\
+    \bitbox{16}{$name_0$} \\
+    \wordbox[]{1}{$\vdots$} \\[1ex]
+    \begin{leftwordgroup}[leftcurly=.]{$a$ + $n$}
+        \bitbox{16}{$name_n$}
+    \end{leftwordgroup}
+\end{rightwordgroup} \\
+\begin{rightwordgroup}[rightcurly=.]{link address field}
+    \begin{leftwordgroup}[leftcurly=.]{$a$ + $n$ + 1}
+        \wordbox{1}{link address}
+    \end{leftwordgroup}
+\end{rightwordgroup} \\
+\begin{rightwordgroup}[rightcurly=.]{code address field}
+    \begin{leftwordgroup}[leftcurly=.]{$a$ + $n$ + 2}
+        \wordbox{1}{code address}
+    \end{leftwordgroup}
+\end{rightwordgroup} \\
+\begin{rightwordgroup}{data field ($d \ge 1$ cell)}
+    \begin{leftwordgroup}[leftcurly=.]{$a$ + $n$ + 3}
+        \wordbox{1}{$data_0$}
+    \end{leftwordgroup} \\
+    \wordbox[]{1}{$\vdots$} \\[1ex]
+    \begin{leftwordgroup}[leftcurly=.]{$a$ + $n + 3 + d$}
+    \wordbox{1}{$data_d$}
+    \end{leftwordgroup}
+\end{rightwordgroup}
+\end{bytefield}
+
+\caption[Dictionary entry format]{This is the MacroController Forth dictionary 
+    entry format for a 16-bit system. Other Forth systems may implement a differnt format.}
+	\labfig{dictionaryEntryFormat}
+\end{figure}
+
+where \\
+$a$ is the address of the word, \\
+$p$ is the precedence bit (0,1), \\
+$n$ is the number of characters in the word's name (e.g. DUP$_n = 3$), \\
+$name_n$ is the $n^{th}$ character of the name, \\
+$d$ is the number of cells in the data field, and \\
+$data_d$ is the $d^{th}$ cell of the data field.
+
 %
 % Section: Instruction Format
 %==============================================================================
 \section{Instruction Format}
-\blindtext
 
 %
 % Section: Instruction Timing
 %==============================================================================
 \section{Instruction Timing}
 \blindtext
+
+\begin{figure}[hbt!]
+\begin{tikztimingtable}
+    Clock & 3{10{c}} \\
+    Name & 3{hLLLLh} \\
+    Signal & 3{z4D{Text}z} \\
+\end{tikztimingtable}
+\caption[Timing diagram]{This is an example timing diagram that will be replaced by the real thing.}
+\end{figure}
+
+\begin{figure}[hbt!]
+\begin{tikzpicture}[
+    myline/.style={draw=green!40!black, thick},
+    box/.style={myline, minimum height=1cm, minimum width=1cm, font=\sffamily, inner sep=.3333em}, >=Stealth]
+
+    \matrix (CPU) [matrix of nodes, inner ysep=3mm, nodes=box, myline, column sep=1mm]
+        {|(CU)|CU & |[draw=none]|CPU & |(ALU)| ALU \\};
+    \node[box, above left=5mm of CPU] (input) {INPUT};
+
+    \node[box, below left=5mm of CPU] (output) {OUTPUT};
+    \node[box, at=(CPU|-output)] (memory) {MEMORY};
+    \node[box, below left=5mm of memory, anchor=north] (storage) {STORAGE};
+
+    \draw[<->, myline] (storage)-|(memory);
+    \draw[->,myline] (input)-|(CU);
+    \draw[->,myline] (CU)|-(output);
+
+    \draw[<->, myline] ($(CU.south west)!.2!(CU.south east)$) coordinate (aux)--(aux|-storage.north);
+    \draw[<->, myline] ($(CU.south west)!.8!(CU.south east)$) coordinate (aux)--(aux|-memory.north);
+    \draw[<->, myline] ($(ALU.south west)!.2!(ALU.south east)$) coordinate (aux)--(aux|-memory.north);
+\end{tikzpicture}\caption[Timing diagram]{This is an example timing diagram that will be replaced by the real thing.}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

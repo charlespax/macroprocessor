@@ -31,3 +31,148 @@ you will be able to
 \section{Stack Computers}
 We will discuss stack computers\sidecite{Koopman1989}.
 
+
+%
+% Section: Architecture Block Diagram
+%==============================================================================
+\section{Architecture Block Diagram}
+
+\begin{figure*}[h!]
+\begin{lstlisting}
+\                         +-----+     |||====\\    //=====\\
+\                         | PC  |<===>|||    ||    ||     ||
+\                         +-----+     | |  __\/_  _\/__   ||
+\                                     |D|  \ A  \/  B /   ||
+\                +-----+  +-----+     |A|   \  ALU   /    ||
+\                | IO  |==| MAR |<====|T|    \______/     ||
+\                +-----+  +-----+     |A|       ||        ||
+\                            ||       | |     +------+    ||
+\                         +-----+     |B|<====| TOS  |====//
+\                         | PM  |<===>|U|     +------+
+\                         +-----+     |S|<===>| DS1  |
+\                                     | |     +------+
+\                         +-----+     |||<===>| DS2  |
+\                         | IR  |<===>|||     +------+
+\                         +-----+     |||     +------+
+\                         | CL  |     |||     | DS31 |
+\                         +-----+     |||     +------+
+\                                     |||
+\                                     |||     +------+
+\                                     |||<====| RS   |
+\                                     |||     +------+
+\                                     |||     +------+
+\                                             | RS31 |
+\                                             +------+
+\end{lstlisting}
+\caption[Architecture Block Diagram]{Simplified architecture block diagram}
+\end{figure*}
+
+\begin{figure*}[h!]
+\begin{lstlisting}
+                                               |||======================\\        //====\\
+                                               |||                      ||        ||    ||
+                                               ||| 000 ALU_NOP          ||        ||    ||
+                                               ||| 001 ALU_ADD          ||        ||    ||
+                                               ||| 010 ALU_SUB        __\/___  ___\/__  ||
+                                               | | 011 ALU_AND        \  A   \/   B  /  ||
+                                               | | 100 ALU_OR          \            /   ||
+          +-------------------+       001 PC>  |1| 101 ALU_XOR          \   ALU    /    ||
+          |   Program         |             |  |6| 110 ALU_<<   ALU_OP --\________/     ||
+          |   Counter         |=============#=>| | 111 ALU_>>                ||         ||
+          |                   |<===============|B|                           ||         ||
+  SMA_x --| (1 PC++)          |-- 001 >PC      |I|  101 TOS>      +----------\/----+    ||
+          |                   |                |T|  |             |   Top Of       |    ||
+          +-------------------+                | |<=#=============|   Stack        |====//
+              ||                               |D|                |                |
+              ||                               |A|     101 >TOS --|   (cell 0)     |
+          +---\/----+---------+       010 PM>  |T|  110 DS1>      +----------------+
+          | Memory  | Program |             |  |A|  |             |   Data         |
+          | Address |  Memory |=============#=>| |<=#=============|   Stack        |
+          |         |         |<===============|B|===============>|   Cell 1       |
+  SMA_x --|         |         |-- 010 >PM      |U|     110 >DS1 --|                |
+    0 MAR +---/\----+---------+                |S|  111 DS2>      +----------------+
+    1 PC      ||                               | |  |             |   Data         |
+              ||                               | |<=#=============|   Stack        |
+          +-------------------+                |||===============>|   Cell 2       |
+          |  Memory           |<===============|||     111 >DS2 --|                |
+          |  Address Register |-- 011 >MAR     |||                +----------------+
+          +-------------------+                |||                .                .
+                                               |||                +----------------+
+          +-------------------+                |||                |    DS31        |
+          |   Instruction     |<===============|||                +----------------+
+          |   Register        |                |||
+          +-------------------+                |||  100 RS>       +----------------+
+          | Instruction Cycle |                |||  |             |   Return       |
+          |                   |                |||<=#=============|   Stack        |
+          | 00 SMA_PC         |                |||===============>|                |
+          | 01 PM> ,>IR ,PC++ |                |||      100 >RS --|   (cell 0)     |
+          | 10                |                                   +----------------+
+          | 11 CL = IR[]      |                                   .                .
+          |                   |  Bits  Instruction Format         +----------------+
+          +-------------------+  15-13 xxx------------- xyz>      |   RS31         |
+          |   Control Logic   |  12-10 ---xxx---------- >xyz      +----------------+
+          |                   |   9-7  ------xxx------- ALU_OP      
+          +-------------------+    6   ---------x------ Select Memory Address (SMA)
+                                  5-4  ----------xx---- (unallocated)
+                                   3   ------------x--- zero
+                                   2   -------------x-- sign
+                                   1   --------------x- carry
+                                   0   ---------------x overflow
+\end{lstlisting}
+\caption[Architecture Block Diagram]{Complete architecture block diagram}
+\end{figure*}
+
+
+
+\begin{table*}[h!]
+%\small
+\caption[Instruction Set Architecture]{Instruction Set Architecture (ISA)}
+\begin{tabular}{p{2cm} p{4.0cm} p{7.0cm} }
+
+\toprule
+Word     &  Binary OP code    &  OP code description \\
+\midrule
+NOP      &  \fixed{000 000 000 0000000}  &  No Operation \\
+RESET    &  \fixed{111 111 111 1111111}  &  Reset system \\
+\\
+NO>      &  \fixed{000 ... ... . .. ....}  &  No input source. High $Z$ \\
+PC>      &  \fixed{001 ... ... . .. ....}  &  Program Counter out \\
+PM>      &  \fixed{010 ... ... . .. ....}  &  Program Memory out \\
+MAR>     &  \fixed{011 ... ... . .. ....}  &  Memory Address Register out \\
+RS>      &  \fixed{100 ... ... . .. ....}  &  Return stack out \\
+TOS>     &  \fixed{101 ... ... . .. ....}  &  POP Data Stack cell 0 \\
+DS1>     &  \fixed{110 ... ... . .. ....}  &  POP Data Stack cell 1  \\
+DS2>     &  \fixed{111 ... ... . .. ....}  &  POP Data Stack cell 2 \\
+\\
+>NO      &  \fixed{... 000 ... . .. ....}  &  No output destination. \\
+>PC      &  \fixed{... 001 ... . .. ....}  &  Input to Program Counter \\
+>PM      &  \fixed{... 010 ... . .. ....}  &  Input to Program Memory \\
+>MAR     &  \fixed{... 011 ... . .. ....}  &  Input to Memory Address Register \\
+>RS      &  \fixed{... 100 ... . .. ....}  &  PUSH to Return stack \\
+>TOS     &  \fixed{... 101 ... . .. ....}  &  PUSH to Data Stack cell 0 \\
+>DS1     &  \fixed{... 110 ... . .. ....}  &  PUSH to Data Stack cell 1 \\
+>DS2     &  \fixed{... 111 ... . .. ....}  &  PUSH to Data Stack cell 2 \\
+\\
+ALU\_NOP &  \fixed{... ... 000 . .. ....}  &  No ALU operation selected \\
+ALU\_ADD &  \fixed{... ... 001 . .. ....}  &  ALU addition \\
+ALU\_SUB &  \fixed{... ... 010 . .. ....}  &  ALU subtraction \\
+ALU\_AND &  \fixed{... ... 011 . .. ....}  &  ALU bitwise AND \\
+ALU\_OR  &  \fixed{... ... 100 . .. ....}  &  ALU bitwise OR \\
+ALU\_XOR &  \fixed{... ... 101 . .. ....}  &  ALU bitwise XOR \\
+ALU\_<<  &  \fixed{... ... 110 . .. ....}  &  ALU bitshift left \\
+ALU\_>>  &  \fixed{... ... 111 . .. ....}  &  ALU bitchift right \\
+\\
+SMA\_MAR &  \fixed{... ... ... 0 .. ....}  &  Select Memory Address from MAR \\
+SMA\_PC  &  \fixed{... ... ... 1 .. ....}  &  Select Memory Address from PC  \\
+\\
+         &  \fixed{... ... ... . xx ....}  &  (unallocated) \\
+\\
+if=0     &  \fixed{... ... ... . .. 1...}  &  Zero \\
+if<0     &  \fixed{... ... ... . .. .1..}  &  Sign \\
+if\_C    &  \fixed{... ... ... . .. ..1.}  &  Carry \\
+if\_OF   &  \fixed{... ... ... . .. ...1}  &  Overflow \\
+\bottomrule
+
+
+\end{tabular}
+\end{table*}
