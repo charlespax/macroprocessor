@@ -34,7 +34,7 @@ The dictionary entry format is dependent upon the Forth implmentation, but a typ
 16-bit Forth system will implement the structure described in \reffig{dictionaryEntryFormat}.
 
 \begin{figure}
-\begin{bytefield}[bitwidth=1.25em]{16}
+\begin{bytefield}[bitwidth=1.25em, endianness=big]{16}
 \bitheader{0-15} \\
 \begin{rightwordgroup}{name field}
     \bitbox{1}{$p$} & \bitbox{15}{$name$ length ($n$ characters)} \\
@@ -78,6 +78,8 @@ during compilation.
 Are the characters in the name field limited to ASCII? Is there any technical reason they
 could not be any arbitrary 16-bit value? Maybe null would be a problem.
 
+Leo Brodie's Starting Forth\sidecite{Brodie1981} is good reading for this.
+
 %
 % Section: The Forth Inner Interpreter
 %====================================================================
@@ -113,6 +115,14 @@ The data styack is where temporary data is stored.
 If a system has only one hardware stack, it shoulld be used for the data stack. Data 
 manipulations are more common than function calls and the hardware stack is faster 
 than memory access. The call stack will need to be stored in memory.
+
+For "colon words" (words compiled with the : word), the data field is a series of cells, each cell
+containing an address pointing to a word in the Forth dictionary.
+
+The address interpreter (inner interpreter) copies the address stored in the address field
+into the interpreter pointer then executes the code at that address.
+
+The interpreter does not keep track of or know about the type of word it is working with. The code linked to by the CFA is responsible for behaving appropriately.
 
 %
 % Section: The Forth Outter Interpreter
