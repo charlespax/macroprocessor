@@ -98,24 +98,35 @@ $name_n$ is the $n^{th}$ character in the name, \\
 $c$ is the number of cells in the parameter field, and \\
 $parameter_c$ is the $c^{th}$ cell in the parameter field.
 
+\marginnote{This text uses the term \gls{parameterField}. Other resources may use the term \gls{dataField} or other term.}
+
 Each dictionary entry has a link pointer field, which holds an memory address pointing to the 
 preceeding dictionary entry. By design, when the system searches for a word it starts 
 at the end of the dictionary and works its way to the beginning by following these 
 pointers. We call these addresses link pointers because they link the words together and to
 distinguish them from pointers with other purposes.
 
-
-
+Each \gls{dictionaryEntry} in the \gls{dictionary} will share the same format for the \gls{nameField}, \gls{linkField}, and \gls{codeField}. The \gls{parameterField} format depends on the word type. Constants, variables, colon-defined words, and any other type of defining word can have its own uniquie parameter field format.
 
 The link pointer of a dictionary entry points to the name field of the previous word. The value of a link pointer is equal to the NFA of the pervious dictionary entry.
 The link pointer is an address pointing to the first cell of the previous dictionary entry's name field. The LFA of a dictionary entry contains the NFA of the previous dictionary entry.i
 
-, \\
+Code pointer contains an address. This address is the "address of the instruction first executed when this type of word is executed." Starting Forth p. 222
+
+Variable words. The code pushes the variable address onto the stack.
+
+Constant words. The code pushes the contents of the constant onto the stack.
+
+Colon defined words. The code executes the rest of the words in the colon definition.
+
+In all the cases the code pointed to is called "tun-time code."
+
+All words of a given type have the same code pointer.
+
 code address is the address of the machine instruction the interpreter will load for
 execution, and \\
 data is any data that is required for execution.
-
-\todo[noline]{Decide if the name field characters are 16-bit or 8-bit in the final implementation.}
+todo[noline]{Decide if the name field characters are 16-bit or 8-bit in the final implementation.}
 \marginnote{The code address field is also known as the code pointer field. The data field
 is also known as the parameter field.}
 

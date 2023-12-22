@@ -2,16 +2,57 @@
     name={dictionary entry},
     description={is a set of data describing a Forth word}
 }
-
+\newglossaryentry{dictionary}{
+    name={dictionary},
+    description={dictionary description}
+}
+\newglossaryentry{nameField}{
+    name={name field},
+    description={name field description}
+}
+\newglossaryentry{linkField}{
+    name={link field},
+    description={link field description}
+}
+\newglossaryentry{parameterField}{
+    name={parameter field},
+    description={the address of a word's parameter field. The PFA points to the parameter field.}
+}
+\newglossaryentry{dataField}{
+    name={data field},
+    description={data see parameterField}
+}
+\newglossaryentry{codeField}{
+    name={code field},
+    description={code field description}
+}
+\newglossaryentry{linkFieldAddress}{
+    name={link field address},
+    description={link field address description}
+}
+\newglossaryentry{nameFieldAddress}{
+    name={name field address},
+    description={name field address description}
+}
+\newglossaryentry{parameterFieldAddress}{
+    name={parameter field address},
+    description={parameter field address description}
+}
+\newglossaryentry{codePointer}{
+    name={code pointer},
+    description={The address of the code. Stored in a word's code field. The Code Field Address is the addresss of the code field, not the address contained within the code field.}
+}
+\newglossaryentry{colonWord}{
+    name={colon word},
+    description={Colon-defined words have parameter fields that contain pointers to code fields in other words. These pointers are Code Field Addresses.}
+}
 \newglossaryentry{immediateWord}{
 	name={immediate word},
 	description={A word that has the IMMEDIATE bit set in its dictionary
     header. Is executed during interpretation. Is executed during 
     compilation rather than compiled into a definition. Is executed during compilation and interpretation}
 }
-
-
-\newglossaryentry{Machine-code word}{
+\newglossaryentry{machine-code word}{
     name={Machine-code word},
     description={A word that is directly executed by the CPU. Does not 
     call other Forth words. May exit via a jump instruction to the 
@@ -19,7 +60,10 @@
     avoiding a jump instruction. Examples include the words NEXT EXECUTE 
     BRANCH and EXIT .}
 }
-
+\newglossaryentry{threadedCodeWord}{
+    name={threaded- word},
+    description={A word that contains other Forth words. May also contain machine-code words. Exits by calling the Forth word ; .}
+}
 \newglossaryentry{compileWord}{
         name={compile word},
         description={description}
