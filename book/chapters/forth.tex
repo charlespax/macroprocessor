@@ -54,10 +54,10 @@ The dictionary entry format is dependent upon the Forth implmentation, but a typ
         \bitbox{15}{$n$}
     \end{leftwordgroup} \\
     \begin{leftwordgroup}[leftcurly=.]{NFA $+ 1$}
-        \bitbox{16}{$name_0$}
+        \bitbox{16}{$name_1$}
     \end{leftwordgroup} \\
     \wordbox[]{1}{$\vdots$} \\[1ex]
-    \begin{leftwordgroup}[leftcurly=.]{NFA $+ n + 1$}
+    \begin{leftwordgroup}[leftcurly=.]{NFA $+ n$}
         \bitbox{16}{$name_n$}
     \end{leftwordgroup}
 \end{rightwordgroup} \\
@@ -73,10 +73,10 @@ The dictionary entry format is dependent upon the Forth implmentation, but a typ
 \end{rightwordgroup} \\
 \begin{rightwordgroup}{parameter field}
     \begin{leftwordgroup}[leftcurly=.]{Parameter Field Address (PFA)}
-        \wordbox{1}{$parameter_0$}
+        \wordbox{1}{$parameter_1$}
     \end{leftwordgroup} \\
     \wordbox[]{1}{$\vdots$} \\[1ex]
-    \begin{leftwordgroup}[leftcurly=.]{PFA $+ c$}
+    \begin{leftwordgroup}[leftcurly=.]{PFA $+ c - 1$}
     \wordbox{1}{$parameter_c$}
     \end{leftwordgroup}
 \end{rightwordgroup}
@@ -194,3 +194,52 @@ otherwise break the flow of the document. I think sidenotes are numbered while
 margin notes are not.}
 
 \blindtext
+
+%
+% Section: Forth Primitives 
+%====================================================================
+\section{Forth Primitives}
+
+
+%
+% Section: Metacompiler
+%====================================================================
+\section{Metacompiler}
+\todo{see BYO Assembler, Moving Forth}
+
+
+%
+% Section: Notes
+%====================================================================
+\section{Notes}
+Check out the YouTube channel learnmeabitcoin. The creator has a great video explaining SHA256
+and another video explaining the Bitcoin Script stack machine.
+
+
+
+\begin{table}[htbp]
+    \caption{Example interpretation of a Forth word. This table would be paired with a
+    code listing for the word. A column can be added for the return stack or other information. 
+    Exercises can be made in the style of fill-in-the-missing-item.}
+    \makebox[\textwidth][c]{
+        \begin{tabular}{c|r|cl}
+            \multicolumn{4}{l}{\textbf{\fixed{: times14}} ( $n_1$ --- $n_2$ ), \ $n_2 = 14 * n_1$} \\
+            \toprule
+            Step & Data Stack         & Interpret & Description \\ \hline
+            1    & $n_1$              & 2         &  \\
+            2    & $n_1$ \ 2          & 3         &  \\
+            3    & $n_1$ \ 2 \ 3      & 4         &  \\
+            4    & $n_1$ \ 2 \ 3 \ 4  & +         & ($n_1$ $n_2$ --- $n_3$), \ $n_3 = n_1 + n_2$ \\
+            5    & $n_1$ \ 2 \ 7      & *         & ($n_1$ $n_2$ --- $n_3$), \ $n_3 = n_1 * n_2$ \\
+            6    & $n_1$ \ 14         & *         & ($n_1$ $n_2$ --- $n_3$), \ $n_3 = n_1 * n_2$ \\
+            7    & $n_2$              & ;         & Return to interpreter \\
+            \bottomrule
+        \end{tabular}%
+    }
+    \label{tab:addlabel}%
+\end{table}%
+
+
+
+
+
