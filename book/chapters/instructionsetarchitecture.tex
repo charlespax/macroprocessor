@@ -49,15 +49,6 @@ Explain what an ISA is.
 \blindtext
 
 \begin{figure}[hbt!]
-\begin{tikztimingtable}
-    Clock & 3{10{c}} \\
-    Name & 3{hLLLLh} \\
-    Signal & 3{z4D{Text}z} \\
-\end{tikztimingtable}
-\caption[Timing diagram]{This is an example timing diagram that will be replaced by the real thing.}
-\end{figure}
-
-\begin{figure}[hbt!]
 \begin{tikzpicture}[
     myline/.style={draw=green!40!black, thick},
     box/.style={myline, minimum height=1cm, minimum width=1cm, font=\sffamily, inner sep=.3333em}, >=Stealth]
@@ -80,13 +71,36 @@ Explain what an ISA is.
 \end{tikzpicture}\caption[Timing diagram]{This is an example timing diagram that will be replaced by the real thing.}
 \end{figure}
 
+\blindtext
+\blindtext
+
+\begin{figure}[hbt!]
+\begin{tikztimingtable}
+    Clock & 3{10{c}} \\
+    Name & 3{hLLLLh} \\
+    Signal & 3{z4D{Text}z} \\
+\end{tikztimingtable}
+\caption[Timing diagram]{This is an example timing diagram that will be replaced by the real thing.}
+\end{figure}
 
 
 
+\begin{figure*}[h!]
+\begin{lstlisting}
+        _______________________________________________________________________
+RESET _/       
 
-
-
-
+           _______         _______         _______         _______         ____
+ CLK  ____/       \_______/       \_______/       \_______/       \_______/    
+      ... | Execute 00    | Execute 01    | Execute 10    | Execute 11   |
+          |  PC> ,>MAR    | PM> ,>IR ,PC++| PC> ,>MAR     | CL=IR[]      | ...
+      ____         _______         _______         _______         _______     
+~CLK      \_______/       \_______/       \_______/       \_______/       \____
+  ... Setup 00    | Setup 01      | Setup 10      | Setup 11      | ...
+      PC> ,>MAR   | PM> ,>IR ,PC++| PC> ,>MAR     | CL=IR[]       |
+\end{lstlisting}
+\caption[Timing chart]{Instructions are executed. The contyrol logic is configured in between each step. Timing chart.}
+\end{figure*}
 
 
 
