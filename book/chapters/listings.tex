@@ -1,0 +1,80 @@
+\setchapterimage{seaside}
+\setchapterpreamble[u]{\margintoc}
+\chapter{Code Listings}
+\labch{codelistingsn}
+
+\fixed{\textbf{!}}\hspace{2mm} ( $n$ \ $addr$ --- ) Store $n$ at $addr$.
+\begin{lstlisting}
+    : !  ( n addr -- )
+        TOS> ,>MAR
+        TOS> ,>PM
+\end{lstlisting}
+
+\fixed{\textbf{:}}\hspace{2mm} ( --- ) Colon definition. Create a new word.
+Usage:  : <word> <...> ;
+\begin{lstlisting}
+    : :  ( -- )
+\end{lstlisting}
+
+\fixed{\textbf{;}}\hspace{2mm} ( --- ) Terminate a colon definition. Resume interpretation.
+Usage: : <word> <...> ;
+\begin{lstlisting}
+    : ;  ( -- )
+\end{lstlisting}
+
+\fixed{\textbf{>r}}\hspace{2mm} ( n --- ) Move $n$ from data stack to return stack.
+\begin{lstlisting}
+    : >r  ( n -- )
+        TOS> ,>RS
+\end{lstlisting}
+
+\fixed{\textbf{@}}\hspace{2mm} ( $addr$ --- $n$ ) Put on TOS the value $n$ stored at address $addr$.
+\begin{lstlisting}
+    : @  ( addr -- n )
+        TOS> ,>MAR
+        PM> ,>TOS
+\end{lstlisting}
+
+\fixed{\textbf{(create)}} 
+\begin{lstlisting}
+    : (create)  ( -- )
+\end{lstlisting}
+
+\fixed{\textbf{,}}\hspace{2mm} Allot one cell of dictionary space. Store n at that cell's address.
+\begin{lstlisting}
+    : ,  (n -- ) 
+                 
+\end{lstlisting}
+
+\fixed{\textbf{blk}}\hspace{2mm} User variable. Located at address \fixed{addr} is the number
+of the block being interpreted.
+\begin{lstlisting}
+    : blk  ( -- addr ) ( User variable. Located at address addr )
+                       ( is the number )
+                       ( of the block being interpreted )
+\end{lstlisting}
+
+\fixed{\textbf{here}}
+\begin{lstlisting}
+    : here  ( -- addr ) ( Put on TOS the address of the next free )
+                        ( cell in the dictionary )
+\end{lstlisting}
+
+\fixed{\textbf{interpret}}\hspace{2mm} ( --- ) Interpret the input string.
+\begin{lstlisting}
+    : interpret  ( -- )
+\end{lstlisting}
+
+\fixed{\textbf{next}}\hspace{2mm} ( --- ) Compile the machine instructions which simulate the 
+Forth machine's \fixed{next} function. Must be used at the exit point of each code or ;code
+definition.
+\begin{lstlisting}
+    : next  ( -- )
+\end{lstlisting}
+
+\fixed{\textbf{r>}}\hspace{2mm} ( --- $n$ ) Move $n$ from return stack to data stack.
+\begin{lstlisting}
+    : r>  ( ( -- n )
+        RS> ,>TOS
+\end{lstlisting}
+

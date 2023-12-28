@@ -76,9 +76,13 @@ Explain what an ISA is.
 
 \begin{figure}[hbt!]
 \begin{tikztimingtable}
-    Clock & 3{10{c}} \\
+    RESET & l 29{H} \\
+    Clock & 3{10{C}} \\
+    Clock & 3{10{C}} \\
     Name & 3{hLLLLh} \\
-    Signal & 3{z4D{Text}z} \\
+    Signal & 3{z8D{Text}z} \\
+    Signal & {z8D{Setup 00}z} {z8D{Setup 01}z} {z8D{Setup 10}z} {z8D{Setup 11}z} \\
+    Signal & {z8D{PC> ,>MAR}z} {z8D{PM> ,>IR ,PC++}z} {z8D{PC> ,>MAR}z} {z8D{LC=IR[]}z} \\
 \end{tikztimingtable}
 \caption[Timing diagram]{This is an example timing diagram that will be replaced by the real thing.}
 \end{figure}

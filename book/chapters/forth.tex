@@ -223,23 +223,32 @@ and another video explaining the Bitcoin Script stack machine.
     Exercises can be made in the style of fill-in-the-missing-item.}
     \makebox[\textwidth][c]{
         \begin{tabular}{c|r|cl}
-            \multicolumn{4}{l}{\textbf{\fixed{: times14}} ( $n_1$ --- $n_2$ ), \ $n_2 = 14 * n_1$} \\
+            \multicolumn{4}{l}{\textbf{\fixed{: times14}} \hspace{2mm}( $n_1$ --- $n_2$ ), \ $n_2 = 14 * n_1$} \\
             \toprule
             Step & Data Stack         & Interpret & Description \\ \hline
-            1    & $n_1$              & 2         &  \\
-            2    & $n_1$ \ 2          & 3         &  \\
-            3    & $n_1$ \ 2 \ 3      & 4         &  \\
-            4    & $n_1$ \ 2 \ 3 \ 4  & +         & ($n_1$ $n_2$ --- $n_3$), \ $n_3 = n_1 + n_2$ \\
-            5    & $n_1$ \ 2 \ 7      & *         & ($n_1$ $n_2$ --- $n_3$), \ $n_3 = n_1 * n_2$ \\
-            6    & $n_1$ \ 14         & *         & ($n_1$ $n_2$ --- $n_3$), \ $n_3 = n_1 * n_2$ \\
-            7    & $n_2$              & ;         & Return to interpreter \\
+            1    & $n_1$              & \fixed{2}         & 2 $\rightarrow$ TOS \\
+            2    & $n_1$ \ 2          & \fixed{3}         & 3 $\rightarrow$ TOS \\
+            3    & $n_1$ \ 2 \ 3      & \fixed{4}         & 4 $\rightarrow$ TOS \\
+            4    & $n_1$ \ 2 \ 3 \ 4  & \fixed{+}         & ($n_1$ $n_2$ --- $n_3$), \ $n_3 = n_1 + n_2$ \\
+            5    & $n_1$ \ 2 \ 7      & \fixed{*}         & ($n_1$ $n_2$ --- $n_3$), \ $n_3 = n_1 * n_2$ \\
+            6    & $n_1$ \ 14         & \fixed{*}         & ($n_1$ $n_2$ --- $n_3$), \ $n_3 = n_1 * n_2$ \\
+            7    & $n_2$              & \fixed{;}         & Return to interpreter \\
             \bottomrule
         \end{tabular}%
     }
     \label{tab:addlabel}%
 \end{table}%
 
+\begin{lstlisting}
+    : literal  ( n --  )
+        (Usage: : <name> ... [ n ] literal ... ; )
+        (Description: Compiles LIT and TOS number (n). When <name> is executed, n is placed on TOS.)
+        state @ if compile lit , then ; immediate
 
+    :lit  (  -- n  )
+        PM> ,>TOS ,PM-PC
+
+\end{lstlisting}
 
 
 
