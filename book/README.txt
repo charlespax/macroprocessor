@@ -20,7 +20,7 @@ To compile the main kaobook sample document, execute compileall.sh.
 To remove generated files, execute clean.sh.
 
 Commands to get setup the compile environment in Linux Mint 21.2:
-sudo apt-get install texlive texlive-latex-extra texlive-fonts-extra texlive-science texlive-bibtex-extra biber
+sudo apt-get install texlive texlive-latex-extra texlive-fonts-extra texlive-science texlive-bibtex-extra biber xindy
 
 You sould probably accomplish the same thing by installing texlive-full, but
 I have not tried this.
