@@ -1,0 +1,64 @@
+My Personal Forth Code
+=========================================================================================
+0000 0000 NOP
+0000 0001 PM> ,>PC ,PM_PC          jump to address in next cell
+0000 0010 %00100001                <--- address of MAIN
+
+                                   SYSTEM_VARIABLES
+0000 0011                          |
+0000 0100                          |
+0000 0101                          |
+0000 0110                          |
+0000 0111                          |
+0000 1000                          |
+0000 1001                          |
+0000 1010                          |
+0000 1011                          |
+0000 1100                          |
+0000 1101                          |
+0000 1110                          |
+
+                              entry.CALL    DS( addr pc -- ) RS( -- ret_addr)
+0000 1111 PM> ,>TOS ,PM_PC         |  copy to TOS the
+0001 0000 00000011                 |    call offset (3)
+0001 0001 DS1> ,>TOS ,ALU_ADD      |  add call offset to pc, gives return address on TOS
+0001 0010 TOS> ,>RS                |  move return address to RS
+0001 0011 TOS> ,>PC                |  jump to address addr
+
+                              entry.TIMES_2  ( n1 -- n2 )  ( n2 = 2 * n1 )
+0001 0100 TOS> ,>TOS ,ALU_<<       |  left shift TOS by one bit
+0001 0101 RS> ,>PC                 |  return
+
+                              entry.TIMES_4  ( n1 -- n2)  ( n2 = 4 * n1 )
+                                   |  TIMES_2 CALL
+0001 0110 PM> ,>TOS ,PM_PC         |  |  copy to TOS
+0001 0111 00010100                 |  |    address of TIMES_2
+0001 1000 PC> ,>TOS                |  |  copy PC to TOS
+0001 1001 PM> ,>PC ,PM_PC          |  |  jump to
+0001 1010 00001111                 |  |    address of CALL
+                                   |  TIMES_2 CALL
+0001 1011 PM> ,>TOS ,PM_PC         |  |  copy to TOS
+0001 1100 00010100                 |  |    address of TIMES_2
+0001 1101 PC> ,>TOS                |  |  copy PC to TOS
+0001 1110 PM> ,>PC ,PM_PC          |  |  jump to 
+0001 1111 00001111                 |  |    address of CALL
+0010 0000 RS> ,>PC                 |  return
+
+                              entry.MAIN  ( -- )
+0010 0001 
+0010 0010 
+0010 0011 
+0010 0100 ( variable WP to TOS )
+0010 0101 TOS> ,>MAR
+0010 0110 PM> ,>TOS
+0010 0111 PC> ,>TOS
+0010 1000 PM> ,>PC ,PM_PC
+0010 1001 00001111                address of CALL
+0010 1010 ( jump to top of )
+0010 1011 ( code block )
+0010 1100 
+0010 1101 
+0010 1110 
+0010 1111 
+0011 0000 
+0011 0001 
