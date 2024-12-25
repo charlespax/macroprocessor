@@ -1,0 +1,64 @@
+
+                        Macroprocessor
+                  Instruction Set Architecture
+                             (ISA)
+
+
+7 65432 1   BITFIELD DETAILS
+0           ALU OPERATION
+0 xxxxx     DS INPUT SELECT
+0       0   INHIBIT ENABLED (inhibits cells below DS0 SOURCE)
+0       1   INHIBIT DISABLED
+0         0 STACK DOWN
+0         1 STACK UP
+0 00000 - - source: DS0
+0 00000 0 x NOP
+0 00000 1 0 DUP
+0 00001 - - source: DS1
+0 00001 0 0 SWAP
+0 00001 1 0 OVER
+0 00010 - - source: DS2
+0 00010 0 0 ROT
+0 00010 1 0 ***(copy third item to TOS)***
+0 00011 - - source: DS3
+0 00011 0 0 2SWAP (execute twice)
+0 00011 1 0 2OVER (execute twice)
+0 00100 - - source: AND gate
+0 00100 1 1 AND
+0 00101 - - source: OR gate
+0 00101 1 1 OR
+0 00110 - - source: XOR gate
+0 00110 1 1 XOR
+0 00111 - - source: NOT gate
+0 00111 0 x NOT
+0 01000 - - source: LEFTBIT_0
+0 01000 0 x SHIFT_RIGHT
+0 01001 - - source: RIGHTBIT_0
+0 01001 0 x SHIFT_LEFT
+0 01010 - - source: LEFTBIT_LSB
+0 01010 0 x ROLL_RIGHT
+0 01011 - - source: RIGHTBIT_MSB
+0 01011 0 x ROLL_LEFT
+0 01100 - - source: ADDER
+0 01100 1 1 ADD
+0 01101 - - source: NAND gate
+0 01101 1 1 NAND
+0 01110 - - source: PLUS1
+0 01110 0 x +1
+0 01111 - - source: databus
+0 01111 1 0 PUSH
+
+1          MEMORY OPERATION
+1 0        DEVICE READ
+1 1        DEVICE WRITE
+1   XXXXXX DEVICE ADDRESS
+1   111110 PROGRAM COUNTER
+1 1 111111 PROGRAM COUNTER, with ALU OUTPUT RESET
+
+
+NOTES:
+- what about flags? Enable/disable carry with alternate function bit.
+- If a device is reading from the data bus, the ALU is an output. Auto POP?
+- If a device is writing to the data bus, the ALU is an input. Auto PUSH?
+- Add without carry-in is eqivalent to OR
+- PLUS1 increments DS0
