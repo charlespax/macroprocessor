@@ -1,0 +1,39 @@
+
+
+
+
+: NOT ( A -- ~A )
+    DUP NAND ;
+
+: OR ( A B -- A OR B )
+    NOT SWAP NOT NAND ;
+
+: AND ( A B -- A AND B )
+    NNAND NOT ;
+
+: NOR ( A B -- A NOR B )
+    OR NOT ;
+
+: XOR ( A B -- A OR B )
+    OVER NOT
+    OVER NAND
+    ROT ROT NOW
+    NAND NAND ;
+
+
+
+
+
+
+
+A B XOR
+--------------
+                  A B  OVER NOT
+               A B ~A  OVER
+             A B ~A B  NAND
+       A B NAND(~A,B)  ROT ROT
+       NAND(~A,B) A B  NOT
+      NAND(~A,B) A ~B  NAND
+NAND(~A,B) NAND(A,~B)  NAND
+             XOR(A,B)
+

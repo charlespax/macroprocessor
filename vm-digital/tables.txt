@@ -1,0 +1,34 @@
+
+
+
+
+A B  AND  OR  XOR  NAND  NOR  XNOR
+0 0   0    0   0     1    1     1
+0 1   0    1   1     1    0     0
+1 0   0    1   1     1    0     0
+1 1   1    1   0     0    0     1
+
+
+A B  ~A  ~B  (A NAND B)  (A NAND ~B)  (~A NAND B)  (~A NAND ~B)
+0 0   1   1      1           1             1            0
+0 1   1   0      1           1             0            1
+1 0   0   1      1           0             1            1
+1 1   0   0      0           1             1            0
+
+A B  OR  NAND ((A NAND B) NAND (A OR B))
+0 0   0   1                1
+0 1   1   1                0
+1 0   1   1                0
+1 1   1   0                1
+
+
+
+NOT(A) = NAND(A,A)
+NOT(A) = NOR(A,A)
+NOT(A) = XOR(A,1)
+0 = XOR(A,A)
+1 = XNOR(A,A)
+1 = NAND(A,~A)
+AND(A,B) = ~(NAND(A,B))
+XOR(A,B) = ~A NAND ~B
+
