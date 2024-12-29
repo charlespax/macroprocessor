@@ -1,71 +1,45 @@
 
 
 : NOP
-    ( source: DS0
-    ( stack: inhibit
-    ( direction: up/down
+    0000000x
 
 : DUP
-    ( source: DS0
-    ( stack: normal
-    ( direction: down
+    00000010
 
 : SWAP
-    ( source: DS1
-    ( stack: inhibit
-    ( direction: down
+    00000100
 
 : OVER
-    ( source: DS1
-    ( stack: normal
-    ( direction: down
+    00000110
 
 : POP
-    ( source: DS1
-    ( stack: inhibit
-    ( direction: up
+    00000111
 
 : DROP
-    ( source: DS1
-    ( stack: inhibit
-    ( direction: up
+    00000111
 
 : ROT
-    ( source: DS2
-    ( stack: inhibit
-    ( direction: down
+    00001000
 
 : 2SWAP
-    ( source: DS3
-    ( stack: inhibit
-    ( direction: down
-    ( NOTE: execute twice
+    00001100
+    00001100
 
 : 2OVER
-    ( source: DS3
-    ( stack: normal
-    ( direction: down
-    ( NOTE: execute twice
+    00001110
+    00001110
 
 : ROLL_RIGHT
-    ( source: LEFTBIT_LSB
-    ( stack: inhibit
-    ( direction: up/down
+    0001000x
 
 : ADD
-    ( source: ADDER
-    ( stack: normal
-    ( direction: up
+    00010111
 
 : NAND
-    ( source: NAND gate
-    ( stack: normal
-    ( direction: up
+    00011011
 
 : PUSH
-    ( source: DATABUS
-    ( stack: normal
-    ( direction: down
+    00011110
 
 : NOT ( A -- ~A )
     DUP NAND ;
@@ -87,10 +61,6 @@
 
 : XNOR ( A B -- A XNOR B )
     XOR NOT ;
-
-
-
-
 
 
 A B XOR
