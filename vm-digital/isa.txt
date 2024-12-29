@@ -26,27 +26,27 @@
 0       0 0 2SWAP (execute twice)
 0       1 0 2OVER (execute twice)
 0 00100     source: LEFTBIT_LSB
-0       0 x ROLL_RIGHT
+0       0 x ROTATE1-RIGHT
 0 00101     source: ADDER
 0       1 1 ADD
 0 00110     source: NAND gate
 0       1 1 NAND
 0 00111     source: databus
 0       1 0 PUSH
-0 01000     source: AND gate
-0       1 1 AND
-0 01001     source: OR gate
-0       1 1 OR
-0 01010     source: XOR gate
-0       1 1 XOR
-0 01011     source: NOT gate
+0 01000     source: NOT gate
 0       0 x NOT
-0 01100     source: RIGHTBIT_0
-0       0 x SHIFT_LEFT
-0 01101     source: RIGHTBIT_MSB
-0       0 x ROLL_LEFT
+0 01001     source: AND gate
+0       1 1 AND
+0 01010     source: OR gate
+0       1 1 OR
+0 01011     source: XOR gate
+0       1 1 XOR
+0 01100     source: RIGHTBIT_MSB
+0       0 x ROTATE1-LEFT
+0 01101     source: RIGHTBIT_0
+0       0 x SHIFT1_LEFT
 0 00110     source: LEFTBIT_0
-0       0 x SHIFT_RIGHT
+0       0 x SHIFT1_RIGHT
 0 01111     source: PLUS1
 0       0 x +1
 

@@ -29,7 +29,7 @@
     00001110
     00001110
 
-: ROLL_RIGHT
+: ROTATE1-RIGHT
     0001000x
 
 : ADD
@@ -50,14 +50,14 @@
 : OR ( A B -- A OR B )
     NOT SWAP NOT NAND ;
 
-: NOR ( A B -- A NOR B )
-    OR NOT ;
-
 : XOR ( A B -- A OR B )
     OVER NOT
     OVER NAND
     ROT ROT NOT
     NAND NAND ;
+
+: NOR ( A B -- A NOR B )
+    OR NOT ;
 
 : XNOR ( A B -- A XNOR B )
     XOR NOT ;
