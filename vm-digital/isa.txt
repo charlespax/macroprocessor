@@ -3,72 +3,61 @@
                     Instruction Set Architecture
                                (ISA)
 
-7 65432 1 0 Description
-- ----- - - ------------------------------------------------
-0           ALU OPERATION
-0 xxxxx     DS0 INPUT SOURCE SELECT
-0       0   STACK INHIBIT (inhibits cells below DS0 SOURCE)
-0       1   STACK NORMAL
-0         0 STACK DOWN
-0         1 STACK UP
-0 00000     source: DS0
-0       0 x NOP
-0       1 0 DUP
-0 00001     source: DS1
-0       0 0 SWAP
-0       1 0 OVER
-0       1 1 POP
-0       1 1 DROP
-0 00010     source: DS2
-0       0 0 ROT
-0       1 0 ***(copy DS2 item to DS0)***
-0 00011     source: DS3
-0       0 0 2SWAP (execute twice)
-0       1 0 2OVER (execute twice)
-0 00100     source: LEFTBIT_LSB
-0       0 x ROLL_RIGHT
-0 00101     source: ADDER
-0       1 1 ADD
-0 00110     source: NAND gate
-0       1 1 NAND
-0 00111     source: databus
-0       1 0 PUSH
-0 01000     source: AND gate
-0       1 1 AND
-0 01001     source: OR gate
-0       1 1 OR
-0 01010     source: XOR gate
-0       1 1 XOR
-0 01011     source: NOT gate
-0       0 x NOT
-0 01100     source: RIGHTBIT_0
-0       0 x SHIFT_LEFT
-0 01101     source: RIGHTBIT_MSB
-0       0 x ROLL_LEFT
-0 00110     source: LEFTBIT_0
-0       0 x SHIFT_RIGHT
-0 01111     source: PLUS1
-0       0 x +1
+7 65 432 1 0 ALU Operation Description
+- -- --- - - ------------------------------------------------
+0            ALU operation
+0 xx         source select
+0 xx xxx     DS0 input source select
+0        0   INHIBIT cells below DS0 source
+0        1   NORMAL stack behavior
+0          0 DOWN stack direction
+0          1 UP stack direction
+0 00 000     source: DS0
+0        0 x NOP
+0        1 0 DUP
+0 00 001     source: DS1
+0        0 0 SWAP
+0        1 0 OVER
+0        1 1 POP
+0        1 1 DROP
+0 00 010     source: DS2
+0        0 0 ROT
+0 00 011     source: DS3
+0        0 0 2SWAP
+0        1 0 2OVER
+0 00 100     source: LEFTBIT_LSB
+0        0 x ROTATE1-RIGHT
+0 00 101     source: ADDER
+0        1 1 ADD
+0 00 110     source: NAND gate
+0        1 1 NAND
+0 00 111     source: DATABUS
+0        1 0 PUSH
+0 01 000     source: NOT gate
+0        0 x NOT
+0 01 001     source: AND gate
+0        1 1 AND
+0 01 010     source: OR gate
+0        1 1 OR
+0 01 011     source: XOR gate
+0        1 1 XOR
+0 01 100     source: RIGHTBIT_MSB
+0        0 x ROTATE1-LEFT
+0 01 101     source: RIGHTBIT_0
+0        0 x SHIFT1_LEFT
+0 00 110     source: LEFTBIT_0
+0        0 x SHIFT1_RIGHT
+0 01 111     source: PLUS1
+0        0 x +1
+0 10 xxx x x reserved
+0 11 xxx x x reserved
 
-0 1xxxx x x RESERVED
-
-7 6 543210 Description
+7 6 543210 Memory Description
 - - ------ ------------------------------------------------
-1          MEMORY OPERATION
-1 0        DEVICE OUTPUT ENABLE
-1 1        DEVICE WRITE ENABLE
-1   xxxxxx DEVICE ADDRESS
-1   111110 PROGRAM COUNTER
-1 1 111111 PROGRAM COUNTER, with ALU OUTPUT RESET
+1          memory operation
+1 0        device output enable
+1 1        device write enable
+1   xxxxxx device address
+1   111110 program counter
+1 1 111111 program counter, with ALU output reset
 
-
-NOTES:
-- what about flags? Enable/disable carry with alternate function bit.
-  * an external comparator can handle bits on the data bus. This would not be
-    a function of the ALU bit slices.
-- If a device is reading from the data bus, the ALU is an output. Auto POP?
-- If a device is writing to the data bus, the ALU is an input. Auto PUSH?
-- Add without carry-in is eqivalent to OR
-- PLUS1 increments DS0
-- maybe POP latches data into a register. This way it is removed from the stack,
-  but remains available to the data bus for the next instruction.

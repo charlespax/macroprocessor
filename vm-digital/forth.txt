@@ -49,16 +49,16 @@
 : OR ( a b -- OR(a,b) )
     NOT SWAP NOT NAND ;
 
-: NOR ( a b -- NOR(a,b) )
-    OR NOT ;
-
-: XOR ( a b -- XOR(a,b) )
+: XOR ( A B -- A OR B )
     OVER NOT
     OVER NAND
     ROT ROT NOT
     NAND NAND ;
 
-: XNOR ( a b -- XNOR(a,b) )
+: NOR ( A B -- A NOR B )
+    OR NOT ;
+
+: XNOR ( A B -- A XNOR B )
     XOR NOT ;
 
 
