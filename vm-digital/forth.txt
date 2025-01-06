@@ -1,76 +1,75 @@
 
-
-: NOP
+: NOP ( -- )
     0000000x
 
-: DUP
+: DUP ( a -- a a )
     00000010
 
-: SWAP
+: SWAP ( a b -- b a )
     00000100
 
-: OVER
+: OVER ( a b -- a b a)
     00000110
 
-: POP
+: POP ( a b -- a )
     00000111
 
-: DROP
+: DROP ( a b -- a )
     00000111
 
-: ROT
+: ROT ( a b c -- b c a )
     00001000
 
-: 2SWAP
+: 2SWAP ( a b c d -- c d a b )
     00001100
     00001100
 
-: 2OVER
+: 2OVER ( a b c d -- a b c d a b )
     00001110
     00001110
 
-: ROLL_RIGHT
+: ROTATE-RIGHT1 ( b76543210 -- b07654321 )
     0001000x
 
-: ADD
+: ADD ( a b -- SUM(a,b) )
     00010111
 
-: NAND
+: NAND ( a b -- NAND(a,b) )
     00011011
 
-: PUSH
+: PUSH ( -- a )
     00011110
 
-: NOT ( A -- ~A )
+: NOT ( a -- ~a )
     DUP NAND ;
 
-: AND ( A B -- A AND B )
+: AND ( a b -- AND(a,b) )
     NAND NOT ;
 
-: OR ( A B -- A OR B )
+: OR ( a b -- OR(a,b) )
     NOT SWAP NOT NAND ;
 
-: NOR ( A B -- A NOR B )
+: NOR ( a b -- NOR(a,b) )
     OR NOT ;
 
-: XOR ( A B -- A OR B )
+: XOR ( a b -- XOR(a,b) )
     OVER NOT
     OVER NAND
     ROT ROT NOT
     NAND NAND ;
 
-: XNOR ( A B -- A XNOR B )
+: XNOR ( a b -- XNOR(a,b) )
     XOR NOT ;
 
 
-A B XOR
+XOR(a,b)
 --------------
-                  A B  OVER NOT
-               A B ~A  OVER
-             A B ~A B  NAND
-       A B NAND(~A,B)  ROT ROT
-       NAND(~A,B) A B  NOT
-      NAND(~A,B) A ~B  NAND
-NAND(~A,B) NAND(A,~B)  NAND
-             XOR(A,B)
+                  a b  OVER NOT
+               a b ~a  OVER
+             a b ~a b  NAND
+       a b NAND(~a,b)  ROT ROT
+       NAND(~a,b) a b  NOT
+      NAND(~a,b) a ~b  NAND
+NAND(~a,b) NAND(a,~b)  NAND
+             XOR(a,b)
 
