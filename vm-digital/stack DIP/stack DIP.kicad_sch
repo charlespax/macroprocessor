@@ -5,6 +5,380 @@
 	(uuid "7e1c670b-801d-42f1-87e7-98688ea294f2")
 	(paper "A4")
 	(lib_symbols
+		(symbol "74xx:74HC74"
+			(pin_names
+				(offset 1.016)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "U"
+				(at -7.62 8.89 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "74HC74"
+				(at -7.62 -8.89 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "74xx/74hc_hct74.pdf"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Dual D Flip-flop, Set & Reset"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_locked" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "TTL DFF"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "DIP*W7.62mm*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "74HC74_1_0"
+				(pin input line
+					(at 0 -7.62 90)
+					(length 2.54)
+					(name "~{R}"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -7.62 2.54 0)
+					(length 2.54)
+					(name "D"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input clock
+					(at -7.62 0 0)
+					(length 2.54)
+					(name "C"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 0 7.62 270)
+					(length 2.54)
+					(name "~{S}"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at 7.62 2.54 180)
+					(length 2.54)
+					(name "Q"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at 7.62 -2.54 180)
+					(length 2.54)
+					(name "~{Q}"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "74HC74_1_1"
+				(rectangle
+					(start -5.08 5.08)
+					(end 5.08 -5.08)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+			)
+			(symbol "74HC74_2_0"
+				(pin input line
+					(at 0 7.62 270)
+					(length 2.54)
+					(name "~{S}"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "10"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input clock
+					(at -7.62 0 0)
+					(length 2.54)
+					(name "C"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "11"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -7.62 2.54 0)
+					(length 2.54)
+					(name "D"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "12"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 0 -7.62 90)
+					(length 2.54)
+					(name "~{R}"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "13"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at 7.62 -2.54 180)
+					(length 2.54)
+					(name "~{Q}"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at 7.62 2.54 180)
+					(length 2.54)
+					(name "Q"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "9"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "74HC74_2_1"
+				(rectangle
+					(start -5.08 5.08)
+					(end 5.08 -5.08)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+			)
+			(symbol "74HC74_3_0"
+				(pin power_in line
+					(at 0 10.16 270)
+					(length 2.54)
+					(name "VCC"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "14"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 0 -10.16 90)
+					(length 2.54)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "74HC74_3_1"
+				(rectangle
+					(start -5.08 7.62)
+					(end 5.08 -7.62)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+			)
+		)
 		(symbol "74xx:74LS151"
 			(pin_names
 				(offset 1.016)
@@ -381,6 +755,715 @@
 					)
 					(fill
 						(type background)
+					)
+				)
+			)
+		)
+		(symbol "74xx:74LS157"
+			(pin_names
+				(offset 1.016)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "U"
+				(at -7.62 19.05 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "74LS157"
+				(at -7.62 -21.59 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "http://www.ti.com/lit/gpn/sn74LS157"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Quad 2 to 1 line Multiplexer"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_locked" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "TTL MUX MUX2"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "DIP?16*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "74LS157_1_0"
+				(pin input line
+					(at -12.7 -15.24 0)
+					(length 5.08)
+					(name "S"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -12.7 -2.54 0)
+					(length 5.08)
+					(name "I1c"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "10"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -12.7 0 0)
+					(length 5.08)
+					(name "I0c"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "11"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at 12.7 -7.62 180)
+					(length 5.08)
+					(name "Zd"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "12"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -12.7 -10.16 0)
+					(length 5.08)
+					(name "I1d"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "13"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -12.7 -7.62 0)
+					(length 5.08)
+					(name "I0d"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "14"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input inverted
+					(at -12.7 -17.78 0)
+					(length 5.08)
+					(name "E"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "15"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 0 22.86 270)
+					(length 5.08)
+					(name "VCC"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "16"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -12.7 15.24 0)
+					(length 5.08)
+					(name "I0a"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -12.7 12.7 0)
+					(length 5.08)
+					(name "I1a"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at 12.7 15.24 180)
+					(length 5.08)
+					(name "Za"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -12.7 7.62 0)
+					(length 5.08)
+					(name "I0b"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -12.7 5.08 0)
+					(length 5.08)
+					(name "I1b"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at 12.7 7.62 180)
+					(length 5.08)
+					(name "Zb"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 0 -25.4 90)
+					(length 5.08)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at 12.7 0 180)
+					(length 5.08)
+					(name "Zc"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "9"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "74LS157_1_1"
+				(rectangle
+					(start -7.62 17.78)
+					(end 7.62 -20.32)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+			)
+		)
+		(symbol "74xx_IEEE:7408"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "U"
+				(at 2.54 7.62 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "7408"
+				(at 3.81 -8.89 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "7408_0_1"
+				(rectangle
+					(start -6.35 5.08)
+					(end 6.35 -6.35)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(text "&"
+					(at 0 0 0)
+					(effects
+						(font
+							(size 2.54 2.54)
+						)
+					)
+				)
+				(pin power_in line
+					(at 0 10.16 270)
+					(length 5.08)
+					(name "VCC"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "14"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 0 -10.16 90)
+					(length 3.81)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "7408_1_1"
+				(pin input line
+					(at -12.7 2.54 0)
+					(length 6.35)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -12.7 -2.54 0)
+					(length 6.35)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at 12.7 0 180)
+					(length 6.35)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "7408_2_1"
+				(pin input line
+					(at -12.7 2.54 0)
+					(length 6.35)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -12.7 -2.54 0)
+					(length 6.35)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 12.7 0 180)
+					(length 6.35)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "7408_3_1"
+				(pin input line
+					(at -12.7 -2.54 0)
+					(length 6.35)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "10"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 12.7 0 180)
+					(length 6.35)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -12.7 2.54 0)
+					(length 6.35)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "9"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "7408_4_1"
+				(pin input line
+					(at 12.7 0 180)
+					(length 6.35)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "11"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -12.7 2.54 0)
+					(length 6.35)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "12"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -12.7 -2.54 0)
+					(length 6.35)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "13"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
 					)
 				)
 			)
@@ -914,19 +1997,154 @@
 				)
 			)
 		)
+		(symbol "Device:C_Small"
+			(pin_numbers hide)
+			(pin_names
+				(offset 0.254) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "C"
+				(at 0.254 1.778 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "C_Small"
+				(at 0.254 -2.032 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Unpolarized capacitor, small symbol"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "capacitor cap"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "C_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "C_Small_0_1"
+				(polyline
+					(pts
+						(xy -1.524 -0.508) (xy 1.524 -0.508)
+					)
+					(stroke
+						(width 0.3302)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.524 0.508) (xy 1.524 0.508)
+					)
+					(stroke
+						(width 0.3048)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "C_Small_1_1"
+				(pin passive line
+					(at 0 2.54 270)
+					(length 2.032)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -2.54 90)
+					(length 2.032)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 	)
 	(symbol
-		(lib_id "74xx:74LS151")
-		(at 179.07 64.77 0)
+		(lib_id "Device:C_Small")
+		(at 99.06 166.37 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "1eb68b4f-73c0-4dab-8cc3-b818f86dd620")
-		(property "Reference" "U4"
-			(at 181.2641 41.91 0)
+		(uuid "0a263edd-11ec-4d49-a999-2bf9ea061cff")
+		(property "Reference" "C8"
+			(at 101.6 165.1062 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -934,8 +2152,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "74LS151"
-			(at 181.2641 44.45 0)
+		(property "Value" "C_Small"
+			(at 101.6 167.6462 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -943,16 +2161,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Package_SO:TSSOP-16_4.4x5mm_P0.65mm"
-			(at 179.07 64.77 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" "http://www.ti.com/lit/gpn/sn74LS151"
-			(at 179.07 64.77 0)
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+			(at 99.06 166.37 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -960,8 +2170,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Multiplexer 8 to 1"
-			(at 179.07 64.77 0)
+		(property "Datasheet" "~"
+			(at 99.06 166.37 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -969,58 +2179,95 @@
 				(hide yes)
 			)
 		)
-		(pin "4"
-			(uuid "e5fe1e51-2b75-415d-8ede-bbb76ee8e6ee")
-		)
-		(pin "14"
-			(uuid "50214418-c8b0-403a-8dd0-29813dd1c83c")
-		)
-		(pin "10"
-			(uuid "38656417-e5ac-47c1-aeda-23ef1d8d09a0")
-		)
-		(pin "13"
-			(uuid "7087258b-bba1-4b50-ac4a-1939c8344aab")
-		)
-		(pin "12"
-			(uuid "fd1a51f8-ecbc-43f0-a1d9-bc89e29cd698")
-		)
-		(pin "11"
-			(uuid "09a6da6a-b657-4700-a124-12d6bfbd18f5")
-		)
-		(pin "15"
-			(uuid "db58bbf3-f800-43b8-a8fc-841af54c1025")
+		(property "Description" "Unpolarized capacitor, small symbol"
+			(at 99.06 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
 		)
 		(pin "2"
-			(uuid "dee3d1ce-a06f-4e92-a8be-c852dd2eb27f")
-		)
-		(pin "3"
-			(uuid "8557be69-274b-490b-8944-b60cccf4f58e")
-		)
-		(pin "9"
-			(uuid "b0826bf1-f6ae-4194-a266-533540a86476")
-		)
-		(pin "16"
-			(uuid "a42d92b5-8463-4c8e-99ee-97520685a1e2")
-		)
-		(pin "6"
-			(uuid "bc020c69-8201-470c-b8cc-0f659f08517f")
-		)
-		(pin "5"
-			(uuid "f9a359e7-e2ad-4602-97a3-0dee74b19013")
-		)
-		(pin "8"
-			(uuid "5b44b11c-f228-4646-8319-36a7148ed9ea")
-		)
-		(pin "7"
-			(uuid "6e7201ed-dabf-4f1b-99cc-0da121f7066f")
+			(uuid "d2abdbff-0729-4f34-9d88-15e21a048367")
 		)
 		(pin "1"
-			(uuid "af750a93-9b09-48db-81b5-9390f5a9ff89")
+			(uuid "aecb8fbb-7d57-4808-bbd0-a44df87b5a32")
 		)
 		(instances
 			(project "stack DIP"
 				(path "/7e1c670b-801d-42f1-87e7-98688ea294f2"
-					(reference "U4")
+					(reference "C8")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C_Small")
+		(at 53.34 177.8 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "2c490930-2269-45d4-ac80-8ff89793763c")
+		(property "Reference" "C3"
+			(at 55.88 176.5362 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "C_Small"
+			(at 55.88 179.0762 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+			(at 53.34 177.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 53.34 177.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor, small symbol"
+			(at 53.34 177.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "6b79d3b3-cf6f-497e-b1c4-6f186304e79e")
+		)
+		(pin "1"
+			(uuid "b58e18f2-8fda-46aa-94b7-e8a501edcfae")
+		)
+		(instances
+			(project "stack DIP"
+				(path "/7e1c670b-801d-42f1-87e7-98688ea294f2"
+					(reference "C3")
 					(unit 1)
 				)
 			)
@@ -1122,17 +2369,437 @@
 		)
 	)
 	(symbol
-		(lib_id "74xx:74LS151")
-		(at 146.05 62.23 0)
+		(lib_id "74xx:74HC74")
+		(at 200.66 55.88 0)
+		(unit 2)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "37ba25fc-c157-4672-9300-7fde0551cc3c")
+		(property "Reference" "U4"
+			(at 202.8541 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "74HC74"
+			(at 202.8541 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_DFN_QFN:DHVQFN-14-1EP_2.5x3mm_P0.5mm_EP1x1.5mm"
+			(at 200.66 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "74xx/74hc_hct74.pdf"
+			(at 200.66 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Dual D Flip-flop, Set & Reset"
+			(at 200.66 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "fd720bcc-6dd5-4d88-bcd0-58f489e24817")
+		)
+		(pin "10"
+			(uuid "c11fe5c0-259c-42e2-9385-13855d09fd53")
+		)
+		(pin "7"
+			(uuid "f19f3bd9-4501-4fef-9cfb-2d18b7473314")
+		)
+		(pin "5"
+			(uuid "29963b74-17fb-4d98-a0aa-494665d954b8")
+		)
+		(pin "8"
+			(uuid "58645009-2f4e-4efe-a146-71f05e2d69d3")
+		)
+		(pin "14"
+			(uuid "4ce6233f-2fee-45cf-8bb8-30c7e9592ada")
+		)
+		(pin "1"
+			(uuid "ff76fe65-2df5-45a6-8ac4-342203a6ad12")
+		)
+		(pin "3"
+			(uuid "f8438952-57f4-40d0-8334-a082264f5123")
+		)
+		(pin "13"
+			(uuid "7380c693-13f4-44ec-a4f5-49fdb732f8f9")
+		)
+		(pin "6"
+			(uuid "98e69cd3-8394-453b-9e8c-fb5bd4518143")
+		)
+		(pin "4"
+			(uuid "7e3df42c-e8b7-4ad2-85c2-8e47c3cdbaae")
+		)
+		(pin "9"
+			(uuid "90563441-07ab-4ff6-b238-3444451da5ce")
+		)
+		(pin "11"
+			(uuid "e05cabfb-988f-4210-b846-e4601f2280ff")
+		)
+		(pin "12"
+			(uuid "8848816b-ae28-4cdc-86e2-c6707af8a54c")
+		)
+		(instances
+			(project "stack DIP"
+				(path "/7e1c670b-801d-42f1-87e7-98688ea294f2"
+					(reference "U4")
+					(unit 2)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "74xx_IEEE:7408")
+		(at 48.26 39.37 0)
+		(unit 3)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "3cf17dbd-64e7-4867-a586-078a6281f81a")
+		(property "Reference" "U6"
+			(at 58.42 33.0514 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "7408"
+			(at 58.42 35.5914 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_DFN_QFN:DHVQFN-14-1EP_2.5x3mm_P0.5mm_EP1x1.5mm"
+			(at 48.26 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 48.26 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 48.26 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "5c7d3042-3eaa-45c7-8ef3-9ce5ce990a9f")
+		)
+		(pin "10"
+			(uuid "c721225d-cd2e-4d6b-90de-fa6124a6b4fd")
+		)
+		(pin "12"
+			(uuid "4fa8a1e6-2d99-40bd-981c-ccb04c5691b6")
+		)
+		(pin "3"
+			(uuid "da2de309-829b-4e33-9691-f26f61d00b9e")
+		)
+		(pin "1"
+			(uuid "1fa15f33-1176-49fe-9f2d-6e02aabf5185")
+		)
+		(pin "11"
+			(uuid "c4b47309-b9e4-4034-8eef-4488f8ddd6a9")
+		)
+		(pin "8"
+			(uuid "378e8022-8270-403e-acd8-350c5fdbdc9e")
+		)
+		(pin "6"
+			(uuid "f2a82acb-a830-4604-9692-5efbe98727e2")
+		)
+		(pin "9"
+			(uuid "1403684c-f4b0-4902-8742-282916fd97b1")
+		)
+		(pin "13"
+			(uuid "215bbdba-b379-47f3-bba1-d7d1683bc62d")
+		)
+		(pin "4"
+			(uuid "12c09ad6-f935-4e6e-9d1c-bba67e19c3f7")
+		)
+		(pin "5"
+			(uuid "bda050e4-053b-4663-b35b-f6f2b7e42c0e")
+		)
+		(pin "14"
+			(uuid "0f850444-2f18-4e0f-85e2-cd0e94f147de")
+		)
+		(pin "7"
+			(uuid "aae0b519-1d08-40d6-a93f-3dc540c380dd")
+		)
+		(instances
+			(project "stack DIP"
+				(path "/7e1c670b-801d-42f1-87e7-98688ea294f2"
+					(reference "U6")
+					(unit 3)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "74xx_IEEE:7408")
+		(at 46.99 60.96 0)
+		(unit 4)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "4bea5539-35f8-44bc-ae06-18b6f235fa31")
+		(property "Reference" "U6"
+			(at 57.15 54.6414 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "7408"
+			(at 57.15 57.1814 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_DFN_QFN:DHVQFN-14-1EP_2.5x3mm_P0.5mm_EP1x1.5mm"
+			(at 46.99 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 46.99 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 46.99 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "5c7d3042-3eaa-45c7-8ef3-9ce5ce990aa2")
+		)
+		(pin "10"
+			(uuid "9a7b1f8d-15a5-4975-b0b1-3179cd0acc4d")
+		)
+		(pin "12"
+			(uuid "6588febd-5f6e-4786-9e40-6c541cb6e111")
+		)
+		(pin "3"
+			(uuid "da2de309-829b-4e33-9691-f26f61d00ba1")
+		)
+		(pin "1"
+			(uuid "1fa15f33-1176-49fe-9f2d-6e02aabf5188")
+		)
+		(pin "11"
+			(uuid "ca95105a-fb28-49ed-bb98-ece80bccb7e3")
+		)
+		(pin "8"
+			(uuid "5dd7b4c3-fa4f-42f6-8c97-7abd29d50dc5")
+		)
+		(pin "6"
+			(uuid "f2a82acb-a830-4604-9692-5efbe98727e5")
+		)
+		(pin "9"
+			(uuid "164f7b6a-6155-43d3-8d60-e4b7ca1deb42")
+		)
+		(pin "13"
+			(uuid "98d4e4f0-8d82-4d7a-8daf-a0218cb9be69")
+		)
+		(pin "4"
+			(uuid "12c09ad6-f935-4e6e-9d1c-bba67e19c3fa")
+		)
+		(pin "5"
+			(uuid "bda050e4-053b-4663-b35b-f6f2b7e42c11")
+		)
+		(pin "14"
+			(uuid "5d605863-ea1f-4b92-ac7c-c3e63d02e1c9")
+		)
+		(pin "7"
+			(uuid "1e206d6f-4936-41cf-8470-9506f824af30")
+		)
+		(instances
+			(project "stack DIP"
+				(path "/7e1c670b-801d-42f1-87e7-98688ea294f2"
+					(reference "U6")
+					(unit 4)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "74xx:74HC74")
+		(at 199.39 80.01 0)
+		(unit 3)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "5f195262-fe6a-49e3-bcb2-70d679b92ec4")
+		(property "Reference" "U4"
+			(at 205.74 78.7399 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "74HC74"
+			(at 205.74 81.2799 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_DFN_QFN:DHVQFN-14-1EP_2.5x3mm_P0.5mm_EP1x1.5mm"
+			(at 199.39 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "74xx/74hc_hct74.pdf"
+			(at 199.39 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Dual D Flip-flop, Set & Reset"
+			(at 199.39 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "fd720bcc-6dd5-4d88-bcd0-58f489e24818")
+		)
+		(pin "10"
+			(uuid "79f57d1d-1e1e-4741-8abe-2a3b4a72ae3d")
+		)
+		(pin "7"
+			(uuid "2938e47f-e52f-48ca-a1a2-a709ab60d51c")
+		)
+		(pin "5"
+			(uuid "29963b74-17fb-4d98-a0aa-494665d954b9")
+		)
+		(pin "8"
+			(uuid "b5be6e8b-f5b4-4459-8b75-afeee8221d5a")
+		)
+		(pin "14"
+			(uuid "12ec768e-55bf-4816-94fc-3dfc7b8c449f")
+		)
+		(pin "1"
+			(uuid "ff76fe65-2df5-45a6-8ac4-342203a6ad13")
+		)
+		(pin "3"
+			(uuid "f8438952-57f4-40d0-8334-a082264f5124")
+		)
+		(pin "13"
+			(uuid "7786c51e-5934-4fe7-90b3-4c72a117bf26")
+		)
+		(pin "6"
+			(uuid "98e69cd3-8394-453b-9e8c-fb5bd4518144")
+		)
+		(pin "4"
+			(uuid "7e3df42c-e8b7-4ad2-85c2-8e47c3cdbaaf")
+		)
+		(pin "9"
+			(uuid "3d506917-722b-4ae5-a693-c098db720641")
+		)
+		(pin "11"
+			(uuid "7061a985-376e-4480-9b19-915c4407fbe2")
+		)
+		(pin "12"
+			(uuid "ccbfc897-e4ec-4027-a1c6-79bae7e34fd8")
+		)
+		(instances
+			(project "stack DIP"
+				(path "/7e1c670b-801d-42f1-87e7-98688ea294f2"
+					(reference "U4")
+					(unit 3)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C_Small")
+		(at 68.58 167.64 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "3b1869a8-eb17-46e3-be9f-b30dbd2d6585")
-		(property "Reference" "U3"
-			(at 148.2441 39.37 0)
+		(uuid "604954c5-8554-4702-be18-823cb5a5bcd4")
+		(property "Reference" "C2"
+			(at 71.12 166.3762 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1140,8 +2807,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "74LS151"
-			(at 148.2441 41.91 0)
+		(property "Value" "C_Small"
+			(at 71.12 168.9162 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1149,16 +2816,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Package_SO:TSSOP-16_4.4x5mm_P0.65mm"
-			(at 146.05 62.23 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" "http://www.ti.com/lit/gpn/sn74LS151"
-			(at 146.05 62.23 0)
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+			(at 68.58 167.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1166,8 +2825,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Multiplexer 8 to 1"
-			(at 146.05 62.23 0)
+		(property "Datasheet" "~"
+			(at 68.58 167.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1175,66 +2834,139 @@
 				(hide yes)
 			)
 		)
-		(pin "4"
-			(uuid "5db01841-050f-423f-bbfa-4a94c8529400")
-		)
-		(pin "14"
-			(uuid "ac8d1385-62fc-46cf-ac25-0b6854568619")
-		)
-		(pin "10"
-			(uuid "3e7efa41-fc7c-41ca-b0fe-528120fc60f8")
-		)
-		(pin "13"
-			(uuid "b1a235d7-9e82-479d-8933-f99889af51f7")
-		)
-		(pin "12"
-			(uuid "3b280186-96dd-4dca-b158-d5abe99ffccb")
-		)
-		(pin "11"
-			(uuid "814351b5-f088-4b5f-8321-1322863f2085")
-		)
-		(pin "15"
-			(uuid "3e1dcb01-9ab5-4fee-97ef-dc5d2958477e")
+		(property "Description" "Unpolarized capacitor, small symbol"
+			(at 68.58 167.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
 		)
 		(pin "2"
-			(uuid "f6ee8db4-6582-43d8-b113-2e5aef433ae0")
-		)
-		(pin "3"
-			(uuid "0210b74e-1454-4d85-9fdc-39226dfb9823")
-		)
-		(pin "9"
-			(uuid "d7c9d96d-955b-4fe9-8f30-899d2db8628d")
-		)
-		(pin "16"
-			(uuid "59f5be7a-571a-4411-9433-dff3351e2809")
-		)
-		(pin "6"
-			(uuid "deb08bb0-983d-45b9-b369-9f69e6f904be")
-		)
-		(pin "5"
-			(uuid "c951f25e-e53a-4208-8898-1c5b7ba54ed2")
-		)
-		(pin "8"
-			(uuid "8339c924-49ee-4994-bfa1-0f54a4a4280c")
-		)
-		(pin "7"
-			(uuid "a8631ec4-9fa8-4eae-8021-f92220ed871d")
+			(uuid "f7ce201f-7a2f-493d-accb-bf704b59505f")
 		)
 		(pin "1"
-			(uuid "f676f1e3-e216-4597-b42b-094901220411")
+			(uuid "ecbe6759-d8a4-4607-919e-9a240421b657")
 		)
 		(instances
 			(project "stack DIP"
 				(path "/7e1c670b-801d-42f1-87e7-98688ea294f2"
-					(reference "U3")
+					(reference "C2")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
+		(lib_id "74xx:74HC74")
+		(at 176.53 54.61 0)
+		(unit 2)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "674f2c75-1ffe-4fe4-a73c-42d327749269")
+		(property "Reference" "U3"
+			(at 178.7241 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "74HC74"
+			(at 178.7241 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_DFN_QFN:DHVQFN-14-1EP_2.5x3mm_P0.5mm_EP1x1.5mm"
+			(at 176.53 54.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "74xx/74hc_hct74.pdf"
+			(at 176.53 54.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Dual D Flip-flop, Set & Reset"
+			(at 176.53 54.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "fd720bcc-6dd5-4d88-bcd0-58f489e24816")
+		)
+		(pin "10"
+			(uuid "79f57d1d-1e1e-4741-8abe-2a3b4a72ae3b")
+		)
+		(pin "7"
+			(uuid "f19f3bd9-4501-4fef-9cfb-2d18b7473313")
+		)
+		(pin "5"
+			(uuid "29963b74-17fb-4d98-a0aa-494665d954b7")
+		)
+		(pin "8"
+			(uuid "b5be6e8b-f5b4-4459-8b75-afeee8221d58")
+		)
+		(pin "14"
+			(uuid "4ce6233f-2fee-45cf-8bb8-30c7e9592ad9")
+		)
+		(pin "1"
+			(uuid "ff76fe65-2df5-45a6-8ac4-342203a6ad11")
+		)
+		(pin "3"
+			(uuid "f8438952-57f4-40d0-8334-a082264f5122")
+		)
+		(pin "13"
+			(uuid "7786c51e-5934-4fe7-90b3-4c72a117bf24")
+		)
+		(pin "6"
+			(uuid "98e69cd3-8394-453b-9e8c-fb5bd4518142")
+		)
+		(pin "4"
+			(uuid "7e3df42c-e8b7-4ad2-85c2-8e47c3cdbaad")
+		)
+		(pin "9"
+			(uuid "3d506917-722b-4ae5-a693-c098db72063f")
+		)
+		(pin "11"
+			(uuid "7061a985-376e-4480-9b19-915c4407fbe0")
+		)
+		(pin "12"
+			(uuid "ccbfc897-e4ec-4027-a1c6-79bae7e34fd6")
+		)
+		(instances
+			(project ""
+				(path "/7e1c670b-801d-42f1-87e7-98688ea294f2"
+					(reference "U3")
+					(unit 2)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "74xx:74LS151")
-		(at 101.6 59.69 0)
+		(at 106.68 43.18 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -1243,7 +2975,7 @@
 		(fields_autoplaced yes)
 		(uuid "6b40529c-e88c-4b28-b0b3-d9fc6e2a8956")
 		(property "Reference" "U2"
-			(at 103.7941 36.83 0)
+			(at 108.8741 20.32 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1252,7 +2984,7 @@
 			)
 		)
 		(property "Value" "74LS151"
-			(at 103.7941 39.37 0)
+			(at 108.8741 22.86 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1260,8 +2992,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Package_SO:TSSOP-16_4.4x5mm_P0.65mm"
-			(at 101.6 59.69 0)
+		(property "Footprint" "Package_DFN_QFN:DHVQFN-16-1EP_2.5x3.5mm_P0.5mm_EP1x2mm"
+			(at 106.68 43.18 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1269,7 +3001,7 @@
 			)
 		)
 		(property "Datasheet" "http://www.ti.com/lit/gpn/sn74LS151"
-			(at 101.6 59.69 0)
+			(at 106.68 43.18 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1278,7 +3010,7 @@
 			)
 		)
 		(property "Description" "Multiplexer 8 to 1"
-			(at 101.6 59.69 0)
+			(at 106.68 43.18 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1344,17 +3076,17 @@
 		)
 	)
 	(symbol
-		(lib_id "74xx:74LS151")
-		(at 58.42 59.69 0)
+		(lib_id "Device:C_Small")
+		(at 54.61 167.64 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "729a21be-12ca-4983-8018-9d24deb74089")
-		(property "Reference" "U1"
-			(at 60.6141 36.83 0)
+		(uuid "81e3af82-4972-4678-bced-27e88dc512d3")
+		(property "Reference" "C1"
+			(at 57.15 166.3762 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1362,8 +3094,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "74LS151"
-			(at 60.6141 39.37 0)
+		(property "Value" "C_Small"
+			(at 57.15 168.9162 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1371,16 +3103,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Package_SO:TSSOP-16_4.4x5mm_P0.65mm"
-			(at 58.42 59.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" "http://www.ti.com/lit/gpn/sn74LS151"
-			(at 58.42 59.69 0)
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+			(at 54.61 167.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1388,8 +3112,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Multiplexer 8 to 1"
-			(at 58.42 59.69 0)
+		(property "Datasheet" "~"
+			(at 54.61 167.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1397,53 +3121,132 @@
 				(hide yes)
 			)
 		)
-		(pin "4"
-			(uuid "e0e0ea7f-87e8-4870-9ac6-6f654dde7193")
-		)
-		(pin "14"
-			(uuid "72ebe500-5c0d-4165-ade7-25b44752b543")
-		)
-		(pin "10"
-			(uuid "38be5c53-77f7-4881-be43-0f506741f61f")
-		)
-		(pin "13"
-			(uuid "e491570a-5697-495d-bb50-9d591f42828e")
-		)
-		(pin "12"
-			(uuid "f9e4e726-e938-4618-ab88-25cc813bab7f")
-		)
-		(pin "11"
-			(uuid "075d56b8-e214-4fc5-9481-e32d807aff36")
-		)
-		(pin "15"
-			(uuid "f34e8d75-63c9-4029-96a2-97c7767d9584")
+		(property "Description" "Unpolarized capacitor, small symbol"
+			(at 54.61 167.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
 		)
 		(pin "2"
-			(uuid "7f30fa9d-c2b8-4d96-97a8-c76fefacc9b0")
-		)
-		(pin "3"
-			(uuid "da96f084-3d39-402d-b53a-3812e9c83642")
-		)
-		(pin "9"
-			(uuid "dad1ca37-9291-48d6-ba94-467d5abbde64")
-		)
-		(pin "16"
-			(uuid "ffa2de77-efd4-421a-8380-82979c1e66e8")
-		)
-		(pin "6"
-			(uuid "b45f0111-38df-408b-af34-fa6a6c3c5e65")
-		)
-		(pin "5"
-			(uuid "ccc2a2ab-d77e-420c-afc2-62be21d6cc3a")
-		)
-		(pin "8"
-			(uuid "e3be8f9f-31a8-4881-9b20-4f1d04653d1c")
-		)
-		(pin "7"
-			(uuid "c6b2d5f5-2c26-4055-b073-c81b28e0f309")
+			(uuid "0e9f925f-2527-4163-970a-c1b42c1a9b0a")
 		)
 		(pin "1"
-			(uuid "134e81ee-4fd4-4e0b-9669-7660c2501417")
+			(uuid "024a0aa0-c07d-45f9-ad72-97a98476b00d")
+		)
+		(instances
+			(project ""
+				(path "/7e1c670b-801d-42f1-87e7-98688ea294f2"
+					(reference "C1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "74xx:74LS157")
+		(at 146.05 46.99 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a1c8e067-e75f-48ed-be05-8ce9d02d1991")
+		(property "Reference" "U1"
+			(at 148.2441 24.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "74LS157"
+			(at 148.2441 26.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_DFN_QFN:DHVQFN-16-1EP_2.5x3.5mm_P0.5mm_EP1x2mm"
+			(at 146.05 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "http://www.ti.com/lit/gpn/sn74LS157"
+			(at 146.05 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Quad 2 to 1 line Multiplexer"
+			(at 146.05 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "5"
+			(uuid "19d4a228-d776-4399-bcf8-d00b02c076fe")
+		)
+		(pin "15"
+			(uuid "bcf80185-39c7-4687-a8c7-9473da7ee26d")
+		)
+		(pin "6"
+			(uuid "45236d4f-7d24-44e7-9d41-1f9794a9f6a2")
+		)
+		(pin "4"
+			(uuid "21fc146e-78e6-4d05-bc8a-5747e06ae536")
+		)
+		(pin "1"
+			(uuid "79db0b50-0277-4f6f-a7e0-8d92b68aabae")
+		)
+		(pin "3"
+			(uuid "30294cc8-3f60-4af4-b911-90b95e54159d")
+		)
+		(pin "2"
+			(uuid "d6978d4c-dfdf-4bfb-9864-16fc4fc90d7c")
+		)
+		(pin "16"
+			(uuid "e4c7fde0-1d73-47ba-a62e-d5e22eeb369b")
+		)
+		(pin "14"
+			(uuid "7fd85e68-f3e3-41b0-94f7-99204b1f59e1")
+		)
+		(pin "12"
+			(uuid "159aa957-e10e-49be-9aa9-5eb277406b80")
+		)
+		(pin "13"
+			(uuid "d278719a-2583-450a-919b-30eb36032d4f")
+		)
+		(pin "11"
+			(uuid "f14a4313-8942-49ea-87ae-4037aef63c14")
+		)
+		(pin "7"
+			(uuid "08758603-2432-4b2f-a7c2-451ef6191914")
+		)
+		(pin "10"
+			(uuid "e93761e8-4342-4c0f-98b8-660ceaccde82")
+		)
+		(pin "9"
+			(uuid "965a5f1e-7c63-48e0-97d0-07a056ec2964")
+		)
+		(pin "8"
+			(uuid "84ea4e86-5e2d-460e-84ba-cef00668badc")
 		)
 		(instances
 			(project ""
@@ -1455,17 +3258,17 @@
 		)
 	)
 	(symbol
-		(lib_id "74xx:74LS151")
-		(at 217.17 63.5 0)
+		(lib_id "Device:C_Small")
+		(at 85.09 166.37 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "99ce8bf5-9d25-451b-875f-fbebdad9571e")
-		(property "Reference" "U5"
-			(at 219.3641 40.64 0)
+		(uuid "a2a7e721-4590-47c7-857e-6e5bd3c1c04e")
+		(property "Reference" "C6"
+			(at 87.63 165.1062 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1473,8 +3276,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "74LS151"
-			(at 219.3641 43.18 0)
+		(property "Value" "C_Small"
+			(at 87.63 167.6462 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1482,16 +3285,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Package_SO:TSSOP-16_4.4x5mm_P0.65mm"
-			(at 217.17 63.5 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" "http://www.ti.com/lit/gpn/sn74LS151"
-			(at 217.17 63.5 0)
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+			(at 85.09 166.37 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1499,8 +3294,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Multiplexer 8 to 1"
-			(at 217.17 63.5 0)
+		(property "Datasheet" "~"
+			(at 85.09 166.37 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1508,58 +3303,339 @@
 				(hide yes)
 			)
 		)
-		(pin "4"
-			(uuid "02807168-a20e-4c19-b449-ebc9ab6f53fc")
-		)
-		(pin "14"
-			(uuid "36c72b12-1b5a-4486-b0e8-44e1eff856b7")
-		)
-		(pin "10"
-			(uuid "1b53109d-d7ae-42b2-8eae-ad36c44653ef")
-		)
-		(pin "13"
-			(uuid "882f1027-392d-4987-858b-50d7ba0182c0")
-		)
-		(pin "12"
-			(uuid "d72a445a-08cf-41ef-9209-92e95525c949")
-		)
-		(pin "11"
-			(uuid "ac541195-e9b3-49f6-a7b3-487f1866f4e3")
-		)
-		(pin "15"
-			(uuid "41cd59cb-eda7-42f5-864d-8497c0d76a7e")
+		(property "Description" "Unpolarized capacitor, small symbol"
+			(at 85.09 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
 		)
 		(pin "2"
-			(uuid "42d00ba3-330e-4c8a-95fb-5efdad5b6c9e")
-		)
-		(pin "3"
-			(uuid "bf76eb0c-3ed8-4a3a-be93-f412a70003ae")
-		)
-		(pin "9"
-			(uuid "c8197b30-f567-4426-9f0a-09ca8759f3e0")
-		)
-		(pin "16"
-			(uuid "f4cc9803-c70f-4921-acd8-17efa317096b")
-		)
-		(pin "6"
-			(uuid "ccf4e6b2-e04c-474a-8985-5bae4356d42d")
-		)
-		(pin "5"
-			(uuid "17d1172c-e8e5-47e2-b53c-2ac962ddee4c")
-		)
-		(pin "8"
-			(uuid "6f0abeef-de72-41ce-9826-5bb74e842f0e")
-		)
-		(pin "7"
-			(uuid "653994b0-b111-4e75-a6f2-79f30584d2f4")
+			(uuid "753eda60-dbb1-4bc6-b720-ddfcb147aa19")
 		)
 		(pin "1"
-			(uuid "e8e73757-d6d8-426c-9e71-5ce25b9b16b8")
+			(uuid "fb92c166-a381-41cc-a641-bbce6780dbb4")
 		)
 		(instances
 			(project "stack DIP"
 				(path "/7e1c670b-801d-42f1-87e7-98688ea294f2"
-					(reference "U5")
+					(reference "C6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C_Small")
+		(at 116.84 177.8 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a969c445-2f31-4c83-ab39-2118702cea03")
+		(property "Reference" "C9"
+			(at 119.38 176.5362 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "C_Small"
+			(at 119.38 179.0762 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+			(at 116.84 177.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 116.84 177.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor, small symbol"
+			(at 116.84 177.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "becbd382-5327-4295-9467-5ed827bedb95")
+		)
+		(pin "1"
+			(uuid "a2709001-16b3-4628-bc25-81963f2c8811")
+		)
+		(instances
+			(project "stack DIP"
+				(path "/7e1c670b-801d-42f1-87e7-98688ea294f2"
+					(reference "C9")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "74xx_IEEE:7408")
+		(at 63.5 26.67 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "aefb1f0f-5143-404b-b08a-9ff428f9e231")
+		(property "Reference" "U6"
+			(at 73.66 20.3514 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "7408"
+			(at 73.66 22.8914 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_DFN_QFN:DHVQFN-14-1EP_2.5x3mm_P0.5mm_EP1x1.5mm"
+			(at 63.5 26.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 63.5 26.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 63.5 26.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "69f37ef0-c1a5-4490-b9fc-17a87ec7be25")
+		)
+		(pin "10"
+			(uuid "9a7b1f8d-15a5-4975-b0b1-3179cd0acc4b")
+		)
+		(pin "12"
+			(uuid "4fa8a1e6-2d99-40bd-981c-ccb04c5691b7")
+		)
+		(pin "3"
+			(uuid "77c0fdf1-dcf1-4a44-a364-798d08a3719e")
+		)
+		(pin "1"
+			(uuid "4925c632-fa6a-46ff-9efa-f8586c4bfc94")
+		)
+		(pin "11"
+			(uuid "c4b47309-b9e4-4034-8eef-4488f8ddd6aa")
+		)
+		(pin "8"
+			(uuid "5dd7b4c3-fa4f-42f6-8c97-7abd29d50dc3")
+		)
+		(pin "6"
+			(uuid "f2a82acb-a830-4604-9692-5efbe98727e3")
+		)
+		(pin "9"
+			(uuid "164f7b6a-6155-43d3-8d60-e4b7ca1deb40")
+		)
+		(pin "13"
+			(uuid "215bbdba-b379-47f3-bba1-d7d1683bc62e")
+		)
+		(pin "4"
+			(uuid "12c09ad6-f935-4e6e-9d1c-bba67e19c3f8")
+		)
+		(pin "5"
+			(uuid "bda050e4-053b-4663-b35b-f6f2b7e42c0f")
+		)
+		(pin "14"
+			(uuid "3cd9d513-70b1-436c-9a0e-83fc3b7ee16c")
+		)
+		(pin "7"
+			(uuid "62948dba-5667-4169-90ac-c55f7523096f")
+		)
+		(instances
+			(project "stack DIP"
+				(path "/7e1c670b-801d-42f1-87e7-98688ea294f2"
+					(reference "U6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C_Small")
+		(at 83.82 176.53 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "aefbb416-774a-4a05-ba2d-0650442e8ad0")
+		(property "Reference" "C5"
+			(at 86.36 175.2662 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "C_Small"
+			(at 86.36 177.8062 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+			(at 83.82 176.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 83.82 176.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor, small symbol"
+			(at 83.82 176.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "58780a51-69b3-4dc9-afbb-c7c8e71cde93")
+		)
+		(pin "1"
+			(uuid "834339f3-9f2a-4894-8967-5909c24e90b4")
+		)
+		(instances
+			(project "stack DIP"
+				(path "/7e1c670b-801d-42f1-87e7-98688ea294f2"
+					(reference "C5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C_Small")
+		(at 118.11 167.64 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "b309a78a-5299-4aa5-9f52-39f3b7bc2675")
+		(property "Reference" "C10"
+			(at 120.65 166.3762 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "C_Small"
+			(at 120.65 168.9162 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+			(at 118.11 167.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 118.11 167.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor, small symbol"
+			(at 118.11 167.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "b5a74406-c7ee-4ad8-831e-2b0099619659")
+		)
+		(pin "1"
+			(uuid "2fc73224-f6b6-4ca2-bbc1-d0edccd9ae69")
+		)
+		(instances
+			(project "stack DIP"
+				(path "/7e1c670b-801d-42f1-87e7-98688ea294f2"
+					(reference "C10")
 					(unit 1)
 				)
 			)
@@ -1656,6 +3732,568 @@
 				(path "/7e1c670b-801d-42f1-87e7-98688ea294f2"
 					(reference "J2")
 					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C_Small")
+		(at 67.31 177.8 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c4d8d54f-ea76-45e7-9527-98e0f1a6f679")
+		(property "Reference" "C4"
+			(at 69.85 176.5362 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "C_Small"
+			(at 69.85 179.0762 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+			(at 67.31 177.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 67.31 177.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor, small symbol"
+			(at 67.31 177.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "38042a1e-ca15-487f-8acd-9a84a33d8a06")
+		)
+		(pin "1"
+			(uuid "2473b4ec-69ff-49f6-bb3f-e20fb1aeaaae")
+		)
+		(instances
+			(project "stack DIP"
+				(path "/7e1c670b-801d-42f1-87e7-98688ea294f2"
+					(reference "C4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "74xx:74HC74")
+		(at 176.53 33.02 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d1ca8a6e-c71d-44a1-9db9-e8410f480127")
+		(property "Reference" "U3"
+			(at 178.7241 22.86 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "74HC74"
+			(at 178.7241 25.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_DFN_QFN:DHVQFN-14-1EP_2.5x3mm_P0.5mm_EP1x1.5mm"
+			(at 176.53 33.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "74xx/74hc_hct74.pdf"
+			(at 176.53 33.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Dual D Flip-flop, Set & Reset"
+			(at 176.53 33.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "fd720bcc-6dd5-4d88-bcd0-58f489e24819")
+		)
+		(pin "10"
+			(uuid "79f57d1d-1e1e-4741-8abe-2a3b4a72ae3c")
+		)
+		(pin "7"
+			(uuid "f19f3bd9-4501-4fef-9cfb-2d18b7473315")
+		)
+		(pin "5"
+			(uuid "29963b74-17fb-4d98-a0aa-494665d954ba")
+		)
+		(pin "8"
+			(uuid "b5be6e8b-f5b4-4459-8b75-afeee8221d59")
+		)
+		(pin "14"
+			(uuid "4ce6233f-2fee-45cf-8bb8-30c7e9592adb")
+		)
+		(pin "1"
+			(uuid "ff76fe65-2df5-45a6-8ac4-342203a6ad14")
+		)
+		(pin "3"
+			(uuid "f8438952-57f4-40d0-8334-a082264f5125")
+		)
+		(pin "13"
+			(uuid "7786c51e-5934-4fe7-90b3-4c72a117bf25")
+		)
+		(pin "6"
+			(uuid "98e69cd3-8394-453b-9e8c-fb5bd4518145")
+		)
+		(pin "4"
+			(uuid "7e3df42c-e8b7-4ad2-85c2-8e47c3cdbab0")
+		)
+		(pin "9"
+			(uuid "3d506917-722b-4ae5-a693-c098db720640")
+		)
+		(pin "11"
+			(uuid "7061a985-376e-4480-9b19-915c4407fbe1")
+		)
+		(pin "12"
+			(uuid "ccbfc897-e4ec-4027-a1c6-79bae7e34fd7")
+		)
+		(instances
+			(project ""
+				(path "/7e1c670b-801d-42f1-87e7-98688ea294f2"
+					(reference "U3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "74xx_IEEE:7408")
+		(at 64.77 50.8 0)
+		(unit 2)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "da7caa5c-f751-4007-8036-7c348ef7840e")
+		(property "Reference" "U6"
+			(at 74.93 44.4814 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "7408"
+			(at 74.93 47.0214 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_DFN_QFN:DHVQFN-14-1EP_2.5x3mm_P0.5mm_EP1x1.5mm"
+			(at 64.77 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 64.77 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 64.77 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "5c7d3042-3eaa-45c7-8ef3-9ce5ce990aa1")
+		)
+		(pin "10"
+			(uuid "9a7b1f8d-15a5-4975-b0b1-3179cd0acc4c")
+		)
+		(pin "12"
+			(uuid "4fa8a1e6-2d99-40bd-981c-ccb04c5691b8")
+		)
+		(pin "3"
+			(uuid "da2de309-829b-4e33-9691-f26f61d00ba0")
+		)
+		(pin "1"
+			(uuid "1fa15f33-1176-49fe-9f2d-6e02aabf5187")
+		)
+		(pin "11"
+			(uuid "c4b47309-b9e4-4034-8eef-4488f8ddd6ab")
+		)
+		(pin "8"
+			(uuid "5dd7b4c3-fa4f-42f6-8c97-7abd29d50dc4")
+		)
+		(pin "6"
+			(uuid "a13fdcf2-fc1f-4d51-a46a-a72f7b42c364")
+		)
+		(pin "9"
+			(uuid "164f7b6a-6155-43d3-8d60-e4b7ca1deb41")
+		)
+		(pin "13"
+			(uuid "215bbdba-b379-47f3-bba1-d7d1683bc62f")
+		)
+		(pin "4"
+			(uuid "fece333d-167c-4e24-b09c-493ebbe916c5")
+		)
+		(pin "5"
+			(uuid "cf28eb5a-f0ec-44a5-853d-ab62841d3454")
+		)
+		(pin "14"
+			(uuid "ba6889b3-2fb0-4ce2-b6e5-07224901e4fa")
+		)
+		(pin "7"
+			(uuid "59d04ac6-73a0-4aa7-8a1e-4257e1e431da")
+		)
+		(instances
+			(project "stack DIP"
+				(path "/7e1c670b-801d-42f1-87e7-98688ea294f2"
+					(reference "U6")
+					(unit 2)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "74xx:74HC74")
+		(at 200.66 34.29 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "e2a78a22-7031-4d23-9358-b7d70d93b542")
+		(property "Reference" "U4"
+			(at 202.8541 24.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "74HC74"
+			(at 202.8541 26.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_DFN_QFN:DHVQFN-14-1EP_2.5x3mm_P0.5mm_EP1x1.5mm"
+			(at 200.66 34.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "74xx/74hc_hct74.pdf"
+			(at 200.66 34.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Dual D Flip-flop, Set & Reset"
+			(at 200.66 34.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "3cbd862e-7da9-424e-8853-3cc381ddfc49")
+		)
+		(pin "10"
+			(uuid "79f57d1d-1e1e-4741-8abe-2a3b4a72ae3e")
+		)
+		(pin "7"
+			(uuid "f19f3bd9-4501-4fef-9cfb-2d18b7473316")
+		)
+		(pin "5"
+			(uuid "faaea698-ea08-4574-9a8e-29cf6d23c9f9")
+		)
+		(pin "8"
+			(uuid "b5be6e8b-f5b4-4459-8b75-afeee8221d5b")
+		)
+		(pin "14"
+			(uuid "4ce6233f-2fee-45cf-8bb8-30c7e9592adc")
+		)
+		(pin "1"
+			(uuid "4eb1925e-ad9a-4930-9bdc-077038804173")
+		)
+		(pin "3"
+			(uuid "09946081-1f82-4d64-a82b-d6a86eaeadcf")
+		)
+		(pin "13"
+			(uuid "7786c51e-5934-4fe7-90b3-4c72a117bf27")
+		)
+		(pin "6"
+			(uuid "3f2acebb-6c4c-4ad4-93b8-540d749d18c1")
+		)
+		(pin "4"
+			(uuid "79adf4c2-a5be-4417-983a-86cd24dfc09b")
+		)
+		(pin "9"
+			(uuid "3d506917-722b-4ae5-a693-c098db720642")
+		)
+		(pin "11"
+			(uuid "7061a985-376e-4480-9b19-915c4407fbe3")
+		)
+		(pin "12"
+			(uuid "ccbfc897-e4ec-4027-a1c6-79bae7e34fd9")
+		)
+		(instances
+			(project "stack DIP"
+				(path "/7e1c670b-801d-42f1-87e7-98688ea294f2"
+					(reference "U4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C_Small")
+		(at 97.79 176.53 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "f9e8e1ca-c6b4-4364-b733-d2b97addd40b")
+		(property "Reference" "C7"
+			(at 100.33 175.2662 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "C_Small"
+			(at 100.33 177.8062 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+			(at 97.79 176.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 97.79 176.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor, small symbol"
+			(at 97.79 176.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "c1411914-41c8-4c29-bc19-49ca50a757a3")
+		)
+		(pin "1"
+			(uuid "5c877f9c-cd0c-4e29-9209-8ac2db792e53")
+		)
+		(instances
+			(project "stack DIP"
+				(path "/7e1c670b-801d-42f1-87e7-98688ea294f2"
+					(reference "C7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "74xx:74HC74")
+		(at 175.26 78.74 0)
+		(unit 3)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "fa528eef-29cc-4362-8d09-497ed60b3c5d")
+		(property "Reference" "U3"
+			(at 181.61 77.4699 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "74HC74"
+			(at 181.61 80.0099 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_DFN_QFN:DHVQFN-14-1EP_2.5x3mm_P0.5mm_EP1x1.5mm"
+			(at 175.26 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "74xx/74hc_hct74.pdf"
+			(at 175.26 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Dual D Flip-flop, Set & Reset"
+			(at 175.26 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "fd720bcc-6dd5-4d88-bcd0-58f489e2481a")
+		)
+		(pin "10"
+			(uuid "79f57d1d-1e1e-4741-8abe-2a3b4a72ae3f")
+		)
+		(pin "7"
+			(uuid "f19f3bd9-4501-4fef-9cfb-2d18b7473317")
+		)
+		(pin "5"
+			(uuid "29963b74-17fb-4d98-a0aa-494665d954bb")
+		)
+		(pin "8"
+			(uuid "b5be6e8b-f5b4-4459-8b75-afeee8221d5c")
+		)
+		(pin "14"
+			(uuid "4ce6233f-2fee-45cf-8bb8-30c7e9592add")
+		)
+		(pin "1"
+			(uuid "ff76fe65-2df5-45a6-8ac4-342203a6ad15")
+		)
+		(pin "3"
+			(uuid "f8438952-57f4-40d0-8334-a082264f5126")
+		)
+		(pin "13"
+			(uuid "7786c51e-5934-4fe7-90b3-4c72a117bf28")
+		)
+		(pin "6"
+			(uuid "98e69cd3-8394-453b-9e8c-fb5bd4518146")
+		)
+		(pin "4"
+			(uuid "7e3df42c-e8b7-4ad2-85c2-8e47c3cdbab1")
+		)
+		(pin "9"
+			(uuid "3d506917-722b-4ae5-a693-c098db720643")
+		)
+		(pin "11"
+			(uuid "7061a985-376e-4480-9b19-915c4407fbe4")
+		)
+		(pin "12"
+			(uuid "ccbfc897-e4ec-4027-a1c6-79bae7e34fda")
+		)
+		(instances
+			(project ""
+				(path "/7e1c670b-801d-42f1-87e7-98688ea294f2"
+					(reference "U3")
+					(unit 3)
 				)
 			)
 		)
